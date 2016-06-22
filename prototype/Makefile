@@ -1,9 +1,9 @@
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -g
 CFLAGSL=
 LDFLAGS=
 
-SOURCES=main.cpp reader.cpp printer_to_graphviz.cpp
+SOURCES=main.cpp reader.cpp printer_to_graphviz.cpp backtrack.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=magic
