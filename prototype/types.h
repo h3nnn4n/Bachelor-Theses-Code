@@ -19,6 +19,8 @@ typedef struct {
     int time_limit;
     std::vector<_task> task;
     std::vector<std::vector<_edge > > graph;
+    std::vector<int> start_nodes;
+    std::vector<int> end_nodes;
 } _csp;
 
 #endif /* TYPES_H */
