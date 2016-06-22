@@ -69,7 +69,6 @@ _csp file_reader(std::string name){
         f >> i;
         f >> e.dest;
         f >> e.cost;
-        std::cout << i << '\n';
         csp.graph[i].push_back(e);
     }
 

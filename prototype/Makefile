@@ -1,9 +1,9 @@
 CC=g++
-CFLAGS=-c -Wall --std=c++11 -g
-CFLAGSL=-lpthread
+CFLAGS=-c -Wall
+CFLAGSL=
 LDFLAGS=
 
-SOURCES=main.cpp reader.cpp
+SOURCES=main.cpp reader.cpp printer_to_graphviz.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=magic
@@ -19,4 +19,3 @@ $(EXECUTABLE): $(OBJECTS)
 .PHONY: clean
 clean:
 	$(RM) $(OBJECTS) $(EXECUTABLE)
-	$(RM) *.svg
