@@ -4,6 +4,11 @@
 #include <vector>
 
 typedef struct {
+    std::vector<int> covered;
+    int cost;
+} _journey;
+
+typedef struct {
     int id;
     int start_time;
     int end_time;
