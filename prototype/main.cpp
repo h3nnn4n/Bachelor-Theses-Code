@@ -15,6 +15,9 @@ int main(void) {
     glp_iocp parm_mip;
     glp_smcp parm_spx;
 
+    bool max_journey = false;
+    int total_journeys = 0;
+
     std::vector<int>    ia;
     std::vector<int>    ja;
     std::vector<double> ar;
@@ -85,16 +88,33 @@ int main(void) {
         //printf("%d %d %.2f\n", ia[i], ja[i], ar[i]);
     }
 
+
+    if ( max_journey ) {
+        int new_row = glp_add_rows(lp, 1);
+        for (int i = 1; i <= t.N; ++i) {
+            ia.push_back(new_row );
+            ja.push_back(i       );
+            ar.push_back(1       );
+        }
+        glp_set_row_bnds(lp, t.N, GLP_DB, 04.0, 30.0); // Necessita de exatamente X jornadas
+    }
+
     glp_load_matrix(lp, (int) ia.size()-1, &ia[0], &ja[0], &ar[0]);
 
     glp_simplex(lp, &parm_spx);
 
+    for (int i = 1; i <= (int) journeys.size(); ++i) {
+        if ( glp_get_col_prim(lp, i) > 0.001 ) {
+            total_journeys++;
+        }
+    }
+
     printf("Problem has\n%d columns\n%d rows\n", (int)journeys.size(), t.N);
     printf("Found %d possible journeys\n", (int) journeys.size());
-    printf("Optimal solution is: %.3f\n", glp_get_obj_val(lp));
+    printf("Optimal solution is: %.3f with %d journeys\n", glp_get_obj_val(lp), total_journeys);
 
     for (int i = 1; i <= (int) journeys.size(); ++i) {
-        if ( glp_get_col_prim(lp, i) > 0 ) {
+        if ( glp_get_col_prim(lp, i) > 0.001 ) {
             printf("%.2f: ", glp_get_col_prim(lp, i));
             for (int j = 0; j < (int) journeys[i-1].covered.size(); ++j) {
                 printf("%d ", journeys[i-1].covered[j]);
