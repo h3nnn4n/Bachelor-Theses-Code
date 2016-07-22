@@ -1,9 +1,9 @@
 CC=g++
-CFLAGS=-c -Wall -g --std=c++11
+override CFLAGS+=-c -Wall -g --std=c++11 -lglpk
 CFLAGSL=
-LDFLAGS=
+override LDFLAGS+=-lglpk
 
-SOURCES=reader.cpp printer_to_graphviz.cpp main.cpp backtrack.cpp
+SOURCES=reader.cpp printer_to_graphviz.cpp main.cpp backtrack.cpp utils.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=magic
