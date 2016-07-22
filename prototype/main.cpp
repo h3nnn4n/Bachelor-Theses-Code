@@ -41,10 +41,10 @@ int main(void) {
         backtrack(t, i, 0, 0, vec, journeys);
     }
 
-    //print_graph(t);
-    //printf("\n");
-    //print_journeys(journeys);
-    //printf("\n");
+    print_graph(t);
+    printf("\n");
+    print_journeys(journeys);
+    printf("\n");
     //return 0;
 
     lp = glp_create_prob();
@@ -53,7 +53,7 @@ int main(void) {
 
     glp_init_iocp(&parm_mip);
 
-    parm_mip.msg_lev    = GLP_MSG_ALL;      // Output level
+    parm_mip.msg_lev    = GLP_MSG_OFF;      // Output level
 
     glp_init_smcp(&parm_spx);
 
@@ -90,8 +90,15 @@ int main(void) {
     glp_simplex(lp, &parm_spx);
 
     printf("Problem has\n%d columns\n%d rows\n", (int)journeys.size(), t.N);
+    printf("Found %d possible journeys\n", (int) journeys.size());
+    printf("Optimal solution is: %.3f\n", glp_get_obj_val(lp));
 
-    std::cout << "Found " << glp_get_obj_val(lp) << " tasks\n";
+    for (int i = 1; i <= (int) journeys.size(); ++i) {
+        printf("%.3f ", glp_get_col_prim(lp, i));
+    }
+    printf("\n");
+
+    //std::cout << "Found " << glp_get_obj_val(lp) << " tasks\n";
     return 0;
 }
 
