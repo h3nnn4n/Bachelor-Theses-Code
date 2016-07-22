@@ -1,44 +1,38 @@
+#include <cstdio>
 #include "backtrack.h"
 #include "types.h"
 
-int backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec){
-    if ( (int)csp.graph[pos].size() == 0 ) {
+void backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec){
+    if ( lvl == 0 ) {
+        sol[lvl    ] = pos;
+        sol[lvl + 1] = -1;
+
         _journey v;
-        for (int i = 0; sol[i] != -1 ; ++i) {
-            v.covered.push_back(sol[i]);
+        for (int j = 0; sol[j] != -1 ; ++j) {
+            v.covered.push_back(sol[j]);
             v.cost = cost;
-            vec.push_back(v);
+            //v.cost = cost + csp.graph[pos][i].cost;
         }
-        return 1;
+        vec.push_back(v);
+        lvl += 1;
     }
-
-    //if ( cost > csp.time_limit ) {
-        //_journey v;
-        //for (int i = 0; sol[i] != -1 ; ++i) {
-            //v.covered.push_back(sol[i]);
-            //v.cost = cost;
-            //vec.push_back(v);
-        //}
-        //return 0;
-    //}
-
-    int w = 0;
 
     for (int i = 0; i < (int)csp.graph[pos].size(); ++i) {
 
         if ( cost + csp.graph[pos][i].cost < csp.time_limit ) {
             sol[lvl    ] = csp.graph[pos][i].dest;
             sol[lvl + 1] = -1;
-            w += backtrack(csp, csp.graph[pos][i].dest, csp.graph[pos][i].cost + cost, lvl + 1, sol, vec);
-        } else {
             _journey v;
-            for (int i = 0; sol[i] != -1 ; ++i) {
-                v.covered.push_back(sol[i]);
-                v.cost = cost;
-                vec.push_back(v);
+            for (int j = 0; sol[j] != -1 ; ++j) {
+                v.covered.push_back(sol[j]);
+                v.cost = cost + csp.graph[pos][i].cost;
             }
+            vec.push_back(v);
+            backtrack(csp, csp.graph[pos][i].dest, csp.graph[pos][i].cost + cost, lvl + 1, sol, vec);
+        } else {
+
         }
     }
 
-    return w;
+    return;
 }
