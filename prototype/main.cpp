@@ -94,7 +94,14 @@ int main(void) {
     printf("Optimal solution is: %.3f\n", glp_get_obj_val(lp));
 
     for (int i = 1; i <= (int) journeys.size(); ++i) {
-        printf("%.3f ", glp_get_col_prim(lp, i));
+        if ( glp_get_col_prim(lp, i) > 0 ) {
+            printf("%.2f: ", glp_get_col_prim(lp, i));
+            for (int j = 0; j < (int) journeys[i-1].covered.size(); ++j) {
+                printf("%d ", journeys[i-1].covered[j]);
+            }
+            printf("\n");
+        }
+        //printf("%.3f ", glp_get_col_prim(lp, i));
     }
     printf("\n");
 
