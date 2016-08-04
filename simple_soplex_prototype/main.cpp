@@ -42,34 +42,36 @@ int main(void) {
         backtrack(t, i, 0, 0, vec, journeys);
     }
 
-    print_graph(t);
-    printf("\n");
-    print_journeys(journeys);
-    printf("\n");
+    //print_graph(t);
+    //printf("\n");
+    //print_journeys(journeys);
+    //printf("\n");
     //return 0;
 
     mysoplex.setIntParam(soplex::SoPlex::OBJSENSE, soplex::SoPlex::OBJSENSE_MINIMIZE);
     soplex::DSVector dummycol((int) journeys.size());
 
-    for (int i = 1; i <= (int) journeys.size(); ++i) {
-        mysoplex.addColReal(soplex::LPCol(journeys[i].cost, dummycol, 0, 1.0));
+    for (int i = 0; i < (int) journeys.size(); ++i) {
+        mysoplex.addColReal(soplex::LPCol(journeys[i].cost, dummycol, 1.0, 0.0));
     }
 
-    for (int i = 0; i < (int) journeys.size(); ++i) {  // Cada variavel esta associada a uma jornada
-        soplex::DSVector row1((int) journeys[i].covered.size());
+    std::vector<soplex::DSVector> rows;
+    rows.resize((int) journeys.size()+1);
+    for (int i = 0; i < (int) journeys.size(); ++i) {
         for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
-            row1.add(journeys[i].covered[j], 1);
-            //std::cout << journeys[i].covered[j] << " " << i << "\n";
+            rows[journeys[i].covered[j]].add(i, 1);
         }
-        mysoplex.addRowReal(soplex::LPRow(1.0, row1, 1.0));
-        //mysoplex.addRowReal(soplex::LPRow(1.0, row1, soplex::infinity));
+    }
+
+    for (int i = 1; i <= (int) journeys.size(); ++i) {
+        mysoplex.addRowReal(soplex::LPRow(1.0, rows[i], 1.0));
     }
 
     mysoplex.writeFileReal("csp5.lp", NULL, NULL, NULL);
 
     soplex::SPxSolver::Status stat;
     soplex::DVector prim((int) journeys.size());
-    soplex::DVector dual(0);
+    soplex::DVector dual(t.N);
     stat = mysoplex.solve();
 
     if( stat == soplex::SPxSolver::OPTIMAL )
@@ -84,7 +86,11 @@ int main(void) {
         }
         std::cout << "].\n";
 
-        //std::cout << "Dual solution is [" << dual[0] << "].\n";
+        std::cout << "Dual solution is [";
+        for (int i = 0; i < t.N; ++i) {
+            std::cout << dual[i] << ", ";
+        }
+        std::cout << "].\n";
     }
 
     //printf("Problem has\n%d columns\n%d rows\n", (int)journeys.size(), t.N);
