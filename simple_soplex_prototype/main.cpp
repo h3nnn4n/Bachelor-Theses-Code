@@ -60,7 +60,8 @@ int main(void) {
         for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
             row1.add(journeys[i].covered[j], 1);
         }
-        mysoplex.addRowReal(soplex::LPRow(1.0, row1, soplex::infinity));
+        mysoplex.addRowReal(soplex::LPRow(1.0, row1, 1.0));
+        //mysoplex.addRowReal(soplex::LPRow(1.0, row1, soplex::infinity));
     }
 
     mysoplex.writeFileReal("csp5.lp", NULL, NULL, NULL);
