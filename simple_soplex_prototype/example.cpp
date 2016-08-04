@@ -34,7 +34,7 @@ int main()
 
    /* we first add variables */
    DSVector dummycol(0);
-   mysoplex.addColReal(LPCol(2.0, dummycol, infinity, 15.0));
+   mysoplex.addColReal(LPCol(6.0, dummycol, infinity, 15.0));
    mysoplex.addColReal(LPCol(3.0, dummycol, infinity, 20.0));
 
    /* then constraints one by one */
