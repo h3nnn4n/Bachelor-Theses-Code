@@ -75,14 +75,16 @@ int main(void) {
         glp_set_row_bnds(lp, new_row, GLP_FX, 1.0, 1.0); // Cada tarefa deve ser coberta exatamente uma vez
     }
 
+    printf("\n----------------\n");
     for (int i = 0; i < (int) journeys.size(); ++i) {  // Cada variavel esta associada a uma jornada
         for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
             ia.push_back( journeys[i].covered[j] );
             ja.push_back( i+1 );
             ar.push_back( 1   );
-            //std::cout << journeys[i].covered[j] << " " << i << "\n";
+            std::cout << journeys[i].covered[j] << " " << i << "\n";
         }
     }
+    printf("\n----------------\n");
 
     for (int i = 0; i < (int) ia.size(); ++i) {
         //printf("%d %d %.2f\n", ia[i], ja[i], ar[i]);
@@ -115,7 +117,7 @@ int main(void) {
 
     for (int i = 1; i <= (int) journeys.size(); ++i) {
         if ( glp_get_col_prim(lp, i) > 0.001 ) {
-            printf("%.2f: ", glp_get_col_prim(lp, i));
+            printf("%d %.2f: ", i, glp_get_col_prim(lp, i));
             for (int j = 0; j < (int) journeys[i-1].covered.size(); ++j) {
                 printf("%d ", journeys[i-1].covered[j]);
             }
