@@ -103,6 +103,8 @@ int main(void) {
 
     glp_load_matrix(lp, (int) ia.size()-1, &ia[0], &ja[0], &ar[0]);
 
+    glp_write_lp(lp, NULL, "csp10.lp");
+
     glp_simplex(lp, &parm_spx);
 
     for (int i = 1; i <= (int) journeys.size(); ++i) {
