@@ -23,7 +23,7 @@ void print_to_graphviz(_csp *csp){
         std::cout << csp->end_nodes[i] << " -> end;\n";
     }
 
-    for (int i = 0; i < (int)csp->start_nodes.size(); ++i) {
+    for (int i = 1; i < (int)csp->start_nodes.size(); ++i) {
         std::cout << "start -> " << csp->start_nodes[i] << ";\n";
     }
 
