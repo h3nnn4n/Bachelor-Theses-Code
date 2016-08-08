@@ -10,12 +10,20 @@
 #include "backtrack.h"
 #include "utils.h"
 
-int main(void) {
+int main(int argc, char *argv[]) {
+    if ( argc != 2 ) {
+        printf("Missing argument\n");
+        return EXIT_FAILURE;
+    }
+
     soplex::SoPlex mysoplex;
+    char input_name[256];
+    char output_name[256];
 
-    //bool max_journey = false;
+    sprintf(input_name,  "%s.txt", argv[1]);
+    sprintf(output_name, "%s.lp",  argv[1]);
 
-    _csp t = file_reader("csp10.txt");
+    _csp t = file_reader(input_name);
     std::vector<_journey> journeys;
 
     //print_to_graphviz(&t);
@@ -32,7 +40,9 @@ int main(void) {
     }
 
     //print_graph(t);
-    //printf("\n"); //print_journeys(journeys); //printf("\n");
+    //printf("\n");
+    //print_journeys(journeys);
+    //printf("\n");
     //return 0;
 
     mysoplex.setIntParam(soplex::SoPlex::OBJSENSE, soplex::SoPlex::OBJSENSE_MINIMIZE);
@@ -51,10 +61,10 @@ int main(void) {
     }
 
     for (int i = 1; i <= t.N; ++i) {
-        mysoplex.addRowReal(soplex::LPRow(1.0, rows[i], soplex::infinity));
+        mysoplex.addRowReal(soplex::LPRow(1.0, rows[i], 1.0));
     }
 
-    mysoplex.writeFileReal("csp10.lp", NULL, NULL, NULL);
+    mysoplex.writeFileReal(output_name, NULL, NULL, NULL);
 
     soplex::SPxSolver::Status stat;
     soplex::DVector prim((int) journeys.size());
@@ -78,19 +88,19 @@ int main(void) {
             std::cout << dual[i] << ", ";
         }
         std::cout << "].\n";
-    }
 
-    printf("Problem has\n%d columns\n%d rows\n", mysoplex.numColsReal(), mysoplex.numRowsReal());
-    printf("Found %d possible journeys\n", (int) journeys.size());
-    printf("Solution is:\n");
+        printf("Problem has\n%d columns\n%d rows\n", mysoplex.numColsReal(), mysoplex.numRowsReal());
+        printf("Found %d possible journeys\n", (int) journeys.size());
+        printf("Solution is:\n");
 
-    for (int i = 0; i < (int) journeys.size(); ++i) {
-        if ( prim[i] > 0.0 ) {
-            printf("%d %.2f: ", i, prim[i]);
-            for (int j = 0; j < (int) journeys[i-1].covered.size(); ++j) {
-                printf("%d ", journeys[i-1].covered[j]);
+        for (int i = 0; i < (int) journeys.size(); ++i) {
+            if ( prim[i] > 0.0 ) {
+                printf("%d %.2f : ", i, prim[i]);
+                for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
+                    printf("%d ", journeys[i].covered[j]);
+                }
+                printf("\n");
             }
-            printf("\n");
         }
     }
 
