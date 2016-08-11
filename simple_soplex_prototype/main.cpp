@@ -20,14 +20,16 @@ int main(int argc, char *argv[]) {
     char input_name[256];
     char output_name[256];
 
+    int used_journeys = 0;
+
     sprintf(input_name,  "%s.txt", argv[1]);
     sprintf(output_name, "%s.lp",  argv[1]);
 
     _csp t = file_reader(input_name);
     std::vector<_journey> journeys;
 
-    //print_to_graphviz(&t);
-    //return 0;
+    print_to_graphviz(&t);
+    return 0;
 
     int *vec = ( int* ) malloc ( sizeof(int) * t.N );
 
@@ -60,9 +62,17 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    soplex::DSVector row1;
+    for (int i = 0; i < (int) journeys.size(); ++i) {
+        row1.add(i, 1);
+    }
+
     for (int i = 1; i <= t.N; ++i) {
         mysoplex.addRowReal(soplex::LPRow(1.0, rows[i], 1.0));
     }
+
+    int p = 20;
+    mysoplex.addRowReal(soplex::LPRow(p, row1, p));
 
     mysoplex.writeFileReal(output_name, NULL, NULL, NULL);
 
@@ -99,6 +109,7 @@ int main(int argc, char *argv[]) {
 
         for (int i = 0; i < (int) journeys.size(); ++i) {
             if ( prim[i] > 0.0 ) {
+                used_journeys++;
                 printf("%d %.2f : ", i, prim[i]);
                 for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
                     printf("%d ", journeys[i].covered[j]);
@@ -106,6 +117,7 @@ int main(int argc, char *argv[]) {
                 printf("\n");
             }
         }
+        printf("Using %d journeys\n", used_journeys);
     }
 
 

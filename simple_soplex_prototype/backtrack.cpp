@@ -13,7 +13,7 @@ void backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_jou
             v.cost = cost;
             //v.cost = cost + csp.graph[pos][i].cost;
         }
-        //vec.push_back(v);
+        vec.push_back(v);
         lvl += 1;
     }
 
