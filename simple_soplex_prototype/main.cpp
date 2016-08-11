@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
     _csp t = file_reader(input_name);
     std::vector<_journey> journeys;
 
-    print_to_graphviz(&t);
-    return 0;
+    //print_to_graphviz(&t);
+    //return 0;
 
     int *vec = ( int* ) malloc ( sizeof(int) * t.N );
 
