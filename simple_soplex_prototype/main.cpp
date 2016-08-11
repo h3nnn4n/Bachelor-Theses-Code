@@ -39,11 +39,11 @@ int main(int argc, char *argv[]) {
         backtrack(t, i, 0, 0, vec, journeys);
     }
 
-    //print_graph(t);
-    //printf("\n");
-    //print_journeys(journeys);
-    //printf("\n");
-    //return 0;
+    print_graph(t);
+    printf("\n");
+    print_journeys(journeys);
+    printf("\n");
+    return 0;
 
     mysoplex.setIntParam(soplex::SoPlex::OBJSENSE, soplex::SoPlex::OBJSENSE_MINIMIZE);
     soplex::DSVector dummycol((int) journeys.size());
@@ -70,6 +70,10 @@ int main(int argc, char *argv[]) {
     soplex::DVector prim((int) journeys.size());
     soplex::DVector dual(t.N);
     stat = mysoplex.solve();
+
+    printf("\n");
+    printf("N: %4d \t maxt: %4d\n", t.N, t.time_limit);
+    printf("Found %6d journeys\n", (int) journeys.size());
 
     if( stat == soplex::SPxSolver::OPTIMAL )
     {

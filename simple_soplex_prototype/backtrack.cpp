@@ -25,10 +25,11 @@ void backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_jou
             _journey v;
             for (int j = 0; sol[j] != -1 ; ++j) {
                 v.covered.push_back(sol[j]);
-                v.cost = cost + csp.graph[pos][i].cost;
+                //v.cost = cost + csp.graph[pos][i].cost;
+                v.cost = cost + csp.task[i].end_time - csp.task[i].start_time;
             }
             vec.push_back(v);
-            backtrack(csp, csp.graph[pos][i].dest, csp.graph[pos][i].cost + cost, lvl + 1, sol, vec);
+            backtrack(csp, csp.graph[pos][i].dest, csp.task[i].end_time - csp.task[i].start_time + cost, lvl + 1, sol, vec);
         } else {
 
         }
