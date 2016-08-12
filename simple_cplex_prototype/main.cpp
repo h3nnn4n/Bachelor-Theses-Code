@@ -10,6 +10,8 @@
 #include "backtrack.h"
 #include "utils.h"
 
+#include "check.c"
+
 int main(int argc, char *argv[]) {
     if ( argc != 2 ) {
         printf("Missing argument\n");
@@ -26,7 +28,11 @@ int main(int argc, char *argv[]) {
     char   *sense        = NULL;
     int    *rmatbeg      = NULL;
     int    *rmatind      = NULL;
+    int    *rmatcnt      = NULL;
     double *rmatval      = NULL;
+    int    zeroind_p     = 0;
+    double minval_p      = 0;
+    double maxval_p      = 0;
 
     char input_name[256];
     char output_name[256];
@@ -59,10 +65,10 @@ int main(int argc, char *argv[]) {
         backtrack(t, i, 0, 0, vec, journeys);
     }
 
-    print_graph(t);
-    printf("\n");
-    print_journeys(journeys);
-    printf("\n");
+    //print_graph(t);
+    //printf("\n");
+    //print_journeys(journeys);
+    //printf("\n");
     //return 0;
 
     rhs     = (double*) malloc ( sizeof(double) * t.N                   );
@@ -70,7 +76,8 @@ int main(int argc, char *argv[]) {
     lb      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
-    rmatbeg = (int   *) malloc ( sizeof(int   ) * t.N                   );
+    rmatbeg = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
+    rmatcnt = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
 
     for (int i = 0; i < t.N; ++i) {
         rhs  [i] = 1.0;
@@ -97,6 +104,8 @@ int main(int argc, char *argv[]) {
             rmatbeg[i] = 0;
         }
 
+        rmatcnt[i] = (int) journeys[i].covered.size();
+
         for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
             rmatind[k] = j;
             rmatval[k] = 1;
@@ -106,13 +115,27 @@ int main(int argc, char *argv[]) {
         printf("\n");
     }
 
-    status = CPXnewcols (env, lp, (int) journeys.size(), obj, lb, ub, NULL, NULL);
-    //printf("STATUS = %d\n", status);
-    status = CPXaddrows (env, lp, (int) journeys.size(), t.N, non_zero, rhs, sense,
+    //status = CPXnewcols (env, lp, (int) journeys.size(), obj, lb, ub, NULL, NULL);
+    status = CPXnewrows (env, lp, t.N, rhs, sense, NULL, NULL);
+    status = CPXaddcols (env, lp, (int) journeys.size(), non_zero, obj,
                          rmatbeg, rmatind, rmatval,
-                         NULL, NULL);
+                         lb, ub, NULL);
 
-    //printf("STATUS = %d\n", status);
+    if ( status ) {
+        printf("STATUS = %d\n", status);
+
+        printf("Checking\n");
+        //CPXCHANNELptr  *c1 = NULL;
+        //CPXCHANNELptr  *c2 = NULL;
+        //status = CPXaddfuncdest (env, c1, "error", ourmsgfunc);
+        //CPXgetchannels (env, NULL, c1, c2, NULL);
+        checkmatval(env, rmatbeg, rmatcnt, rmatval, (int) journeys.size(), NULL, NULL, NULL);
+        checkcols(env, (int) journeys.size(), t.N, obj, rmatbeg, rmatcnt, rmatind, rmatval, lb, lb,
+                &zeroind_p, &minval_p, &maxval_p, NULL, NULL, NULL);
+        printf("Checked\n");
+
+        return EXIT_FAILURE;
+    }
 
     status = CPXlpopt (env, lp);
     status = CPXwriteprob (env, lp, output_name, NULL);
@@ -163,4 +186,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
