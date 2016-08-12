@@ -2202,8 +2202,8 @@ checkcols (CPXCENVptr    env,
         obj    == NULL ||
         lb     == NULL ||
         ub     == NULL   ) {
-      printf( "The following arrays are NULL:\n");
-      printf( "%s%s%s%s%s%s%s",
+      CPXmsg (errorchan, "The following arrays are NULL:\n");
+      CPXmsg (errorchan, "%s%s%s%s%s%s%s",
               (matbeg == NULL ? "matbeg\n": ""),
               (matcnt == NULL ? "matcnt\n": ""),
               (matind == NULL ? "matind\n": ""),
@@ -2219,9 +2219,9 @@ checkcols (CPXCENVptr    env,
 
    for (j = 0; j < numcols - 1; j++) {
       if ( matbeg[j] > matbeg[j+1] ) {
-         printf(
+         CPXmsg (errorchan,
                  "Components of matbeg must be ascending, ");
-         printf(
+         CPXmsg (errorchan,
                  "but matbeg[%lld] (%lld) > matbeg[%lld] (%lld).\n",
                  (long long) j, (long long) matbeg[j], (long long) (j+1),
                  (long long) matbeg[j+1]);
@@ -2235,7 +2235,7 @@ checkcols (CPXCENVptr    env,
       matbeg[0] */
 
    if (( numcols > 0 ) && ( matbeg[0] < 0 )) {
-      printf(
+      CPXmsg (errorchan,
               "Negative entry in matbeg: matbeg[0] = %lld\n",
               (long long) matbeg[0]);
       status = FAIL;
@@ -2246,7 +2246,7 @@ checkcols (CPXCENVptr    env,
 
    iwork = (CPXDIM *) calloc(numrows, sizeof(*iwork));
    if ( iwork == NULL ) {
-      printf( "Work vector malloc failed in checkcols.\n");
+      CPXmsg (errorchan, "Work vector malloc failed in checkcols.\n");
       status = FAIL;
       goto TERMINATE;
    }
@@ -2255,14 +2255,14 @@ checkcols (CPXCENVptr    env,
    *minval_p = BIGREAL;
    for (j = 0; j < numcols; j++) {
       if ( matcnt[j] < 0 ) {
-         printf(
+         CPXmsg (errorchan,
                  "Count of entries in column %lld is negative (%lld).\n",
                  (long long) j, (long long) matcnt[j]);
          status = FAIL;
          goto TERMINATE;
       }
       if ( matcnt[j] > numrows ) {
-         printf(
+         CPXmsg (errorchan,
                  "Count of entries in column %lld (%lld) > rows (%lld).\n",
                  (long long) j, (long long) matcnt[j], (long long) numrows);
          status = FAIL;
@@ -2270,7 +2270,7 @@ checkcols (CPXCENVptr    env,
       }
       if ( (j < numcols-1)                      &&
            (matbeg[j] + matcnt[j] > matbeg[j+1])  ) {
-         printf(
+         CPXmsg (errorchan,
                  "End of column %lld overlaps start of column %lld\n",
                  (long long) j, (long long) (j+1));
          status = FAIL;
@@ -2282,14 +2282,14 @@ checkcols (CPXCENVptr    env,
 
       for (k = matbeg[j]; k < matbeg[j] + matcnt[j]; k++) {
          if ( matind[k] < 0 ) {
-            printf(
+            CPXmsg (errorchan,
                     "Entry matind[%lld] is negative (%lld).\n",
                     (long long) k, (long long) matind[k]);
             status = FAIL;
             goto TERMINATE;
          }
          if ( matind[k] >= numrows ) {
-            printf(
+            CPXmsg (errorchan,
               "Entry matind[%lld] (%lld) invalid for number of rows (%lld).\n",
                     (long long) k, (long long) matind[k], (long long) numrows);
             status = FAIL;
@@ -2309,13 +2309,14 @@ checkcols (CPXCENVptr    env,
 
       for (k = matbeg[j]; k < matbeg[j] + matcnt[j]; k++) {
          if ( iwork[matind[k]] > 1) {
-            printf( "Duplicate row entry in matind: ");
-            printf( "column %lld, row %lld.\n", (long long) j,
+            CPXmsg (errorchan, "Duplicate row entry in matind: ");
+            CPXmsg (errorchan, "column %lld, row %lld.\n", (long long) j,
                     (long long) matind[k]);
             status = FAIL;
             errcnt++;
             if ( errcnt >= MAXERRCNT ) {
-               printf( "Quitting after %d duplicate row entries found.\n",
+               CPXmsg(errorchan,
+                  "Quitting after %d duplicate row entries found.\n",
                   MAXERRCNT);
                status = FAIL;
                goto TERMINATE;
@@ -2482,10 +2483,10 @@ checkmatval (CPXCENVptr    env,
          be used here, i.e. use  if ( isnan (matval[k] ) )  */
 
          if ( matval[k] != matval[k] ) {
-            printf (
+            CPXmsg (errorchan,
                     "\nArray %s[%lld] contains a number ", arrayname,
                     (long long) k);
-            printf (
+            CPXmsg (errorchan,
                     "not representable in exponential notation.\n");
             status = FAIL;
             goto TERMINATE;
@@ -2494,8 +2495,7 @@ checkmatval (CPXCENVptr    env,
    }
 
 
-   /*CPXmsg (reschan, " OK.\n");*/
-   printf("ok\n");
+   CPXmsg (reschan, " OK.\n");
 
 TERMINATE:
 

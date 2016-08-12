@@ -30,9 +30,6 @@ int main(int argc, char *argv[]) {
     int    *rmatind      = NULL;
     int    *rmatcnt      = NULL;
     double *rmatval      = NULL;
-    int    zeroind_p     = 0;
-    double minval_p      = 0;
-    double maxval_p      = 0;
 
     char input_name[256];
     char output_name[256];
@@ -72,10 +69,11 @@ int main(int argc, char *argv[]) {
     //return 0;
 
     rhs     = (double*) malloc ( sizeof(double) * t.N                   );
+    sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
+
     obj     = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     lb      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
-    sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
     rmatbeg = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
     rmatcnt = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
 
@@ -98,7 +96,7 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0, k = 0; i < (int) journeys.size(); ++i) {  // Cada variavel esta associada a uma jornada
         if ( i ) {
-            rmatbeg[i] = (int) journeys[i].covered.size();
+            rmatbeg[i] = (int) journeys[i-1].covered.size();
             rmatbeg[i] += rmatbeg[i-1];
         } else {
             rmatbeg[i] = 0;
@@ -107,15 +105,19 @@ int main(int argc, char *argv[]) {
         rmatcnt[i] = (int) journeys[i].covered.size();
 
         for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
-            rmatind[k] = j;
+            rmatind[k] = journeys[i].covered[j] - 1;
             rmatval[k] = 1;
-            printf("i:%3d\tk: %3d \t%5d\t%5d\t%5.2f\n", i, k, rmatbeg[i], rmatind[k], rmatval[k]);
+            //printf("i:%3d\tk: %3d"
+                   //"\t | beg: %2d   ind: %2d   val: %2.1f | "
+                   //" -- %5d  %5d %5d\n",
+                    //i, k,
+                    //rmatbeg[i], rmatind[k], rmatval[k],
+                    //rmatbeg[i] + rmatcnt[i], rmatbeg[i], rmatcnt[i]);
             k++;
         }
-        printf("\n");
+        //printf("\n");
     }
 
-    //status = CPXnewcols (env, lp, (int) journeys.size(), obj, lb, ub, NULL, NULL);
     status = CPXnewrows (env, lp, t.N, rhs, sense, NULL, NULL);
     status = CPXaddcols (env, lp, (int) journeys.size(), non_zero, obj,
                          rmatbeg, rmatind, rmatval,
@@ -124,21 +126,17 @@ int main(int argc, char *argv[]) {
     if ( status ) {
         printf("STATUS = %d\n", status);
 
-        printf("Checking\n");
-        //CPXCHANNELptr  *c1 = NULL;
-        //CPXCHANNELptr  *c2 = NULL;
-        //status = CPXaddfuncdest (env, c1, "error", ourmsgfunc);
-        //CPXgetchannels (env, NULL, c1, c2, NULL);
-        checkmatval(env, rmatbeg, rmatcnt, rmatval, (int) journeys.size(), NULL, NULL, NULL);
-        checkcols(env, (int) journeys.size(), t.N, obj, rmatbeg, rmatcnt, rmatind, rmatval, lb, lb,
-                &zeroind_p, &minval_p, &maxval_p, NULL, NULL, NULL);
-        printf("Checked\n");
+        checkdata(env, (int) journeys.size(), t.N, CPXgetobjsen(env, lp),
+                 obj, rhs, sense,
+                 rmatbeg, rmatcnt, rmatind, rmatval,
+                 lb, ub,
+                 NULL, NULL, NULL);
 
         return EXIT_FAILURE;
     }
 
-    status = CPXlpopt (env, lp);
     status = CPXwriteprob (env, lp, output_name, NULL);
+    status = CPXlpopt (env, lp);
 
     printf("\n");
     printf("N: \t %6d \t maxt: %4d\n", t.N, t.time_limit);
