@@ -30,6 +30,10 @@ int main(int argc, char *argv[]) {
     int    *rmatind      = NULL;
     int    *rmatcnt      = NULL;
     double *rmatval      = NULL;
+    double *x            = NULL;
+    double *slack        = NULL;
+    double *dj           = NULL;
+    double *pi           = NULL;
 
     char input_name[256];
     char output_name[256];
@@ -70,12 +74,16 @@ int main(int argc, char *argv[]) {
 
     rhs     = (double*) malloc ( sizeof(double) * t.N                   );
     sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
+    slack   = (double*) malloc ( sizeof(double) * t.N                   );
+    pi      = (double*) malloc ( sizeof(char  ) * t.N                   );
 
     obj     = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     lb      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     rmatbeg = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
     rmatcnt = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
+    x       = (double*) malloc ( sizeof(int   ) * (int) journeys.size() );
+    dj      = (double*) malloc ( sizeof(int   ) * (int) journeys.size() );
 
     for (int i = 0; i < t.N; ++i) {
         rhs  [i] = 1.0;
@@ -124,8 +132,7 @@ int main(int argc, char *argv[]) {
                          lb, ub, NULL);
 
     if ( status ) {
-        printf("STATUS = %d\n", status);
-
+        printf("STATUS = %d\nSomething Broke\n", status);
         checkdata(env, (int) journeys.size(), t.N, CPXgetobjsen(env, lp),
                  obj, rhs, sense,
                  rmatbeg, rmatcnt, rmatind, rmatval,
@@ -141,6 +148,8 @@ int main(int argc, char *argv[]) {
     printf("\n");
     printf("N: \t %6d \t maxt: %4d\n", t.N, t.time_limit);
     printf("Found: \t %6d journeys\n", (int) journeys.size());
+
+    status = CPXsolution (env, lp, NULL, NULL, x, pi, slack, dj);
 
     //if( stat == soplex::SPxSolver::OPTIMAL )
     //{
