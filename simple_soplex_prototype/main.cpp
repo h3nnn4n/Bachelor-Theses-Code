@@ -41,11 +41,11 @@ int main(int argc, char *argv[]) {
         backtrack(t, i, 0, 0, vec, journeys);
     }
 
-    print_graph(t);
-    printf("\n");
-    print_journeys(journeys);
-    printf("\n");
-    return 0;
+    //print_graph(t);
+    //printf("\n");
+    //print_journeys(journeys);
+    //printf("\n");
+    //return 0;
 
     mysoplex.setIntParam(soplex::SoPlex::OBJSENSE, soplex::SoPlex::OBJSENSE_MINIMIZE);
     soplex::DSVector dummycol((int) journeys.size());
@@ -68,11 +68,12 @@ int main(int argc, char *argv[]) {
     }
 
     for (int i = 1; i <= t.N; ++i) {
+        //mysoplex.addRowReal(soplex::LPRow(1.0, rows[i], soplex::infinity));
         mysoplex.addRowReal(soplex::LPRow(1.0, rows[i], 1.0));
     }
 
-    int p = 20;
-    mysoplex.addRowReal(soplex::LPRow(p, row1, p));
+    //int p = 20;
+    //mysoplex.addRowReal(soplex::LPRow(p, row1, p));
 
     mysoplex.writeFileReal(output_name, NULL, NULL, NULL);
 
@@ -82,8 +83,8 @@ int main(int argc, char *argv[]) {
     stat = mysoplex.solve();
 
     printf("\n");
-    printf("N: %4d \t maxt: %4d\n", t.N, t.time_limit);
-    printf("Found %6d journeys\n", (int) journeys.size());
+    printf("N: \t %6d \t maxt: %4d\n", t.N, t.time_limit);
+    printf("Found: \t %6d journeys\n", (int) journeys.size());
 
     if( stat == soplex::SPxSolver::OPTIMAL )
     {
@@ -93,15 +94,19 @@ int main(int argc, char *argv[]) {
         std::cout << "Objective value is " << mysoplex.objValueReal() << ".\n";
         std::cout << "Primal solution is [";
         for (int i = 0; i < (int) journeys.size() - 1; ++i) {
-            std::cout << prim[i] << ", ";
+            printf("%.1f, ", prim[i]);
         }
-        std::cout << prim[(int) journeys.size() - 1] << "].\n ";
+        printf("%.1f ]\n", prim[(int) journeys.size() - 1]);
 
         std::cout << "Dual solution is [";
-        for (int i = 0; i < t.N; ++i) {
-            std::cout << dual[i] << ", ";
+        for (int i = 0; i < t.N - 1; ++i) {
+            printf("%.1f, ", dual[i]);
         }
-        std::cout << "].\n";
+        printf("%.1f ]\n", dual[t.N - 1]);
+        //for (int i = 0; i < t.N; ++i) {
+            //std::cout << dual[i] << ", ";
+        //}
+        //std::cout << "].\n";
 
         printf("Problem has\n%d columns\n%d rows\n", mysoplex.numColsReal(), mysoplex.numRowsReal());
         printf("Found %d possible journeys\n", (int) journeys.size());
@@ -110,9 +115,9 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < (int) journeys.size(); ++i) {
             if ( prim[i] > 0.0 ) {
                 used_journeys++;
-                printf("%d %.2f : ", i, prim[i]);
+                printf("%4d %.2f : ", i, prim[i]);
                 for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
-                    printf("%d ", journeys[i].covered[j]);
+                    printf("%4d ", journeys[i].covered[j]);
                 }
                 printf("\n");
             }

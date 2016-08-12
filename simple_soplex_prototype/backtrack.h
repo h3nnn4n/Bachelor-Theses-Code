@@ -5,6 +5,6 @@
 
 #include "types.h"
 
-void backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec);
+int backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec);
 
 #endif /* BACKTRACK_H */
