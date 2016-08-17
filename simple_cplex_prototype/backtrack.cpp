@@ -3,6 +3,41 @@
 #include "types.h"
 
 int backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec){
+    return backtrack_first_feasible(csp, pos, cost, lvl, sol, vec);
+}
+
+int backtrack_biggest_feasible(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec){
+    int last = 0;
+    if ( lvl == 0 ) {
+        sol[lvl    ] = pos;
+        sol[lvl + 1] = -1;
+        lvl += 1;
+    }
+
+    for (int i = 0; i < (int)csp.graph[pos].size(); ++i) {
+        if ( cost + csp.graph[pos][i].cost < csp.time_limit ) {
+            last = 1;
+            sol[lvl    ] = csp.graph[pos][i].dest;
+            sol[lvl + 1] = -1;
+            backtrack(csp, csp.graph[pos][i].dest, csp.task[i].end_time - csp.task[i].start_time + cost, lvl + 1, sol, vec);
+        } else {
+
+        }
+    }
+
+    if ( last == 0 && cost < csp.time_limit && cost > 0) {
+        _journey v;
+        for (int j = 0; sol[j] != -1 ; ++j) {
+            v.covered.push_back(sol[j]);
+            v.cost = cost;
+        }
+        vec.push_back(v);
+    }
+
+    return last;
+}
+
+int backtrack_first_feasible(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec) {
     int last = 0;
     if ( lvl == 0 ) {
         sol[lvl    ] = pos;

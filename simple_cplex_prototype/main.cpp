@@ -68,10 +68,14 @@ int main(int argc, char *argv[]) {
         backtrack(t, i, 0, 0, vec, journeys);
     }
 
-    //print_graph(t);
-    //printf("\n");
-    //print_journeys(journeys);
-    //printf("\n");
+    //for (int i = 0; i < (int) t.start_nodes.size(); ++i) {
+        //backtrack(t,t.start_nodes[i], 0, 0, vec, journeys);
+    //}
+
+    print_graph(t);
+    printf("\n");
+    print_journeys(journeys);
+    printf("\n");
     //return 0;
 
     sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
@@ -155,7 +159,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < (int) journeys.size(); ++i) {
         if ( x[i] > 0.0 ) {
             used_journeys++;
-            printf("%4d %.2f : ", i, x[i]);
+            printf("%6d %.2f | %6d : ", i, x[i], journeys[i].cost);
             for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
                 printf("%4d ", journeys[i].covered[j]);
             }
