@@ -18,24 +18,24 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    int    status        = 0;
-    int    lp_status     = 0;
-    int    used_journeys = 0;
     double objval_p      = 0;
+    int    lp_status     = 0;
     int    non_zero      = 0;
-    double *obj          = NULL;
-    double *lb           = NULL;
-    double *ub           = NULL;
-    double *rhs          = NULL;
+    int    status        = 0;
+    int    used_journeys = 0;
     char   *sense        = NULL;
-    int    *rmatbeg      = NULL;
-    int    *rmatind      = NULL;
-    int    *rmatcnt      = NULL;
-    double *rmatval      = NULL;
-    double *x            = NULL;
-    double *slack        = NULL;
     double *dj           = NULL;
+    double *lb           = NULL;
+    double *obj          = NULL;
     double *pi           = NULL;
+    double *rhs          = NULL;
+    double *rmatval      = NULL;
+    double *slack        = NULL;
+    double *ub           = NULL;
+    double *x            = NULL;
+    int    *rmatbeg      = NULL;
+    int    *rmatcnt      = NULL;
+    int    *rmatind      = NULL;
 
     char input_name [256];
     char output_name[256];
@@ -74,18 +74,18 @@ int main(int argc, char *argv[]) {
     //printf("\n");
     //return 0;
 
-    rhs     = (double*) malloc ( sizeof(double) * t.N                   );
     sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
     pi      = (double*) malloc ( sizeof(double) * t.N                   );
+    rhs     = (double*) malloc ( sizeof(double) * t.N                   );
     slack   = (double*) malloc ( sizeof(double) * t.N                   );
 
-    obj     = (double*) malloc ( sizeof(double) * (int) journeys.size() );
-    lb      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
-    ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     rmatbeg = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
     rmatcnt = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
-    x       = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     dj      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
+    lb      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
+    obj     = (double*) malloc ( sizeof(double) * (int) journeys.size() );
+    ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
+    x       = (double*) malloc ( sizeof(double) * (int) journeys.size() );
 
     for (int i = 0; i < t.N; ++i) {
         rhs  [i] = 1.0;
