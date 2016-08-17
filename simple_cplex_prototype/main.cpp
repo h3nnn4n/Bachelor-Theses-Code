@@ -18,8 +18,10 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    int    status;
-    //int    used_journeys = 0;
+    int    status        = 0;
+    int    lp_status     = 0;
+    int    used_journeys = 0;
+    double objval_p      = 0;
     int    non_zero      = 0;
     double *obj          = NULL;
     double *lb           = NULL;
@@ -35,11 +37,11 @@ int main(int argc, char *argv[]) {
     double *dj           = NULL;
     double *pi           = NULL;
 
-    char input_name[256];
+    char input_name [256];
     char output_name[256];
 
-    CPXENVptr     env = NULL;
-    CPXLPptr      lp = NULL;
+    CPXENVptr env = NULL;
+    CPXLPptr  lp  = NULL;
 
     env    = CPXopenCPLEX   ( &status                               ) ;
     status = CPXsetintparam ( env, CPXPARAM_ScreenOutput  , CPX_ON  ) ;
@@ -74,16 +76,16 @@ int main(int argc, char *argv[]) {
 
     rhs     = (double*) malloc ( sizeof(double) * t.N                   );
     sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
+    pi      = (double*) malloc ( sizeof(double) * t.N                   );
     slack   = (double*) malloc ( sizeof(double) * t.N                   );
-    pi      = (double*) malloc ( sizeof(char  ) * t.N                   );
 
     obj     = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     lb      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     rmatbeg = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
     rmatcnt = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
-    x       = (double*) malloc ( sizeof(int   ) * (int) journeys.size() );
-    dj      = (double*) malloc ( sizeof(int   ) * (int) journeys.size() );
+    x       = (double*) malloc ( sizeof(double) * (int) journeys.size() );
+    dj      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
 
     for (int i = 0; i < t.N; ++i) {
         rhs  [i] = 1.0;
@@ -134,11 +136,10 @@ int main(int argc, char *argv[]) {
     if ( status ) {
         printf("STATUS = %d\nSomething Broke\n", status);
         checkdata(env, (int) journeys.size(), t.N, CPXgetobjsen(env, lp),
-                 obj, rhs, sense,
-                 rmatbeg, rmatcnt, rmatind, rmatval,
-                 lb, ub,
-                 NULL, NULL, NULL);
-
+                    obj, rhs, sense,
+                    rmatbeg, rmatcnt, rmatind, rmatval,
+                    lb, ub,
+                    NULL, NULL, NULL);
         return EXIT_FAILURE;
     }
 
@@ -149,47 +150,18 @@ int main(int argc, char *argv[]) {
     printf("N: \t %6d \t maxt: %4d\n", t.N, t.time_limit);
     printf("Found: \t %6d journeys\n", (int) journeys.size());
 
-    status = CPXsolution (env, lp, NULL, NULL, x, pi, slack, dj);
+    status = CPXsolution (env, lp, &lp_status, &objval_p, x, pi, slack, dj);
 
-    //if( stat == soplex::SPxSolver::OPTIMAL )
-    //{
-        //mysoplex.getPrimalReal(prim);
-        //mysoplex.getDualReal(dual);
-        //std::cout << "LP solved to optimality.\n";
-        //std::cout << "Objective value is " << mysoplex.objValueReal() << ".\n";
-        //std::cout << "Primal solution is [";
-        //for (int i = 0; i < (int) journeys.size() - 1; ++i) {
-            //printf("%.1f, ", prim[i]);
-        //}
-        //printf("%.1f ]\n", prim[(int) journeys.size() - 1]);
+    for (int i = 0; i < (int) journeys.size(); ++i) {
+        if ( x[i] > 0.0 ) {
+            used_journeys++;
+            printf("%4d %.2f : ", i, x[i]);
+            for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
+                printf("%4d ", journeys[i].covered[j]);
+            }
+            printf("\n");
+        }
+    }
 
-        //std::cout << "Dual solution is [";
-        //for (int i = 0; i < t.N - 1; ++i) {
-            //printf("%.1f, ", dual[i]);
-        //}
-        //printf("%.1f ]\n", dual[t.N - 1]);
-        ////for (int i = 0; i < t.N; ++i) {
-            ////std::cout << dual[i] << ", ";
-        ////}
-        ////std::cout << "].\n";
-
-        //printf("Problem has\n%d columns\n%d rows\n", mysoplex.numColsReal(), mysoplex.numRowsReal());
-        //printf("Found %d possible journeys\n", (int) journeys.size());
-        //printf("Solution is:\n");
-
-        //for (int i = 0; i < (int) journeys.size(); ++i) {
-            //if ( prim[i] > 0.0 ) {
-                //used_journeys++;
-                //printf("%4d %.2f : ", i, prim[i]);
-                //for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
-                    //printf("%4d ", journeys[i].covered[j]);
-                //}
-                //printf("\n");
-            //}
-        //}
-        //printf("Using %d journeys\n", used_journeys);
-    //}
-
-
-    return 0;
+    return EXIT_SUCCESS;
 }
