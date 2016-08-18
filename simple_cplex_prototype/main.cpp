@@ -37,6 +37,13 @@ int main(int argc, char *argv[]) {
     int    *rmatcnt      = NULL;
     int    *rmatind      = NULL;
 
+    double *rhs_max      = NULL;
+    char   *sense_max    = NULL;
+    int    *rmatbeg_max  = NULL;
+    int    *rmatind_max  = NULL;
+    int    *rmatcnt_max  = NULL;
+    double *rmatval_max  = NULL;
+
     char input_name [256];
     char output_name[256];
 
@@ -91,6 +98,18 @@ int main(int argc, char *argv[]) {
     ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
     x       = (double*) malloc ( sizeof(double) * (int) journeys.size() );
 
+    rhs_max      = ( double* ) malloc ( sizeof ( double ) * 1                        ) ;
+    sense_max    = ( char*   ) malloc ( sizeof ( char   ) * 1                        ) ;
+    rmatbeg_max  = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
+    rmatind_max  = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
+    rmatcnt_max  = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
+    rmatval_max  = ( double* ) malloc ( sizeof ( double ) * ( int ) journeys.size () ) ;
+
+    for (int i = 0; i < 1; ++i) {
+        rhs_max[i]   = 27.0;
+        sense_max[i] = 'E';
+    }
+
     for (int i = 0; i < t.N; ++i) {
         rhs  [i] = 1.0;
         sense[i] = 'E';
@@ -100,6 +119,10 @@ int main(int argc, char *argv[]) {
         lb [i] = 0.0;
         ub [i] = 1.0;
         obj[i] = journeys[i].cost;
+        rmatbeg_max[i] = i;
+        rmatind_max[i] = 0;
+        rmatcnt_max[i] = 1;
+        rmatval_max[i] = 1;
         for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
             non_zero++;
         }
@@ -147,18 +170,42 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    //status = CPXaddrows ( env, lp,
+                          //0, 1, (int) journeys.size(),
+                          //rhs_max, sense_max,
+                          //rmatbeg_max, rmatind_max, rmatval_max,
+                          //NULL, NULL);
+
+    if ( status ) {
+        printf("STATUS = %d\nSomething Broke\n", status);
+        checkdata(env, (int) journeys.size(), 1, CPXgetobjsen(env, lp),
+                    obj, rhs_max, sense_max,
+                    rmatbeg_max, rmatcnt_max, rmatind_max, rmatval_max,
+                    lb, ub,
+                    NULL, NULL, NULL);
+        return EXIT_FAILURE;
+    }
+
     status = CPXwriteprob (env, lp, output_name, NULL);
     status = CPXlpopt (env, lp);
+
+    status = CPXsolution (env, lp, &lp_status, &objval_p, x, pi, slack, dj);
 
     printf("\n");
     printf("N: \t %6d \t maxt: %4d\n", t.N, t.time_limit);
     printf("Found: \t %6d journeys\n", (int) journeys.size());
 
-    status = CPXsolution (env, lp, &lp_status, &objval_p, x, pi, slack, dj);
+    for (int i = 0; i < (int) journeys.size(); ++i) {
+        if ( x[i] != 0.0 ) {
+            used_journeys++;
+        }
+    }
+
+    printf("Total cost is %6.4f, using %6d journeys\n", objval_p, used_journeys);
 
     for (int i = 0; i < (int) journeys.size(); ++i) {
-        if ( x[i] > 0.0 ) {
-            used_journeys++;
+        if ( x[i] != 0.0 ) {
+            //used_journeys++;
             printf("%6d %.2f | %6d : ", i, x[i], journeys[i].cost);
             for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
                 printf("%4d ", journeys[i].covered[j]);
