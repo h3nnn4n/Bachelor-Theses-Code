@@ -72,8 +72,10 @@ int main(int argc, char *argv[]) {
     }
 
     for (int i = 1; i <= t.N; ++i) {
-        backtrack(t, i, 0, 0, vec, journeys);
+        backtrack(t, i, 0, 0, 0, vec, journeys);
     }
+
+    //return 0;
 
     //for (int i = 0; i < (int) t.start_nodes.size(); ++i) {
         //backtrack(t,t.start_nodes[i], 0, 0, vec, journeys);
@@ -206,9 +208,9 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < (int) journeys.size(); ++i) {
         if ( x[i] != 0.0 ) {
             //used_journeys++;
-            printf("%6d %.2f | %6d : ", i, x[i], journeys[i].cost);
+            printf("%6d %3.2f | %6d %6d : ", i, x[i], journeys[i].cost, journeys[i].time);
             for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
-                printf("%4d ", journeys[i].covered[j]);
+                printf("%3d ", journeys[i].covered[j]);
             }
             printf("\n");
         }

@@ -6,6 +6,7 @@
 typedef struct {
     std::vector<int> covered;
     int cost;
+    int time;
 } _journey;
 
 typedef struct {

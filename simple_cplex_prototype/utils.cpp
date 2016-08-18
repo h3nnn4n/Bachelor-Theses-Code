@@ -5,7 +5,7 @@
 
 void print_journeys(std::vector<_journey> &journeys) {
     for (int i = 0; i < (int) journeys.size(); ++i) {
-        printf("%4d \t%6d: ", i, journeys[i].cost);
+        printf("%4d \t%6d %6d: ", i, journeys[i].cost, journeys[i].time);
         for (int j = 0; j < (int) journeys[i].covered.size(); ++j) {
             printf("%d ", journeys[i].covered[j]);
         }
