@@ -3,7 +3,42 @@
 #include "types.h"
 
 int backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec){
-    return backtrack_first_feasible(csp, pos, cost, lvl, sol, vec);
+    //return backtrack_first_feasible(csp, pos, cost, lvl, sol, vec);
+    //return backtrack_biggest_feasible(csp, pos, cost, lvl, sol, vec);
+    return backtrack_all_feasible(csp, pos, cost, lvl, sol, vec);
+}
+
+int backtrack_all_feasible(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec){
+    if ( lvl == 0 ) {
+        sol[lvl    ] = pos;
+        sol[lvl + 1] = -1;
+
+        _journey v;
+        for (int j = 0; sol[j] != -1 ; ++j) {
+            v.covered.push_back(sol[j]);
+            v.cost = cost;
+        }
+        lvl += 1;
+    }
+
+    for (int i = 0; i < (int)csp.graph[pos].size(); ++i) {
+
+        if ( cost + csp.task[i].end_time - csp.task[i].start_time <= csp.time_limit ) {
+            sol[lvl    ] = csp.graph[pos][i].dest;
+            sol[lvl + 1] = -1;
+            _journey v;
+            for (int j = 0; sol[j] != -1 ; ++j) {
+                v.covered.push_back(sol[j]);
+                v.cost = cost + csp.task[i].end_time - csp.task[i].start_time;
+            }
+            vec.push_back(v);
+            backtrack(csp, csp.graph[pos][i].dest, csp.task[i].end_time - csp.task[i].start_time + cost, lvl + 1, sol, vec);
+        } else {
+
+        }
+    }
+
+    return 0;
 }
 
 int backtrack_biggest_feasible(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec){
@@ -15,7 +50,7 @@ int backtrack_biggest_feasible(_csp csp, int pos, int cost, int lvl, int sol[], 
     }
 
     for (int i = 0; i < (int)csp.graph[pos].size(); ++i) {
-        if ( cost + csp.graph[pos][i].cost < csp.time_limit ) {
+        if ( cost + csp.task[i].end_time - csp.task[i].start_time < csp.time_limit ) {
             last = 1;
             sol[lvl    ] = csp.graph[pos][i].dest;
             sol[lvl + 1] = -1;
@@ -53,8 +88,21 @@ int backtrack_first_feasible(_csp csp, int pos, int cost, int lvl, int sol[], st
         lvl += 1;
     }
 
+    if ( last == 0 && cost < csp.time_limit && cost > 0 && lvl == 2) {
+        //printf("Adding: ");
+        _journey v;
+        for (int j = 0; sol[j] != -1 ; ++j) {
+            v.covered.push_back(sol[j]);
+            v.cost = cost;
+            //printf("%d ", sol[j]);
+        }
+        //printf("\n");
+        vec.push_back(v);
+        return 0;
+    }
+
     for (int i = 0; i < (int)csp.graph[pos].size(); ++i) {
-        if ( cost + csp.graph[pos][i].cost < csp.time_limit ) {
+        if ( cost + csp.task[i].end_time - csp.task[i].start_time < csp.time_limit ) {
             last = 1;
             sol[lvl    ] = csp.graph[pos][i].dest;
             sol[lvl + 1] = -1;
@@ -71,18 +119,6 @@ int backtrack_first_feasible(_csp csp, int pos, int cost, int lvl, int sol[], st
         } else {
 
         }
-    }
-
-    if ( last == 0 && cost < csp.time_limit && cost > 0) {
-        //printf("Adding: ");
-        _journey v;
-        for (int j = 0; sol[j] != -1 ; ++j) {
-            v.covered.push_back(sol[j]);
-            v.cost = cost;
-            //printf("%d ", sol[j]);
-        }
-        //printf("\n");
-        vec.push_back(v);
     }
 
     return last;

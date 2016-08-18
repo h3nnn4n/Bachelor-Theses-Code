@@ -8,5 +8,6 @@
 int backtrack(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec);
 int backtrack_biggest_feasible(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec);
 int backtrack_first_feasible(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec);
+int backtrack_all_feasible(_csp csp, int pos, int cost, int lvl, int sol[], std::vector<_journey> &vec);
 
 #endif /* BACKTRACK_H */
