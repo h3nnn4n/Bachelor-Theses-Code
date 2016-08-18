@@ -24,32 +24,31 @@ int backtrack_all_feasible(_csp csp, int pos, int cost, int time, int lvl, int s
     }
 
     for (int i = 0; i < (int)csp.graph[pos].size(); ++i) {
-        if ( time + csp.task[i].end_time - csp.task[i].start_time <= csp.time_limit ) {
+        int t2 = 0;
+        for (int j = 0; sol[j] != -1 ; ++j) {
+            t2 += csp.task[sol[j]-1].end_time - csp.task[sol[j]-1].start_time;
+        }
+        if ( t2 + csp.task[i].end_time - csp.task[i].start_time <= csp.time_limit ) {
             sol[lvl    ] = csp.graph[pos][i].dest;
             sol[lvl + 1] = -1;
             _journey v;
-            v.cost = cost + csp.graph[pos][i].cost;
+            v.cost = 0;
             v.time = 0;
             for (int j = 0; sol[j] != -1 ; ++j) {
                 v.covered.push_back(sol[j]);
                 v.time += csp.task[sol[j]-1].end_time - csp.task[sol[j]-1].start_time;
             }
+
+            for (int j = 0; sol[j+1] != -1 ; ++j) {
+                for (int k = 0; k < (int) csp.graph[sol[j]].size(); ++k) {
+                    if ( csp.graph[sol[j]][k].dest == sol[j+1] ) {
+                        v.cost += csp.graph[sol[j]][k].cost;
+                    }
+                }
+            }
+
             vec.push_back(v);
-
-            //printf("time:  ");
-            //for (int j = 0; sol[j] != -1 ; ++j) {
-                //printf("%3d ", csp.task[sol[j]-1].end_time - csp.task[sol[j]-1].start_time);
-            //}
-
-            //printf("\nNodes: ");
-            //for (int j = 0; sol[j] != -1 ; ++j) {
-                //printf("%3d ", sol[j]);
-            //}
-            //printf("\n");
-            //printf("Cost: %6d   Time: %6d\n", v.cost, v.time);
-            //printf("\n\n");
-
-            backtrack(csp, csp.graph[pos][i].dest, cost + csp.graph[pos][i].cost, csp.task[i].end_time - csp.task[i].start_time + time, lvl + 1, sol, vec);
+            backtrack(csp, csp.graph[pos][i].dest, 0, 0, lvl + 1, sol, vec);
         } else {
 
         }
