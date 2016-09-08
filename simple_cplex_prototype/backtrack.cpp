@@ -104,12 +104,12 @@ int backtrack_all_feasible(_csp csp, int pos, int cost, int time, int lvl, int s
                 }
             }
 
-            printf("%6d ", v.time);
+            //printf("%6d ", v.time);
             if ( v.time <= csp.time_limit ) {
                 vec.push_back(v);
-                printf(" ok\n");
+                //printf(" ok\n");
             } else {
-                printf(" rip\n");
+                //printf(" rip\n");
             }
 
             backtrack(csp, csp.graph[pos][i].dest, 0, 0, lvl + 1, sol, vec);
