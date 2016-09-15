@@ -2,6 +2,8 @@
 #include <vector>
 #include <cstdlib>
 
+#include <map>
+
 #include <ilcplex/cplex.h>
 
 #include "reader.h"
@@ -9,6 +11,7 @@
 #include "printer_to_graphviz.h"
 #include "backtrack.h"
 #include "utils.h"
+#include "random.h"
 
 #include "check.c"
 
@@ -61,51 +64,88 @@ int main(int argc, char *argv[]) {
 
     _csp t = file_reader(input_name);
     std::vector<_journey> journeys;
+    std::map<int, bool> covered;
 
-    //print_to_graphviz(&t);
-    //return 0;
+    srand(time(NULL));
 
-    int *vec = ( int* ) malloc ( sizeof(int) * t.N );
+#ifdef _GVIZ
+    print_to_graphviz(&t);
+    return 0;
+#endif
 
-    for (int i = 0; i < t.N; ++i) {
-        vec[i] = -1;
+    for (int i = 0; i < t.N; ++i)
+        covered[i] = false;
+    covered[0] = true;
+
+    for (int i = 0; i < (int) ceil(t.N / 3); ++i) {
+        _journey p = random_journey(&t);
+        journeys.push_back(p);
+        for (int j = 0; j < (int) p.covered.size(); ++j) {
+            covered[p.covered[j]] = true;
+        }
     }
 
-    for (int i = 1; i <= t.N; ++i) {
-        backtrack(t, i, 0, 0, 0, vec, journeys);
+    for (int i = 0; i < (int) covered.size(); ++i) {
+        if ( !covered[i] ) {
+            std::cout << i << " is not covered" << std::endl;
+            if ( test_random_journey_from(&t, i) ) {
+                std::cout << "Genearting a cover that starts at it" << std::endl;
+                _journey p = random_journey_from(&t, i);
+                if ( (int) p.covered.size() < 2 )
+                    std::cout << "Something if Funky" << std::endl;
+                journeys.push_back(p);
+                for (int j = 0; j < (int) p.covered.size(); ++j)
+                    covered[p.covered[j]] = true;
+            } else {
+                std::cout << "It is an end point, generating a cover that has it" << std::endl;
+                _journey p = random_journey_to(&t, i);
+                if ( (int) p.covered.size() < 2 )
+                    std::cout << "Something if Funky" << std::endl;
+                journeys.push_back(p);
+                for (int j = 0; j < (int) p.covered.size(); ++j)
+                    covered[p.covered[j]] = true;
+            }
+        }
     }
 
-    //return 0;
+    //int *vec = ( int* ) malloc ( sizeof(int) * t.N );
+
+    //for (int i = 0; i < t.N; ++i)
+        //vec[i] = -1;
+
+    //for (int i = 1; i <= t.N; ++i) {
+        //backtrack(t, i, 0, 0, 0, vec, journeys);
+    //}
 
     //for (int i = 0; i < (int) t.start_nodes.size(); ++i) {
         //backtrack(t,t.start_nodes[i], 0, 0, vec, journeys);
     //}
 
-    print_graph(t);
-    printf("\n");
+    //print_graph(t);
+    //printf("\n");
     print_journeys(journeys);
     printf("\n");
     //return 0;
 
-    sense   = (char  *) malloc ( sizeof(char  ) * t.N                   );
-    pi      = (double*) malloc ( sizeof(double) * t.N                   );
-    rhs     = (double*) malloc ( sizeof(double) * t.N                   );
-    slack   = (double*) malloc ( sizeof(double) * t.N                   );
+    sense       = ( char  * ) malloc ( sizeof ( char   ) * t.N                      ) ;
+    pi          = ( double* ) malloc ( sizeof ( double ) * t.N                      ) ;
+    rhs         = ( double* ) malloc ( sizeof ( double ) * t.N                      ) ;
+    slack       = ( double* ) malloc ( sizeof ( double ) * t.N                      ) ;
 
-    rmatbeg = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
-    rmatcnt = (int   *) malloc ( sizeof(int   ) * (int) journeys.size() );
-    dj      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
-    lb      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
-    obj     = (double*) malloc ( sizeof(double) * (int) journeys.size() );
-    ub      = (double*) malloc ( sizeof(double) * (int) journeys.size() );
-    x       = (double*) malloc ( sizeof(double) * (int) journeys.size() );
+    rmatbeg     = ( int   * ) malloc ( sizeof ( int    ) * (int) journeys.size()    ) ;
+    rmatcnt     = ( int   * ) malloc ( sizeof ( int    ) * (int) journeys.size()    ) ;
+    dj          = ( double* ) malloc ( sizeof ( double ) * (int) journeys.size()    ) ;
+    lb          = ( double* ) malloc ( sizeof ( double ) * (int) journeys.size()    ) ;
+    obj         = ( double* ) malloc ( sizeof ( double ) * (int) journeys.size()    ) ;
+    ub          = ( double* ) malloc ( sizeof ( double ) * (int) journeys.size()    ) ;
+    x           = ( double* ) malloc ( sizeof ( double ) * (int) journeys.size()    ) ;
 
-    rhs_max      = ( double* ) malloc ( sizeof ( double ) * 1                        ) ;
-    sense_max    = ( char*   ) malloc ( sizeof ( char   ) * 1                        ) ;
-    rmatbeg_max  = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
-    rmatind_max  = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
-    rmatcnt_max  = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
-    rmatval_max  = ( double* ) malloc ( sizeof ( double ) * ( int ) journeys.size () ) ;
+    rhs_max     = ( double* ) malloc ( sizeof ( double ) * 1                        ) ;
+    sense_max   = ( char*   ) malloc ( sizeof ( char   ) * 1                        ) ;
+    rmatbeg_max = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
+    rmatind_max = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
+    rmatcnt_max = ( int*    ) malloc ( sizeof ( int    ) * ( int ) journeys.size () ) ;
+    rmatval_max = ( double* ) malloc ( sizeof ( double ) * ( int ) journeys.size () ) ;
 
     for (int i = 0; i < 1; ++i) {
         rhs_max[i]   = 27.0;
@@ -114,7 +154,7 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < t.N; ++i) {
         rhs  [i] = 1.0;
-        sense[i] = 'E';
+        sense[i] = 'G';
     }
 
     for (int i = 0; i < (int) journeys.size(); ++i) { // Contagem de não-zeros
@@ -154,7 +194,7 @@ int main(int argc, char *argv[]) {
                     //rmatbeg[i] + rmatcnt[i], rmatbeg[i], rmatcnt[i]);
             k++;
         }
-        //printf("\n");
+        //printf("\n"); }
     }
 
     status = CPXnewrows (env, lp, t.N, rhs, sense, NULL, NULL);

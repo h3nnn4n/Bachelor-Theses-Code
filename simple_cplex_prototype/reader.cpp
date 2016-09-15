@@ -39,11 +39,19 @@
 #include <iostream>
 #include <fstream>
 
+#include <cstdlib>
+#include <cstdio>
+
 #include "types.h"
 #include "reader.h"
 
 _csp file_reader(std::string name){
     std::ifstream f(name);
+
+    if ( !f ) {
+        std::cout << "Could not open " << name << std::endl;
+        abort();
+    }
 
     _csp csp;
 
