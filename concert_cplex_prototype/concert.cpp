@@ -12,6 +12,7 @@
 #include "utils.h"
 #include "random.h"
 #include "model.h"
+#include "subproblem.h"
 
 #include <ilcplex/ilocplex.h>
 ILOSTLBEGIN
@@ -48,8 +49,7 @@ int main (int argc, char **argv) {
         IloNumVarArray var(env);
         IloRangeArray con(env);
 
-
-        populate_model (model, var, con, &t, journeys) ;
+        populate_model(model, var, con, &t, journeys) ;
 
         IloCplex cplex(model);
         cplex.exportModel("lpex1.lp");
