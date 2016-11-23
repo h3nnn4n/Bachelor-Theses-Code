@@ -15,13 +15,7 @@
 #include <ilcplex/ilocplex.h>
 ILOSTLBEGIN
 
-static void
-      populatebyrow     (IloModel model, IloNumVarArray var, IloRangeArray con),
-      populatebycolumn  (IloModel model, IloNumVarArray var, IloRangeArray con),
-      populatebynonzero (IloModel model, IloNumVarArray var, IloRangeArray con);
-
-int
-main (int argc, char **argv) {
+int main (int argc, char **argv) {
     IloEnv   env;
     try {
         IloModel model(env);
@@ -39,45 +33,11 @@ main (int argc, char **argv) {
 
         _csp t = file_reader(input_name);
         std::vector<_journey> journeys;
-        std::map<int, bool> covered;
 
         //srand(time(NULL));
         srand(666);
 
-        for (int i = 0; i < t.N; ++i)
-            covered[i] = false;
-        covered[0] = true;
-
-        for (int i = 0; i < (int) ceil(t.N / 3); ++i) {
-            _journey p = random_journey(&t);
-            journeys.push_back(p);
-            for (int j = 0; j < (int) p.covered.size(); ++j) {
-                covered[p.covered[j]] = true;
-            }
-        }
-
-        for (int i = 0; i < (int) covered.size(); ++i) {
-            if ( !covered[i] ) {
-                std::cout << i << " is not covered" << std::endl;
-                if ( test_random_journey_from(&t, i) ) {
-                    std::cout << "Genearting a cover that starts at it" << std::endl;
-                    _journey p = random_journey_from(&t, i);
-                    if ( (int) p.covered.size() < 2 )
-                        std::cout << "Something if Funky" << std::endl;
-                    journeys.push_back(p);
-                    for (int j = 0; j < (int) p.covered.size(); ++j)
-                        covered[p.covered[j]] = true;
-                } else {
-                    std::cout << "It is an end point, generating a cover that has it" << std::endl;
-                    _journey p = random_journey_to(&t, i);
-                    if ( (int) p.covered.size() < 2 )
-                        std::cout << "Something if Funky" << std::endl;
-                    journeys.push_back(p);
-                    for (int j = 0; j < (int) p.covered.size(); ++j)
-                        covered[p.covered[j]] = true;
-                }
-            }
-        }
+        journeys.push_back(all_powerful_journey(&t));
 
         print_journeys(journeys);
         printf("\n");
@@ -111,8 +71,8 @@ main (int argc, char **argv) {
             obj.setLinearCoef(var[i], journeys[i].cost);
 
             for (int j = 0; j < (int)journeys[i].covered.size(); ++j) {
-               con[journeys[i].covered[j] - 1].setLinearCoef(var[i], 1.0);
                printf("%d %d\n", i, journeys[i].covered[j]);
+               con[journeys[i].covered[j]].setLinearCoef(var[i], 1.0);
             }
         }
 
@@ -159,62 +119,7 @@ main (int argc, char **argv) {
     env.end();
 
     return 0;
-}  // END main
-
-
-// To populate by row, we first create the variables, and then use them to
-// create the range constraints and objective.
-
-    static void
-populatebyrow (IloModel model, IloNumVarArray x, IloRangeArray c)
-{
-    IloEnv env = model.getEnv();
-
-    x.add(IloNumVar(env, 0.0, 40.0));
-    x.add(IloNumVar(env));
-    x.add(IloNumVar(env));
-
-    model.add(IloMaximize(env, x[0] + 2 * x[1] + 3 * x[2]));
-
-    c.add( - x[0] +     x[1] + x[2] <= 20);
-    c.add(   x[0] - 3 * x[1] + x[2] <= 30);
-
-    x[0].setName("x1");
-    x[1].setName("x2");
-    x[2].setName("x3");
-
-    c[0].setName("c1");
-    c[1].setName("c2");
-    model.add(c);
-
-}  // END populatebyrow
-
-
-// To populate by column, we first create the range constraints and the
-// objective, and then create the variables and add them to the ranges and
-// objective using column expressions.
-
-    static void
-populatebycolumn (IloModel model, IloNumVarArray x, IloRangeArray c)
-{
-    IloEnv env = model.getEnv();
-
-    IloObjective obj = IloMaximize(env);
-    c.add(IloRange(env, -IloInfinity, 20.0, "c1"));
-    c.add(IloRange(env, -IloInfinity, 30.0, "c2"));
-
-    x.add(IloNumVar(obj(1.0) + c[0](-1.0) + c[1]( 1.0), 0.0, 40.0));
-    x.add(IloNumVar(obj(2.0) + c[0]( 1.0) + c[1](-3.0)));
-    x.add(IloNumVar(obj(3.0) + c[0]( 1.0) + c[1]( 1.0)));
-
-    x[0].setName("x1");
-    x[1].setName("x2");
-    x[2].setName("x3");
-
-    model.add(obj);
-    model.add(c);
-
-}  // END populatebycolumn
+}
 
 
 // To populate by nonzero, we first create the rows, then create the

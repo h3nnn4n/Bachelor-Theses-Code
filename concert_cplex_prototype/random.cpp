@@ -5,6 +5,25 @@
 #include "types.h"
 #include "random.h"
 
+_journey all_powerful_journey(_csp *csp) {
+    _journey journey;
+    journey.cost = 0;
+
+    for (int i = 0; i < (int)csp->graph.size(); ++i) {
+        for (int j = 0; j < (int)csp->graph[j].size(); ++j) {
+            journey.cost += csp->graph[i][j].cost;
+        }
+    }
+
+    for (int i = 0; i < csp->N; ++i) {
+        journey.covered.push_back(i);
+    }
+
+    journey.cost *= 2;
+
+    return journey;
+}
+
 _journey random_journey(_csp *csp) {
     while ( 1 ) {
         _journey journey;

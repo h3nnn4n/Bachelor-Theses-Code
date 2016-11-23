@@ -3,6 +3,7 @@
 
 #include "types.h"
 
+_journey all_powerful_journey ( _csp *csp                 ) ;
 _journey random_journey       ( _csp *csp                 ) ;
 _journey random_journey_from  ( _csp *csp, int start_from ) ;
 _journey random_journey_to    ( _csp *csp, int start_from ) ;
