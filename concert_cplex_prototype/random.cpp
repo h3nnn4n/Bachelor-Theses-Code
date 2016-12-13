@@ -5,6 +5,7 @@
 #include "types.h"
 #include "random.h"
 
+// Builds a journey that covers everything
 _journey all_powerful_journey(_csp *csp) {
     _journey journey;
     journey.cost = 0;
