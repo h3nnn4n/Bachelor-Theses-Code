@@ -40,6 +40,7 @@ int main (int argc, char **argv) {
         srand(666);
 
         journeys.push_back(all_powerful_journey(&t));
+        journeys.push_back(random_journey(&t));
 
         print_journeys(journeys);
         printf("\n");

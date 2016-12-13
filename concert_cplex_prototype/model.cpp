@@ -43,5 +43,4 @@ void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _cs
     model.add(obj);
     model.add(con);
     model.add(var);
-
 }
