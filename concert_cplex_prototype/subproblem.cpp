@@ -10,52 +10,56 @@
 using namespace std;
 
 void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vector<_journey> &journeys) {
-    double adj_mat [t->N + 2][t->N + 2];
-    double time_mat[t->N + 2][t->N + 2];
-    double cost_mat[t->N + 2][t->N + 2];
+    static bool   first = true;
+    static double adj_mat [t->N + 2][t->N + 2];
+    static double time_mat[t->N + 2][t->N + 2];
+    static double cost_mat[t->N + 2][t->N + 2];
 
     IloEnv         env         ;
     IloModel       model(env  );
     IloCplex       cplex(model);
 
-    for (int i = 0; i < t->N+2; ++i) {
-        for (int j = 0; j < t->N+2; ++j) {
-            adj_mat [i][j] = 0;
-            cost_mat[i][j] = 0;
-            time_mat[i][j] = 0;
+    if ( first ) {
+        first = false;
+        for (int i = 0; i < t->N+2; ++i) {
+            for (int j = 0; j < t->N+2; ++j) {
+                adj_mat [i][j] = 0;
+                cost_mat[i][j] = 0;
+                time_mat[i][j] = 0;
+            }
         }
-    }
 
-    // This populates an adjacency matrix, cost matrix and a time matrix
-    //printf("%d\n", (int)t->graph.size());
-    for (int i = 0; i < (int)t->graph.size(); ++i) {
-        for (int j = 0; j < (int)t->graph[i].size(); ++j) {
-            //printf("%2d -> %2d\n", i, t->graph[i][j].dest);
-            adj_mat [i][t->graph[i][j].dest] = 1.0;
-            cost_mat[i][t->graph[i][j].dest] = t->graph[i][j].cost;
-            time_mat[i][t->graph[i][j].dest] = (t->task[t->graph[i][j].dest].end_time    -
-                                                t->task[t->graph[i][j].dest].start_time) +
-                                               (t->task[i].end_time                      -
-                                                t->task[i].start_time                  ) ;
+        // This populates an adjacency matrix, cost matrix and a time matrix
+        //printf("%d\n", (int)t->graph.size());
+        for (int i = 0; i < (int)t->graph.size(); ++i) {
+            for (int j = 0; j < (int)t->graph[i].size(); ++j) {
+                //printf("%2d -> %2d\n", i, t->graph[i][j].dest);
+                adj_mat [i][t->graph[i][j].dest] = 1.0;
+                cost_mat[i][t->graph[i][j].dest] = t->graph[i][j].cost;
+                time_mat[i][t->graph[i][j].dest] = (t->task[t->graph[i][j].dest].end_time    -
+                                                    t->task[t->graph[i][j].dest].start_time) +
+                                                (t->task[i].end_time                      -
+                                                    t->task[i].start_time                  ) ;
+            }
+            //printf("\n");
         }
-        //printf("\n");
-    }
 
-    // Adds the 2 virtual nodes
-    for (int i = 0; i < t->N; ++i) {
-        adj_mat[t->N][i     ] = 1.0;
-        adj_mat[i   ][t->N+1] = 1.0;
-    }
+        // Adds the 2 virtual nodes
+        for (int i = 0; i < t->N; ++i) {
+            adj_mat[t->N][i     ] = 1.0;
+            adj_mat[i   ][t->N+1] = 1.0;
+        }
 
-    // Print the matrix, for debugging purposes
-    //for (int i = 0; i < t->N+2; ++i) {
-        //for (int j = 0; j < t->N+2; ++j) {
-            //printf("%2.1f ", adj_mat[i][j]);
-            ////printf("%2.1f ", time_mat[i][j]);
-            ////printf("%2.1f ", cost_mat[i][j]);
+        // Print the matrix, for debugging purposes
+        //for (int i = 0; i < t->N+2; ++i) {
+            //for (int j = 0; j < t->N+2; ++j) {
+                //printf("%2.1f ", adj_mat[i][j]);
+                ////printf("%2.1f ", time_mat[i][j]);
+                ////printf("%2.1f ", cost_mat[i][j]);
+            //}
+            //printf("\n");
         //}
-        //printf("\n");
-    //}
+    }
 
     // Adds the variables for the edges
     // Makes a (N+2) x (N+2) matrix
