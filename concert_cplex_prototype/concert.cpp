@@ -44,8 +44,8 @@ int main (int argc, char **argv) {
             //journeys.push_back(random_journey(&t));
         //}
 
-        print_journeys(journeys);
-        printf("\n");
+        //print_journeys(journeys);
+        //printf("\n");
         //return 0;
 
         // begins model construction

@@ -5,6 +5,8 @@
 #include <ilcplex/ilocplex.h>
 #include <ilcp/cpext.h>
 
+//#define __show_steps_subp
+
 using namespace std;
 
 void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vector<_journey> &journeys) {
@@ -25,10 +27,14 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     }
 
     // This populates an adjacency matrix, cost matrix and a time matrix
+#ifdef __show_steps_subp
     printf("%d\n", (int)t->graph.size());
+#endif
     for (int i = 0; i < (int)t->graph.size(); ++i) {
         for (int j = 0; j < (int)t->graph[i].size(); ++j) {
+#ifdef __show_steps_subp
             printf("%2d -> %2d\n", i, t->graph[i][j].dest);
+#endif
             adj_mat [i][t->graph[i][j].dest] = 1.0;
             cost_mat[i][t->graph[i][j].dest] = t->graph[i][j].cost;
             time_mat[i][t->graph[i][j].dest] = (t->task[t->graph[i][j].dest].end_time    -
@@ -36,7 +42,9 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
                                                (t->task[i].end_time                      -
                                                 t->task[i].start_time                  ) ;
         }
-        //printf("\n");
+#ifdef __show_steps_subp
+        printf("\n");
+#endif
     }
 
     // Adds the 2 virtual nodes
@@ -46,6 +54,7 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     }
 
     // Print the matrix, for debugging purposes
+#ifdef __show_steps_subp
     for (int i = 0; i < t->N+2; ++i) {
         for (int j = 0; j < t->N+2; ++j) {
             printf("%2.1f ", adj_mat[i][j]);
@@ -54,6 +63,7 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
         }
         printf("\n");
     }
+#endif
 
     // Adds the variables for the edges
     // Makes a (N+2) x (N+2) matrix
@@ -72,7 +82,9 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
         }
             model.add(y[i]);
     }
+#ifdef __show_steps_subp
     printf("Added y_(i,j) vars\n");
+#endif
 
     // Adds the vars for the vertex
     IloNumVarArray v = IloNumVarArray(env, t->N+2, 0, 1);
@@ -82,7 +94,9 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
         v[i].setName(n);
     }
     model.add(v);
+#ifdef __show_steps_subp
     printf("Added v_a vars\n");
+#endif
 
     { //Sets the objective function
         IloNumExpr obj(env);
@@ -117,7 +131,9 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
         model.add(expr == 1);
         expr.end();
     }
+#ifdef __show_steps_subp
     printf("Added Sink and Source constraints\n");
+#endif
 
     // Flow conservation contraints
     // TODO: Double check this later
@@ -138,7 +154,9 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
             expr.end();
         }
     }
+#ifdef __show_steps_subp
     printf("Added flow conservation constraints\n");
+#endif
 
     { // Time limite contraint
         IloNumExpr expr(env);
@@ -150,8 +168,9 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
         model.add(expr <= t->time_limit);
         expr.end();
     }
-
+#ifdef __show_steps_subp
     printf("Added time limit contraint\n");
+#endif
 
     if ( !cplex.solve() ) {
         env.error() << "Failed to optimize SubProblem" << endl;
@@ -159,20 +178,20 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     }
 
     IloNumArray vals(env);
+#ifdef __show_steps_subp
     env.out() << "Solution status = " << cplex.getStatus() << endl;
     env.out() << "Solution value  = " << cplex.getObjValue() << endl;
+#endif
     for (int i = 0; i < t->N+2; ++i) {
         cplex.getValues(vals, y[i]);
+#ifdef __show_steps_subp
         env.out() << "y["<<i<<"]      = " << vals << endl;
+#endif
         }
     cplex.getValues(vals, v);
+#ifdef __show_steps_subp
     env.out() << "v         = " << vals << endl;
-    //cplex.getSlacks(vals, model);
-    //env.out() << "Slacks        = " << vals << endl;
-    //cplex.getDuals(vals, model);
-    //env.out() << "Duals         = " << vals << endl;
-    //cplex.getReducedCosts(vals, model);
-    //env.out() << "Reduced Costs = " << vals << endl;
+#endif
 
     cplex.exportModel("subp.lp");
 }

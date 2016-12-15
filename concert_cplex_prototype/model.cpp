@@ -14,7 +14,7 @@ void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _cs
         sprintf(n, "c%d", i);
         con.add(IloRange(env, 1.0, 1.0, n));
     }
-    printf("Added constraint\n");
+    //printf("Added constraint\n");
 
     // Adds one variable for each existing journey
     for (int i = 0; i < (int) journeys.size(); ++i) {
@@ -24,7 +24,7 @@ void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _cs
         sprintf(n, "x%d", i);
         var[i].setName(n);
     }
-    printf("Added vars\n");
+    //printf("Added vars\n");
 
     // Populates the 0-1 matrix
     for (int i = 0; i < (int) journeys.size(); ++i) {
@@ -35,14 +35,14 @@ void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _cs
             con[journeys[i].covered[j]].setLinearCoef(var[i], 1.0);
         }
     }
-    printf("Populated the matrix\n");
+    //printf("Populated the matrix\n");
 
     // Configures the contrainf to the number of journeys that can be used
     con.add(IloRange(env, 1.0, 1.0, "c_nj"));
     for (int i = 0; i < (int) journeys.size(); ++i) {
         con[t->N].setLinearCoef(var[i], 1.0);
     }
-    printf("Master constraint\n");
+    //printf("Master constraint\n");
 
     model.add(obj);
     model.add(con);
