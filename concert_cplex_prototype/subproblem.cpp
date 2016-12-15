@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include "types.h"
 
-#include <ilcplex/ilocplex.h> 
+#include <ilcplex/ilocplex.h>
 #include <ilcp/cpext.h>
+
+using namespace std;
 
 void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vector<_journey> &journeys) {
     double adj_mat [t->N + 2][t->N + 2];
@@ -16,9 +18,6 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     IloNumVarArray var  (env  );
     IloRangeArray  con  (env  );
 
-    // Obective is to minimize
-    IloObjective obj = IloMinimize(env);
-
     for (int i = 0; i < t->N+2; ++i) {
         for (int j = 0; j < t->N+2; ++j) {
             adj_mat [i][j] = 0;
@@ -28,7 +27,7 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     }
 
     // This populates an adjacency matrix, cost matrix and a time matrix
-    printf("%d\n", t->graph.size());
+    printf("%d\n", (int)t->graph.size());
     for (int i = 0; i < (int)t->graph.size(); ++i) {
         for (int j = 0; j < (int)t->graph[i].size(); ++j) {
             printf("%2d -> %2d\n", i, t->graph[i][j].dest);
@@ -85,9 +84,26 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     }
     printf("Added v_a vars\n");
 
+    { //Sets the objective function
+        IloNumExpr obj(env);
+        for (int i = 0; i < t->N+2; ++i) {
+            for (int j = 0; j < t->N+2; ++j) {
+                obj += cost_mat[i][j] * y[i][j];
+            }
+        }
+
+        for (int i = 0; i < t->N; ++i) {
+            obj += duals[i] * v[i];
+        }
+
+        obj += v[t->N]; // Mi
+        model.add(IloMinimize(env, obj));
+        obj.end();
+    }
+
+
     // Source and Sink contraints
-    {
-        IloNumExpr expr(env); // Source
+    { IloNumExpr expr(env); // Source
         for (int i = 0; i < t->N; ++i) {
             expr += y[i][t->N];
         }
@@ -124,9 +140,35 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     }
     printf("Added flow conservation constraints\n");
 
-    model.add(obj);
-    model.add(con);
-    model.add(var);
+    { // Time limite contraint
+        IloNumExpr expr(env);
+        for (int j = 0; j < t->N+2; ++j) {
+            for (int i = 0; i < t->N+2; ++i) {
+                expr += time_mat[i][j] * y[i][j];
+            }
+        }
+        model.add(expr <= t->time_limit);
+        expr.end();
+    }
+
+    printf("Added time limit contraint\n");
+
+    if ( !cplex.solve() ) {
+        env.error() << "Failed to optimize SubProblem" << endl;
+        throw(-1);
+    }
+
+    IloNumArray vals(env);
+    env.out() << "Solution status = " << cplex.getStatus() << endl;
+    env.out() << "Solution value  = " << cplex.getObjValue() << endl;
+    cplex.getValues(vals, model);
+    env.out() << "Values        = " << vals << endl;
+    cplex.getSlacks(vals, model);
+    env.out() << "Slacks        = " << vals << endl;
+    cplex.getDuals(vals, model);
+    env.out() << "Duals         = " << vals << endl;
+    cplex.getReducedCosts(vals, model);
+    env.out() << "Reduced Costs = " << vals << endl;
 
     cplex.exportModel("subp.lp");
 }
