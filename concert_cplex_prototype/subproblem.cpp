@@ -1,33 +1,37 @@
+#include <iostream>
 #include <stdio.h>
 #include "types.h"
 
-#include <ilcplex/ilocplex.h>
+#include <ilcplex/ilocplex.h> 
+#include <ilcp/cpext.h>
 
 void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vector<_journey> &journeys) {
     double adj_mat [t->N + 2][t->N + 2];
     double time_mat[t->N + 2][t->N + 2];
     double cost_mat[t->N + 2][t->N + 2];
 
-    IloEnv   env;
-    IloModel model(env);
-    IloCplex cplex(model);
-    IloNumVarArray var(env);
-    IloRangeArray con(env);
+    IloEnv         env         ;
+    IloModel       model(env  );
+    IloCplex       cplex(model);
+    IloNumVarArray var  (env  );
+    IloRangeArray  con  (env  );
 
     // Obective is to minimize
     IloObjective obj = IloMinimize(env);
 
-    for (int i = 0; i < t->N; ++i) {
-        for (int j = 0; j < t->N; ++j) {
+    for (int i = 0; i < t->N+2; ++i) {
+        for (int j = 0; j < t->N+2; ++j) {
             adj_mat [i][j] = 0;
             cost_mat[i][j] = 0;
             time_mat[i][j] = 0;
         }
     }
 
-    for (int i = 0; i < t->N; ++i) {
-        for (int j = 0; j < t->graph[i].size(); ++j) {
-            //printf("%2d -> %2d\n", i, t->graph[i][j].dest);
+    // This populates an adjacency matrix, cost matrix and a time matrix
+    printf("%d\n", t->graph.size());
+    for (int i = 0; i < (int)t->graph.size(); ++i) {
+        for (int j = 0; j < (int)t->graph[i].size(); ++j) {
+            printf("%2d -> %2d\n", i, t->graph[i][j].dest);
             adj_mat [i][t->graph[i][j].dest] = 1.0;
             cost_mat[i][t->graph[i][j].dest] = t->graph[i][j].cost;
             time_mat[i][t->graph[i][j].dest] = (t->task[t->graph[i][j].dest].end_time    -
@@ -36,84 +40,89 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
                                                 t->task[i].start_time                  ) ;
         }
         //printf("\n");
+    }
 
+    // Adds the 2 virtual nodes
+    for (int i = 0; i < t->N; ++i) {
         adj_mat[t->N][i     ] = 1.0;
         adj_mat[i   ][t->N+1] = 1.0;
     }
 
-    // Constraint for source/sink
-    // Both must be equal to 1
-    {
-        char n[256];
-        sprintf(n, "source_flow");
-        con.add(IloRange(env, 1.0, 1.0, n));
-    } {
-        char n[256];
-        sprintf(n, "sink_flow");
-        con.add(IloRange(env, 1.0, 1.0, n));
+    // Print the matrix, for debugging purposes
+    for (int i = 0; i < t->N+2; ++i) {
+        for (int j = 0; j < t->N+2; ++j) {
+            printf("%2.1f ", adj_mat[i][j]);
+            //printf("%2.1f ", time_mat[i][j]);
+            //printf("%2.1f ", cost_mat[i][j]);
+        }
+        printf("\n");
     }
-    printf("Added {source,sink}_flow constraints\n");
-
-    // Flow constraint for the vertexes (tasks)
-    // Adds one constraint for each task
-    for (int i = 0; i < t->N; ++i) {
-        char n[256];
-        sprintf(n, "task_%d", i);
-        con.add(IloRange(env, 0.0, 0.0, n));
-    }
-    printf("Added constraint for tasks\n");
 
     // Adds the variables for the edges
-    for (int i = 0; i < (t->N+2) * (t->N+2); ++i) {
-        var.add(IloNumVar(env, 0.0, 1.0, ILOBOOL));
-
-        char n[256];
-        sprintf(n, "y_%d", i);
-        var[i].setName(n);
+    // Makes a (N+2) x (N+2) matrix
+    IloArray<IloNumVarArray> y(env, t->N+2);
+    for (int i = 0; i < t->N+2; ++i) {
+        y[i] = IloNumVarArray(env, t->N+2, 0, 1);
     }
-    printf("Added y_a\n");
+
+    // Set the variable names. This is mostly usefull
+    // for debugging the model and reading the lp output
+    for (int i = 0; i < t->N+2; ++i) {
+        for (int j = 0; j < t->N+2; ++j) {
+            char n[256];
+            sprintf(n, "y_%d,%d", j, i);
+            y[i][j].setName(n);
+        }
+    }
+    printf("Added y_(i,j) vars\n");
 
     // Adds the vars for the vertex
+    IloNumVarArray v = IloNumVarArray(env, t->N+2, 0, 1);
     for (int i = 0; i < t->N; ++i) {
-        var.add(IloNumVar(env, 0.0, 1.0, ILOBOOL));
-
         char n[256];
         sprintf(n, "v_%d", i);
-        var[i].setName(n);
+        v[i].setName(n);
     }
-    printf("Added v_a\n");
+    printf("Added v_a vars\n");
 
-    int base = 0;
+    // Source and Sink contraints
+    {
+        IloNumExpr expr(env); // Source
+        for (int i = 0; i < t->N; ++i) {
+            expr += y[i][t->N];
+        }
+        model.add(expr == 1);
+        expr.end();
+    } {
+        IloNumExpr expr(env); // Sink
+        for (int i = 0; i < t->N; ++i) {
+            expr += y[t->N+1][i];
+        }
+        model.add(expr == 1);
+        expr.end();
+    }
+    printf("Added Sink and Source constraints\n");
 
-    // Populates the 0-1 matrix
-    //for (int i = 0; i < t->N; ++i) {
-        //con[base].setLinearCoef(
-        //for (int j = 0; j < (int)journeys[i].covered.size(); ++j) {
-            //printf("%d %d\n", i, journeys[i].covered[j]);
-            //con[journeys[i].covered[j]-1].setLinearCoef(var[i], 1.0);
-        //}
-    //}
-    //printf("Populated the matrix\n");
-
-
-
-    //// Populates the 0-1 matrix
-    //for (int i = 0; i < (int) journeys.size(); ++i) {
-        //obj.setLinearCoef(var[i], journeys[i].cost);
-
-        //for (int j = 0; j < (int)journeys[i].covered.size(); ++j) {
-            //printf("%d %d\n", i, journeys[i].covered[j]);
-            //con[journeys[i].covered[j]-1].setLinearCoef(var[i], 1.0);
-        //}
-    //}
-    //printf("Populated the matrix\n");
-
-    //// Configures the contrainf to the number of journeys that can be used
-    //con.add(IloRange(env, 1.0, 1.0, "c_nj"));
-    //for (int i = 0; i < (int) journeys.size(); ++i) {
-        //con[t->N].setLinearCoef(var[i], 1.0);
-    //}
-    //printf("Master constraint\n");
+    // Flow conservation contraints
+    // TODO: Double check this later
+    for (int j = 0; j < t->N; ++j) {
+        {
+            IloNumExpr expr(env);
+            for (int i = 0; i < t->N+2; ++i) {
+                expr += adj_mat[i][j] * y[i][j];
+            }
+            model.add(expr == v[j]);
+            expr.end();
+        } {
+            IloNumExpr expr(env);
+            for (int k = 0; k < t->N+2; ++k) {
+                expr += adj_mat[j][k] * y[j][k];
+            }
+            model.add(expr == v[j]);
+            expr.end();
+        }
+    }
+    printf("Added flow conservation constraints\n");
 
     model.add(obj);
     model.add(con);
