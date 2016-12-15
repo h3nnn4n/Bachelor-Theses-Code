@@ -78,29 +78,30 @@ _csp file_reader(std::string name){
         f >> e.dest;
         f >> e.cost;
         if ( !f ) continue;
-        csp.graph[i].push_back(e);
+        e.dest--;
+        csp.graph[i-1].push_back(e);
     }
 
-    for (int i = 1; i <= (int)csp.graph.size(); ++i) {
-        if ( csp.graph[i].size() == 0 ) {
-            csp.end_nodes.push_back(i);
-        }
-    }
+    //for (int i = 0; i < (int)csp.graph.size(); ++i) {
+        //if ( csp.graph[i].size() == 0 ) {
+            //csp.end_nodes.push_back(i);
+        //}
+    //}
 
-    std::vector<bool> visited;
-    visited.resize(csp.N + 1, false);
+    //std::vector<bool> visited;
+    //visited.resize(csp.N + 1, false);
 
-    for (int i = 0; i < (int)csp.graph.size(); ++i) {
-        for (int j = 0; j < (int)csp.graph[i].size(); ++j) {
-            visited[csp.graph[i][j].dest] = true;
-        }
-    }
+    //for (int i = 0; i < (int)csp.graph.size(); ++i) {
+        //for (int j = 0; j < (int)csp.graph[i].size(); ++j) {
+            //visited[csp.graph[i][j].dest] = true;
+        //}
+    //}
 
-    for (int i = 0; i < (int)visited.size(); ++i) {
-        if ( !visited[i] ) {
-            csp.start_nodes.push_back(i);
-        }
-    }
+    //for (int i = 0; i < (int)visited.size(); ++i) {
+        //if ( !visited[i] ) {
+            //csp.start_nodes.push_back(i);
+        //}
+    //}
 
     return csp;
 }

@@ -11,7 +11,7 @@ _journey all_powerful_journey(_csp *csp) {
     journey.cost = 0;
 
     for (int i = 0; i < (int)csp->graph.size(); ++i) {
-        for (int j = 0; j < (int)csp->graph[j].size(); ++j) {
+        for (int j = 0; j < (int)csp->graph[i].size(); ++j) {
             journey.cost += csp->graph[i][j].cost;
         }
     }
