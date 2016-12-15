@@ -15,8 +15,6 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     IloEnv         env         ;
     IloModel       model(env  );
     IloCplex       cplex(model);
-    IloNumVarArray var  (env  );
-    IloRangeArray  con  (env  );
 
     for (int i = 0; i < t->N+2; ++i) {
         for (int j = 0; j < t->N+2; ++j) {
@@ -69,9 +67,10 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     for (int i = 0; i < t->N+2; ++i) {
         for (int j = 0; j < t->N+2; ++j) {
             char n[256];
-            sprintf(n, "y_%d,%d", j, i);
+            sprintf(n, "y_%d,%d", i, j);
             y[i][j].setName(n);
         }
+            model.add(y[i]);
     }
     printf("Added y_(i,j) vars\n");
 
@@ -82,6 +81,7 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
         sprintf(n, "v_%d", i);
         v[i].setName(n);
     }
+    model.add(v);
     printf("Added v_a vars\n");
 
     { //Sets the objective function
@@ -93,10 +93,10 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
         }
 
         for (int i = 0; i < t->N; ++i) {
-            obj += duals[i] * v[i];
+            obj -= duals[i] * v[i];
         }
 
-        obj += v[t->N]; // Mi
+        obj -= duals[t->N]; // Mi
         model.add(IloMinimize(env, obj));
         obj.end();
     }
@@ -105,14 +105,14 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     // Source and Sink contraints
     { IloNumExpr expr(env); // Source
         for (int i = 0; i < t->N; ++i) {
-            expr += y[i][t->N];
+            expr += adj_mat[i][t->N+1] * y[i][t->N+1];
         }
         model.add(expr == 1);
         expr.end();
     } {
         IloNumExpr expr(env); // Sink
         for (int i = 0; i < t->N; ++i) {
-            expr += y[t->N+1][i];
+            expr += adj_mat[t->N][i] * y[t->N][i];
         }
         model.add(expr == 1);
         expr.end();
@@ -161,14 +161,18 @@ void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vect
     IloNumArray vals(env);
     env.out() << "Solution status = " << cplex.getStatus() << endl;
     env.out() << "Solution value  = " << cplex.getObjValue() << endl;
-    cplex.getValues(vals, model);
-    env.out() << "Values        = " << vals << endl;
-    cplex.getSlacks(vals, model);
-    env.out() << "Slacks        = " << vals << endl;
-    cplex.getDuals(vals, model);
-    env.out() << "Duals         = " << vals << endl;
-    cplex.getReducedCosts(vals, model);
-    env.out() << "Reduced Costs = " << vals << endl;
+    for (int i = 0; i < t->N+2; ++i) {
+        cplex.getValues(vals, y[i]);
+        env.out() << "y["<<i<<"]      = " << vals << endl;
+        }
+    cplex.getValues(vals, v);
+    env.out() << "v         = " << vals << endl;
+    //cplex.getSlacks(vals, model);
+    //env.out() << "Slacks        = " << vals << endl;
+    //cplex.getDuals(vals, model);
+    //env.out() << "Duals         = " << vals << endl;
+    //cplex.getReducedCosts(vals, model);
+    //env.out() << "Reduced Costs = " << vals << endl;
 
     cplex.exportModel("subp.lp");
 }

@@ -40,9 +40,9 @@ int main (int argc, char **argv) {
 
         journeys.push_back(all_powerful_journey(&t));
 
-        for (int i = 0; i < 5; ++i) {
-            journeys.push_back(random_journey(&t));
-        }
+        //for (int i = 0; i < 5; ++i) {
+            //journeys.push_back(random_journey(&t));
+        //}
 
         print_journeys(journeys);
         printf("\n");
@@ -67,13 +67,6 @@ int main (int argc, char **argv) {
         // reduced cost and begin the column generation process
         IloNumArray red_cost(env);
         IloNumArray duals(env);
-        cplex.getReducedCosts(red_cost, var);
-        cplex.getDuals(duals, con);
-        subproblem(red_cost, duals, &t, journeys);
-
-        //while ( 1 ) {
-
-        //}
 
         //IloNumArray vals(env);
         //env.out() << "Solution status = " << cplex.getStatus() << endl;
@@ -86,6 +79,16 @@ int main (int argc, char **argv) {
         //env.out() << "Duals         = " << vals << endl;
         //cplex.getReducedCosts(vals, var);
         //env.out() << "Reduced Costs = " << vals << endl;
+        //cout << "\n\n";
+
+        cplex.getReducedCosts(red_cost, var);
+        cplex.getDuals(duals, con);
+        subproblem(red_cost, duals, &t, journeys);
+
+        //while ( 1 ) {
+
+        //}
+
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;
