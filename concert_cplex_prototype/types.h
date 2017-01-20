@@ -22,6 +22,7 @@ typedef struct {
 
 typedef struct {
     int N;
+    int n_journeys;
     int time_limit;
     std::vector<_task> task;
     std::vector<std::vector<_edge > > graph;
