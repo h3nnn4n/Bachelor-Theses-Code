@@ -58,7 +58,7 @@ _csp file_reader(std::string name){
     f >> csp.N;
     f >> csp.time_limit;
 
-    csp.graph.resize(csp.N + 1);
+    csp.graph.resize(csp.N);
 
     for (int i = 0; i < csp.N; ++i) {
         int start_time, end_time;
@@ -78,7 +78,9 @@ _csp file_reader(std::string name){
         f >> e.dest;
         f >> e.cost;
         e.dest -= 1;
-        if ( !f ) continue;
+
+        //if ( e.cost == 0 ) {abort();}
+        if ( !f ) { fprintf(stderr, "foudn eof\n"); continue;}
         //e.dest--;
         csp.graph[i-1].push_back(e);
     }

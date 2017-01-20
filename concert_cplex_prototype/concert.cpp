@@ -66,7 +66,7 @@ int main (int argc, char **argv) {
 
         print_journeys(journeys);
         printf("\n");
-        //return 0;
+        return 0;
 
         // begins model construction
         IloNumVarArray var(env);
@@ -109,6 +109,20 @@ int main (int argc, char **argv) {
                 throw(-1);
             }
 
+            IloNumArray vals(env);
+            env.out() << "Solution status = " << cplex.getStatus() << endl;
+            env.out() << "Solution value  = " << cplex.getObjValue() << endl;
+            cplex.getValues(vals, var);
+            env.out() << "Values        = " << vals << endl;
+            cplex.getSlacks(vals, con);
+            env.out() << "Slacks        = " << vals << endl;
+            cplex.getDuals(vals, con);
+            env.out() << "Duals         = " << vals << endl;
+            cplex.getReducedCosts(vals, var);
+            env.out() << "Reduced Costs = " << vals << endl;
+            cout << "\n\n";
+
+
             // Solves the subproblem
             IloNumArray red_cost(env);
             IloNumArray duals(env);
@@ -120,20 +134,11 @@ int main (int argc, char **argv) {
             journeys.push_back(new_journey);
 
             // Gets a reference to the objective function and adds the new coef for the column
-            //IloObjective obj = IloMinimize(env);
             IloObjective obj = IloMinimize(env);
 
             // Create a new expression to build the new column
-            //puts("a");
-            //IloNumColumn col;
             IloNumColumn col = obj(new_journey.cost);
             printf(" cost = %d\n", new_journey.cost);
-            //IloNumExpr expr(env);
-            //obj.add(obj(new_journey.cost));
-
-            //puts("0");
-            //col += obj(new_journey.cost);
-            //puts("1");
 
             // Walks throught the new journey and builds the coeffs for the column
             for (int i = 0; i < (int)new_journey.covered.size(); ++i) {
@@ -149,27 +154,9 @@ int main (int argc, char **argv) {
             //var.add(IloNumVar( expr ));
 
             var.add(IloNumVar(obj(new_journey.cost) + col, 0.0, 1.0, ILOFLOAT));
-            //obj.setLinearCoef(var[(int)journeys.size()], new_journey.cost);
             model.add(var);
-            //model.add(obj);
-            //puts("3");
-            //expr.end();
 
-            //if ( cont++ > 20 ) reduced_cost = 0;
-
-            //switch ( cont ) {
-                //case 1:
-                    //cplex.exportModel("lpex1.lp");
-                    //break;
-                //case 2:
-                    //cplex.exportModel("lpex2.lp");
-                    //break;
-                //case 3:
-                    cplex.exportModel("lpex3.lp");
-                    //break;
-                //default:
-                    //break;
-            //}
+            //cplex.exportModel("lpex3.lp");
 
             printf(" - %d %f\n", cont, reduced_cost);
         } while ( reduced_cost != 0 );

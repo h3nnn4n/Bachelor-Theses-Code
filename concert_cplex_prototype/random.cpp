@@ -120,6 +120,11 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
 
                 //std::cout << "going to " << csp->graph[atual][x].dest << " with cost " << csp->graph[atual][x].cost << std::endl;
 
+                if ( csp->graph[atual][dest].cost == 0 ) {
+                    printf(" # %3d -> %3d has cost = %3d\n", atual, dest, csp->graph[atual][dest].cost);
+                    printf(" @ %3d -> %3d has cost = %3d\n", dest, atual, csp->graph[dest][atual].cost);
+                }
+
                 journeys[i].cost += csp->graph[atual][dest].cost;
                 journeys[i].time += csp->task[dest].end_time   - csp->task[dest].start_time;
                 journeys[i].time += csp->task[dest].start_time - csp->task[atual].end_time;
@@ -152,7 +157,17 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                             if ( journeys[k].covered[j] == dest ) {
                                 //j_index = j;
                                 if ( journeys[k].time + (csp->task[dest].end_time - csp->task[uncovered].start_time) <= csp->time_limit) {
+
+                                    journeys[k].time += (csp->task[dest].end_time - csp->task[uncovered].start_time);
+
+                                    journeys[k].cost += csp->graph[uncovered][dest].cost;
+
                                     journeys[k].covered.push_back(uncovered);
+
+                                    if ( csp->graph[uncovered][dest].cost == 0 ) {
+                                        printf(" + %3d -> %3d has cost = zero\n", uncovered, dest);
+                                    }
+
                                     covered[uncovered] = true;
                                     found_something = true;
                                     goto outtahere;
@@ -161,8 +176,7 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                         }
                     }
                 }
-outtahere:
-                if ( 0 ) {}
+outtahere:;
             }
         } while ( found_something );
 
