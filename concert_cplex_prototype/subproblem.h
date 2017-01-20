@@ -5,6 +5,6 @@
 
 #include <ilcplex/ilocplex.h>
 
-void subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *csp, std::vector<_journey> &journeys) ;
+_journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vector<_journey> &journeys, double *reduced_cost) ;
 
 #endif /* SUBPROBLEM_H */
