@@ -48,11 +48,11 @@ int main (int argc, char **argv) {
         srand(time(NULL));
         //srand(666);
 
-        // Prints the graph (it indexes from zero)
+        ////Prints the graph (it indexes from zero)
         //for (int i = 0; i < (int)t.graph.size(); ++i) {
             //printf("%3d -> ", i);
             //for (int j = 0; j < (int)t.graph[i].size(); ++j) {
-                //printf("%3d ", t.graph[i][j].dest);
+                //printf("(%3d, %4d) ", t.graph[i][j].dest, t.graph[i][j].cost);
             //}
             //printf("\n");
         //}

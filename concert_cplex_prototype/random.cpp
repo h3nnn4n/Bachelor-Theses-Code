@@ -17,7 +17,7 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         journeys.push_back(j);
     }
 
-    int tries = 1000;
+    int tries = 100000;
     int abort = tries; // Number of tries before aborting
 
     // Runs until a solution is found;
@@ -41,16 +41,21 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         }
 
         // Sets one task as starting point for each journey
+        // This parts selects all tasks that have a incidence degree of zero
         for (int i = 0; i < (int)csp->start_nodes.size(); ++i) {
             int x = csp->start_nodes[i];
             used[x] = true;
             covered[x] = true;
+            //printf("%2d = %2d\n", x, i);
         }
 
-        for (int i = (int)csp->start_nodes.size() - 1; i < csp->n_journeys ; ++i) {
+        //printf("--\n");
+
+        // This part selects the rest randomly
+        for (int i = (int)csp->start_nodes.size(); i < csp->n_journeys ; ++i) {
             bool try_again = true;
             do { // Loops until an empty espace is found
-                int x = rand() % csp->N;
+                int x = ( (int)csp->start_nodes.size() + rand() ) % csp->N;
                 if ( !used[x] ) {
                     try_again = false;
                     used[x] = true;
@@ -60,6 +65,12 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
             } while ( try_again );
             //printf("%2d\n", i);
         }
+
+        // This Piece of code makes sure that every thing is setup correctly
+        int w = 0;
+        for (int i = 0; i < csp->N; ++i) { if ( covered[i] ) w += 1; }
+        if ( w != csp->n_journeys ) { printf("%3d %3d\n", w, csp->n_journeys); }
+        assert ( w == csp->n_journeys );
 
         // Makes the journeys with the starting points found above
         int pivot = 0;
@@ -120,17 +131,16 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
 
                 //std::cout << "going to " << csp->graph[atual][x].dest << " with cost " << csp->graph[atual][x].cost << std::endl;
 
-                if ( csp->graph[atual][dest].cost == 0 ) {
-                    printf(" # %3d -> %3d has cost = %3d\n", atual, dest, csp->graph[atual][dest].cost);
-                    printf(" @ %3d -> %3d has cost = %3d\n", dest, atual, csp->graph[dest][atual].cost);
+                if ( csp->graph[atual][x].cost == 0 ) {
+                    printf(" # %3d -> %3d has cost = %3d\n", atual, dest, csp->graph[atual][x].cost);
+                    //printf(" @ %3d -> %3d has cost = %3d\n", dest, atual, csp->graph[dest][atual].cost);
                 }
 
-                journeys[i].cost += csp->graph[atual][dest].cost;
-                journeys[i].time += csp->task[dest].end_time   - csp->task[dest].start_time;
-                journeys[i].time += csp->task[dest].start_time - csp->task[atual].end_time;
+                journeys[i].cost += csp->graph[atual][x].cost;
+                journeys[i].time += csp->task[dest].end_time - csp->task[atual].end_time;
                 journeys[i].covered.push_back(dest);
 
-                covered[dest]  = true;
+                covered[dest]   = true;
                 found_something = true;
                 //printf("Added dest = %3d\n", dest);
             }
@@ -156,15 +166,15 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                         for (int j = 0; j < (int)journeys[k].covered.size(); ++j) {
                             if ( journeys[k].covered[j] == dest ) {
                                 //j_index = j;
-                                if ( journeys[k].time + (csp->task[dest].end_time - csp->task[uncovered].start_time) <= csp->time_limit) {
+                                if ( journeys[k].time + (csp->task[dest].start_time - csp->task[uncovered].start_time) <= csp->time_limit) {
 
-                                    journeys[k].time += (csp->task[dest].end_time - csp->task[uncovered].start_time);
+                                    journeys[k].time += (csp->task[dest].start_time - csp->task[uncovered].start_time);
 
-                                    journeys[k].cost += csp->graph[uncovered][dest].cost;
+                                    journeys[k].cost += csp->graph[uncovered][i].cost;
 
                                     journeys[k].covered.push_back(uncovered);
 
-                                    if ( csp->graph[uncovered][dest].cost == 0 ) {
+                                    if ( csp->graph[uncovered][i].cost == 0 ) {
                                         printf(" + %3d -> %3d has cost = zero\n", uncovered, dest);
                                     }
 

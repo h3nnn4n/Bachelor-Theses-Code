@@ -80,7 +80,8 @@ _csp file_reader(std::string name){
         e.dest -= 1;
 
         //if ( e.cost == 0 ) {abort();}
-        if ( !f ) { fprintf(stderr, "foudn eof\n"); continue;}
+        //if ( !f ) { fprintf(stderr, "foudn eof\n"); continue;}
+        if ( !f ) continue;
         //e.dest--;
         csp.graph[i-1].push_back(e);
     }
@@ -92,7 +93,7 @@ _csp file_reader(std::string name){
     }
 
     std::vector<bool> visited;
-    visited.resize(csp.N + 1, false);
+    visited.resize(csp.N, false);
 
     for (int i = 0; i < (int)csp.graph.size(); ++i) {
         for (int j = 0; j < (int)csp.graph[i].size(); ++j) {
