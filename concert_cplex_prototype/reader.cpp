@@ -77,8 +77,9 @@ _csp file_reader(std::string name){
         f >> i;
         f >> e.dest;
         f >> e.cost;
+        e.dest -= 1;
         if ( !f ) continue;
-        e.dest--;
+        //e.dest--;
         csp.graph[i-1].push_back(e);
     }
 

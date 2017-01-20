@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 #include "types.h"
 #include "random.h"
@@ -16,7 +17,8 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         journeys.push_back(j);
     }
 
-    int abort = 1000; // Number of tries before aborting
+    int tries = 1000;
+    int abort = tries; // Number of tries before aborting
 
     // Runs until a solution is found;
     bool solution_found;
@@ -39,7 +41,13 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         }
 
         // Sets one task as starting point for each journey
-        for (int i = 0; i < csp->n_journeys ; ++i) {
+        for (int i = 0; i < (int)csp->start_nodes.size(); ++i) {
+            int x = csp->start_nodes[i];
+            used[x] = true;
+            covered[x] = true;
+        }
+
+        for (int i = (int)csp->start_nodes.size() - 1; i < csp->n_journeys ; ++i) {
             bool try_again = true;
             do { // Loops until an empty espace is found
                 int x = rand() % csp->N;
@@ -58,6 +66,7 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         for (int i = 0; i < csp->n_journeys ; ++i) {
             for ( ; !used[pivot]; pivot++ );
             journeys[i].covered.push_back(pivot);
+            journeys[i].time += csp->task[pivot].end_time - csp->task[pivot].start_time;
             pivot++;
         }
 
@@ -67,6 +76,7 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         do {
             found_something = false;
 
+            // This looks for a journey using the alread found tasks as the starting point (it goes foward)
             for (int i = 0; i < (int)journeys.size(); ++i) {
                 // Picks the last covered task on the current journey
                 int atual = journeys[i].covered[(int)journeys[i].covered.size() - 1];
@@ -78,12 +88,17 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                     continue;                          // Cant start from here
                 }
 
-                int x;
+                int x = -1;
                 int dest;
                 int max_tries = 50;
                 do {
-                    x    = rand() % csp->graph[atual].size();
+                    x += 1;
+                    //x    = rand() % csp->graph[atual].size();
                     dest = csp->graph[atual][x].dest;
+
+                    if ( x == (int) csp->graph[atual].size() ) {
+                        max_tries = 1;
+                    }
 
                     if ( --max_tries == 0 )
                         break;
@@ -92,7 +107,11 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                         ////printf(" %2d -> %2d is already covered\n", atual, dest);
                     }
 
-                } while ( journeys[i].time + csp->graph[atual][dest].cost > csp->time_limit || covered[dest] );
+                    if ( journeys[i].time + (csp->task[dest].end_time - csp->task[atual].end_time) > csp->time_limit ) {
+                        //printf("TIEM LIMIT: %4d\n", journeys[i].time + (csp->task[dest].end_time - csp->task[atual].end_time));
+                    }
+
+                } while ( journeys[i].time + (csp->task[dest].end_time - csp->task[atual].end_time) > csp->time_limit || covered[dest] );
 
                 if ( max_tries == 0 ) {
                     //printf("max_tries reset\n");
@@ -102,12 +121,48 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                 //std::cout << "going to " << csp->graph[atual][x].dest << " with cost " << csp->graph[atual][x].cost << std::endl;
 
                 journeys[i].cost += csp->graph[atual][dest].cost;
-                journeys[i].time += csp->task[dest].end_time - csp->task[dest].start_time;
+                journeys[i].time += csp->task[dest].end_time   - csp->task[dest].start_time;
+                journeys[i].time += csp->task[dest].start_time - csp->task[atual].end_time;
                 journeys[i].covered.push_back(dest);
 
                 covered[dest]  = true;
                 found_something = true;
                 //printf("Added dest = %3d\n", dest);
+            }
+
+            // This looks for an edge to cover something leading to the journey
+            // Looks for an uncovered task
+            int uncovered = -1;
+            for (int i = 0; i < (int)covered.size(); ++i) {
+                if ( !covered[i] ) {
+                    uncovered = i;
+                    break;
+                }
+            }
+
+            if ( uncovered != -1 ) {
+                //printf("%2d is uncovered\n", uncovered);
+                for (int i = 0; i < (int)csp->graph[uncovered].size(); ++i) {
+                    int dest = csp->graph[uncovered][i].dest;
+                    //printf("%2d goes to %2d\n", uncovered, dest);
+
+                    //int j_index = -1;
+                    for (int k = 0; k < (int)journeys.size(); ++k) {
+                        for (int j = 0; j < (int)journeys[k].covered.size(); ++j) {
+                            if ( journeys[k].covered[j] == dest ) {
+                                //j_index = j;
+                                if ( journeys[k].time + (csp->task[dest].end_time - csp->task[uncovered].start_time) <= csp->time_limit) {
+                                    journeys[k].covered.push_back(uncovered);
+                                    covered[uncovered] = true;
+                                    found_something = true;
+                                    goto outtahere;
+                                }
+                            }
+                        }
+                    }
+                }
+outtahere:
+                if ( 0 ) {}
             }
         } while ( found_something );
 
@@ -122,13 +177,14 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         }
 
         if ( --abort == 0 ) {
-            fprintf(stderr, "Max tried exceed. Aborting\n");
-            break;
+            fprintf(stderr, "Max tries exceed. Aborting\n");
+            exit(-1);
+            //break;
         }
 
     } while ( !solution_found );
 
-    fprintf(stderr, "Found a feasible solution\n");
+    fprintf(stderr, "Found a feasible solution after %d tries \n", tries - abort);
 }
 
 // Builds a journey that covers everything

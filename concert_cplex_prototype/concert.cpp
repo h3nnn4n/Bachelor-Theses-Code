@@ -43,10 +43,12 @@ int main (int argc, char **argv) {
             t.n_journeys = t.N;
         }
 
+        printf("Starting\n");
+
         srand(time(NULL));
         //srand(666);
 
-        //// Prints the graph (it indexes from zero)
+        // Prints the graph (it indexes from zero)
         //for (int i = 0; i < (int)t.graph.size(); ++i) {
             //printf("%3d -> ", i);
             //for (int j = 0; j < (int)t.graph[i].size(); ++j) {
@@ -64,13 +66,13 @@ int main (int argc, char **argv) {
 
         print_journeys(journeys);
         printf("\n");
-        return 0;
+        //return 0;
 
         // begins model construction
         IloNumVarArray var(env);
         IloRangeArray con(env);
 
-        populate_model(model, var, con, &t, journeys) ;
+        populate_model(model, var, con, &t, journeys, &t) ;
 
         IloCplex cplex(model);
         cplex.exportModel("lpex0.lp");

@@ -5,6 +5,6 @@
 
 #include <ilcplex/ilocplex.h>
 
-void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _csp *t, std::vector<_journey> const &journeys) ;
+void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _csp *t, std::vector<_journey> const &journeys, _csp *csp) ;
 
 #endif /* MODEL_H */

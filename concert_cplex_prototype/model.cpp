@@ -2,7 +2,7 @@
 
 #include "types.h"
 
-void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _csp *t, std::vector<_journey> const &journeys) {
+void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _csp *t, std::vector<_journey> const &journeys, _csp *csp) {
     IloEnv env = model.getEnv();
 
     // Obective is to minimize
@@ -38,7 +38,7 @@ void  populate_model (IloModel model, IloNumVarArray var, IloRangeArray con, _cs
     //printf("Populated the matrix\n");
 
     // Configures the contrainf to the number of journeys that can be used
-    con.add(IloRange(env, 1.0, 1.0, "c_nj"));
+    con.add(IloRange(env, (float)csp->n_journeys, (float)csp->n_journeys, "c_nj"));
     for (int i = 0; i < (int) journeys.size(); ++i) {
         con[t->N].setLinearCoef(var[i], 1.0);
     }
