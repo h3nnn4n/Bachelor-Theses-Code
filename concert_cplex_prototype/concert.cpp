@@ -72,7 +72,54 @@ int main (int argc, char **argv) {
         IloNumVarArray var(env);
         IloRangeArray con(env);
 
-        populate_model(model, var, con, &t, journeys, &t) ;
+        //populate_model(model, var, con, &t, journeys, &t) ;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Obective is to minimize
+        IloObjective obj = IloMinimize(env);
+
+        // Adds one constraint for each task
+        for (int i = 0; i < t.N; ++i) {
+            char n[256];
+            sprintf(n, "c%d", i);
+            con.add(IloRange(env, 1.0, 1.0, n));
+        }
+        //printf("Added constraint\n");
+
+        // Adds one variable for each existing journey
+        for (int i = 0; i < (int) journeys.size(); ++i) {
+            var.add(IloNumVar(env, 0.0, 1.0, ILOFLOAT));
+
+            char n[256];
+            sprintf(n, "x%d", i);
+            var[i].setName(n);
+        }
+        //printf("Added vars\n");
+
+        // Populates the 0-1 matrix
+        for (int i = 0; i < (int) journeys.size(); ++i) {
+            obj.setLinearCoef(var[i], journeys[i].cost);
+
+            for (int j = 0; j < (int)journeys[i].covered.size(); ++j) {
+                //printf("%d %d\n", i, journeys[i].covered[j]);
+                con[journeys[i].covered[j]].setLinearCoef(var[i], 1.0);
+            }
+        }
+        //printf("Populated the matrix\n");
+
+        // Configures the contrainf to the number of journeys that can be used
+        con.add(IloRange(env, (float)t.n_journeys, (float)t.n_journeys, "c_nj"));
+        for (int i = 0; i < (int) journeys.size(); ++i) {
+            con[t.N].setLinearCoef(var[i], 1.0);
+        }
+        //printf("Master constraint\n");
+
+        model.add(obj);
+        model.add(con);
+        model.add(var);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         IloCplex cplex(model);
         cplex.exportModel("lpex0.lp");
@@ -103,6 +150,7 @@ int main (int argc, char **argv) {
         int cont = 0;
 
         do {
+            cont ++;
             // Solves the master problem
             if ( !cplex.solve() ) {
                 env.error() << "Failed to optimize LP" << endl;
@@ -133,10 +181,11 @@ int main (int argc, char **argv) {
             journeys.push_back(new_journey);
 
             // Gets a reference to the objective function and adds the new coef for the column
-            IloObjective obj = IloMinimize(env);
+            //IloObjective obj = IloMinimize(env);
 
             // Create a new expression to build the new column
             IloNumColumn col = obj(new_journey.cost);
+            //IloNumColumn col = obj((int)journeys.size());
             printf("New Column cost = %4d  time = %4d  Covered [", new_journey.cost, new_journey.time);
 
             // Walks throught the new journey and builds the coeffs for the column
@@ -154,18 +203,23 @@ int main (int argc, char **argv) {
             //var.add(IloNumVar(end, 0.0, 1.0, ILOFLOAT));
             //var.add(IloNumVar( expr ));
 
-            var.add(IloNumVar(obj(new_journey.cost) + col, 0.0, 1.0, ILOFLOAT));
+            var.add( IloNumVar(col + obj(new_journey.cost), 0.0, 1.0, ILOFLOAT));
             model.add(var);
+            //obj.setLinearCoef(tmp, new_journey.cost);
 
-            //cplex.exportModel("lpex3.lp");
+            //char name[256];
+            //sprintf(name, "rmp_%04d.lp", cont);
+            //cplex.exportModel(name);
+
+            //if ( cont > 2 ) break;
 
             printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
         } while ( reduced_cost != 0 );
 
         printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
 
-        IloModel model_final(env); 
-        model_final.add(model); 
+        IloModel model_final(env);
+        model_final.add(model);
         model_final.add(IloConversion(env, var, ILOINT));
 
         IloCplex       cplex_final(model_final);
