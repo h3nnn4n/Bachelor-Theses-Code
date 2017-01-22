@@ -66,7 +66,7 @@ int main (int argc, char **argv) {
 
         print_journeys(journeys);
         printf("\n");
-        return 0;
+        //return 0;
 
         // begins model construction
         IloNumVarArray var(env);
@@ -109,18 +109,17 @@ int main (int argc, char **argv) {
                 throw(-1);
             }
 
-            IloNumArray vals(env);
-            env.out() << "Solution status = " << cplex.getStatus() << endl;
-            env.out() << "Solution value  = " << cplex.getObjValue() << endl;
-            cplex.getValues(vals, var);
-            env.out() << "Values        = " << vals << endl;
-            cplex.getSlacks(vals, con);
-            env.out() << "Slacks        = " << vals << endl;
-            cplex.getDuals(vals, con);
-            env.out() << "Duals         = " << vals << endl;
-            cplex.getReducedCosts(vals, var);
-            env.out() << "Reduced Costs = " << vals << endl;
-            cout << "\n\n";
+            //IloNumArray vals(env);
+            env.out() << "RMP status = " << cplex.getStatus() << " " << " value  = " << cplex.getObjValue() << endl;
+            //cplex.getValues(vals, var);
+            //env.out() << "Values        = " << vals << endl;
+            //cplex.getSlacks(vals, con);
+            //env.out() << "Slacks        = " << vals << endl;
+            //cplex.getDuals(vals, con);
+            //env.out() << "Duals         = " << vals << endl;
+            //cplex.getReducedCosts(vals, var);
+            //env.out() << "Reduced Costs = " << vals << endl;
+            //cout << "\n\n";
 
 
             // Solves the subproblem
@@ -138,14 +137,16 @@ int main (int argc, char **argv) {
 
             // Create a new expression to build the new column
             IloNumColumn col = obj(new_journey.cost);
-            printf(" cost = %d\n", new_journey.cost);
+            printf("New Column cost = %4d  Covered [", new_journey.cost);
 
             // Walks throught the new journey and builds the coeffs for the column
             for (int i = 0; i < (int)new_journey.covered.size(); ++i) {
                 //expr +=
-                printf("%d %d\n", i, new_journey.covered[i]);
+                printf("%4d, ", new_journey.covered[i]);
                 col += con[new_journey.covered[i]](1.0);
             }
+
+            printf("\b\b]\n");
 
             col += con[t.N](1.0);
 
@@ -158,7 +159,7 @@ int main (int argc, char **argv) {
 
             //cplex.exportModel("lpex3.lp");
 
-            printf(" - %d %f\n", cont, reduced_cost);
+            printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
         } while ( reduced_cost != 0 );
 
     }
