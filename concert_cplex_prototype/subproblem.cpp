@@ -19,9 +19,6 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     IloCplex       cplex(model);
     cplex.setOut(env.getNullStream());
 
-    int first;
-
-    first = false;
     for (int i = 0; i < t->N+2; ++i) {
         for (int j = 0; j < t->N+2; ++j) {
             adj_mat [i][j] = 0;
@@ -63,14 +60,14 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
 
     // Adds the 2 virtual nodes
     for (int i = 0; i < t->N; ++i) {
-        adj_mat [t->N][i     ] = 1.0; // This is the starting node
-        adj_mat [i   ][t->N+1] = 1.0;
+        adj_mat [t->N][i     ] = 1.0;
+        adj_mat [i   ][t->N+1] = 1.0; // This is the starting node
 
         cost_mat[t->N][i     ] = 0.0;
         cost_mat[i   ][t->N+1] = 0.0;
 
         time_mat[t->N][i     ] = 0.0;
-        time_mat[i   ][t->N+1] = t->task[i].end_time - t->task[i].start_time;
+        time_mat[i   ][t->N+1] = t->task[i].end_time - t->task[i].start_time; // This accounts the time for the first task in a journey
     }
 
     // Print the matrix, for debugging purposes
@@ -128,7 +125,6 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         model.add(IloMinimize(env, obj));
         obj.end();
     }
-
 
     // Source and Sink contraints
     { IloNumExpr expr(env); // Source
@@ -199,8 +195,8 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         cplex.getValues(vals, y[i]);
         //env.out() << "y["<<i<<"]      = " << vals << endl;
         for (int j = 0; j < t->N+2; ++j) {
-            if ( vals[j] > 10e-4 ) {
-                printf("y[%2d, %2d] = %2.4f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], cost_mat[i][j], time_mat[i][j]);
+            if ( vals[j] > 0.5 ) {
+                printf("y[%2d, %2d] = %2.8f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], cost_mat[i][j], time_mat[i][j]);
                 journey.cost += cost_mat[i][j];
                 journey.time += time_mat[i][j];
             }
@@ -211,12 +207,13 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     cplex.getValues(vals, v);
     //env.out() << "v         = " << vals << endl;
     for (int i = 0; i < t->N; ++i) {
-        if ( vals[i] ) {
+        if ( vals[i] > 0.5 ) {
             journey.covered.push_back(i);
             printf("v[%2d] = %2.4f\n", i, vals[i]);
         }
     }
 
+    // Rountine to ensure that the time_limit constraints arent violated due to numerical precision errors
     if ( journey.time > t->time_limit ) {
         printf("Journey too long!\n");
         printf("-------------------\n");
