@@ -45,8 +45,8 @@ int main (int argc, char **argv) {
 
         printf("Starting\n");
 
-        srand(time(NULL));
-        //srand(666);
+        //srand(time(NULL));
+        srand(666);
 
         ////Prints the graph (it indexes from zero)
         //for (int i = 0; i < (int)t.graph.size(); ++i) {
@@ -137,7 +137,7 @@ int main (int argc, char **argv) {
 
             // Create a new expression to build the new column
             IloNumColumn col = obj(new_journey.cost);
-            printf("New Column cost = %4d  Covered [", new_journey.cost);
+            printf("New Column cost = %4d  time = %4d  Covered [", new_journey.cost, new_journey.time);
 
             // Walks throught the new journey and builds the coeffs for the column
             for (int i = 0; i < (int)new_journey.covered.size(); ++i) {

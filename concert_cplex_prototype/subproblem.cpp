@@ -34,21 +34,43 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     //printf("%d\n", (int)t->graph.size());
     for (int i = 0; i < (int)t->graph.size(); ++i) {
         for (int j = 0; j < (int)t->graph[i].size(); ++j) {
-            //printf("%2d -> %2d\n", i, t->graph[i][j].dest);
+            //printf("i = %2d j = %2d dest = %2d", i, j, t->graph[i][j].dest);
             adj_mat [i][t->graph[i][j].dest] = 1.0;
             cost_mat[i][t->graph[i][j].dest] = t->graph[i][j].cost;
-            time_mat[i][t->graph[i][j].dest] = (t->task[t->graph[i][j].dest].end_time    -
-                                                t->task[t->graph[i][j].dest].start_time) +
-                                               (t->task[i].end_time                      -
-                                                t->task[i].start_time                  ) ;
+            //time_mat[i][t->graph[i][j].dest] = (t->task[t->graph[i][j].dest].end_time    -
+                                                //t->task[t->graph[i][j].dest].start_time) +
+                                               //(t->task[i].end_time                      -
+                                                //t->task[i].start_time                  ) ;
+            //printf(" -> ");
+            //time_mat[i][t->graph[i][j].dest] = (t->task[i].end_time    -
+                                                //t->task[t->graph[i][j].dest].start_time) +
+                                               //(t->task[t->graph[i][j].dest].end_time    -
+                                                //t->task[t->graph[i][j].dest].start_time  ) ;
+            time_mat[i][t->graph[i][j].dest] = t->task[t->graph[i][j].dest].end_time    -
+                                               t->task[i].end_time;
+
+            //printf("i = (%2d, %2d) j = (%2d, %2d)",
+              //t->task[i].start_time,
+              //t->task[i].end_time,
+              //t->task[t->graph[i][j].dest].start_time,
+              //t->task[t->graph[i][j].dest].end_time);
+
+            //printf("\n");
         }
-        //printf("\n");
     }
+
+    //exit(0);
 
     // Adds the 2 virtual nodes
     for (int i = 0; i < t->N; ++i) {
-        adj_mat[t->N][i     ] = 1.0;
-        adj_mat[i   ][t->N+1] = 1.0;
+        adj_mat [t->N][i     ] = 1.0; // This is the starting node
+        adj_mat [i   ][t->N+1] = 1.0;
+
+        cost_mat[t->N][i     ] = 0.0;
+        cost_mat[i   ][t->N+1] = 0.0;
+
+        time_mat[t->N][i     ] = t->task[i].end_time - t->task[i].start_time;
+        time_mat[i   ][t->N+1] = 0.0;
     }
 
     // Print the matrix, for debugging purposes
@@ -178,8 +200,9 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         //env.out() << "y["<<i<<"]      = " << vals << endl;
         for (int j = 0; j < t->N+2; ++j) {
             if ( vals[j] ) {
-                //printf("y[%2d, %2d] = %2.4f, cost = %2.4f\n", i, j, vals[j], cost_mat[i][j]);
+                printf("y[%2d, %2d] = %2.4f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], cost_mat[i][j], time_mat[i][j]);
                 journey.cost += cost_mat[i][j];
+                journey.time += time_mat[i][j];
             }
         }
     }
@@ -190,7 +213,7 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     for (int i = 0; i < t->N; ++i) {
         if ( vals[i] ) {
             journey.covered.push_back(i);
-            //printf("v[%2d] = %2.4f\n", i, vals[i]);
+            printf("v[%2d] = %2.4f\n", i, vals[i]);
         }
     }
 
