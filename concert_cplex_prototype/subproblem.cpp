@@ -39,7 +39,7 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
             cost_mat[i][t->graph[i][j].dest] = t->graph[i][j].cost;
             time_mat[i][t->graph[i][j].dest] = (t->task[t->graph[i][j].dest].end_time    -
                                                 t->task[t->graph[i][j].dest].start_time) +
-                                            (t->task[i].end_time                      -
+                                               (t->task[i].end_time                      -
                                                 t->task[i].start_time                  ) ;
         }
         //printf("\n");
@@ -81,7 +81,7 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     //printf("Added y_(i,j) vars\n");
 
     // Adds the vars for the vertex
-    IloNumVarArray v = IloNumVarArray(env, t->N+2, 0, 1);
+    IloNumVarArray v = IloNumVarArray(env, t->N+2, 0, 1, ILOINT);
     for (int i = 0; i < t->N; ++i) {
         char n[256];
         sprintf(n, "v_%d", i);
@@ -165,6 +165,9 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     // Reads the solution from the model and stores in a struct to return to the master problem
     _journey journey;
 
+    journey.time = 0;
+    journey.cost = 0;
+
     IloNumArray vals(env);
     //env.out() << "Solution status = " << cplex.getStatus() << endl;
     //env.out() << "Solution value  = " << cplex.getObjValue() << endl;
@@ -187,7 +190,7 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     for (int i = 0; i < t->N; ++i) {
         if ( vals[i] ) {
             journey.covered.push_back(i);
-            printf("v[%2d] = %2.4f\n", i, vals[i]);
+            //printf("v[%2d] = %2.4f\n", i, vals[i]);
         }
     }
 
