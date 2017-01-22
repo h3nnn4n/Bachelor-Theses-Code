@@ -69,8 +69,8 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         cost_mat[t->N][i     ] = 0.0;
         cost_mat[i   ][t->N+1] = 0.0;
 
-        time_mat[t->N][i     ] = t->task[i].end_time - t->task[i].start_time;
-        time_mat[i   ][t->N+1] = 0.0;
+        time_mat[t->N][i     ] = 0.0;
+        time_mat[i   ][t->N+1] = t->task[i].end_time - t->task[i].start_time;
     }
 
     // Print the matrix, for debugging purposes
@@ -199,7 +199,7 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         cplex.getValues(vals, y[i]);
         //env.out() << "y["<<i<<"]      = " << vals << endl;
         for (int j = 0; j < t->N+2; ++j) {
-            if ( vals[j] ) {
+            if ( vals[j] > 10e-4 ) {
                 printf("y[%2d, %2d] = %2.4f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], cost_mat[i][j], time_mat[i][j]);
                 journey.cost += cost_mat[i][j];
                 journey.time += time_mat[i][j];
@@ -217,7 +217,25 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         }
     }
 
+    if ( journey.time > t->time_limit ) {
+        printf("Journey too long!\n");
+        printf("-------------------\n");
+        for (int i = 0; i < t->N+2; ++i) {
+            cplex.getValues(vals, y[i]);
+            //env.out() << "y["<<i<<"]      = " << vals << endl;
+            for (int j = 0; j < t->N+2; ++j) {
+                if ( vals[j] > 10e-4 ) {
+                    printf("y[%2d, %2d] = %2.18f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], cost_mat[i][j], time_mat[i][j]);
+                    journey.cost += cost_mat[i][j];
+                    journey.time += time_mat[i][j];
+                }
+            }
+        }
+    }
+    assert ( journey.time <= t->time_limit && "Journey too long!");
+
     //cplex.exportModel("subp.lp");
+    //exit(0);
 
     return journey;
 }
