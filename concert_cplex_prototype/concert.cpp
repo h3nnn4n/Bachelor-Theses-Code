@@ -162,6 +162,38 @@ int main (int argc, char **argv) {
             printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
         } while ( reduced_cost != 0 );
 
+        printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
+
+        IloModel model_final(env); 
+        model_final.add(model); 
+        model_final.add(IloConversion(env, var, ILOINT));
+
+        IloCplex       cplex_final(model_final);
+
+        cplex_final.setOut(env.getNullStream());
+        // Optimize the problem with the final set of columns
+        if ( !cplex_final.solve() ) {
+            env.error() << "Failed to optimize LP" << endl;
+            throw(-1);
+        }
+
+        IloNumArray vals(env);
+        env.out() << "Master Problem Status = " << cplex_final.getStatus() <<  " value  = " << cplex_final.getObjValue() << endl;
+        cplex_final.getValues(vals, var);
+
+        int total_columns_used = 0;
+        for (int i = 0; i < (int) journeys.size(); ++i) {
+            if ( vals[i] ) {
+                total_columns_used++;
+                printf("x[%3d] = %2.18f ", i, vals[i]);
+                printf(" cost = %4d  time = %4d  [", journeys[i].cost, journeys[i].time);
+                for (int j = 0; j < (int)journeys[i].covered.size(); ++j) {
+                    printf("%4d, ", journeys[i].covered[j]);
+                }
+                printf("\b\b]\n");
+            }
+        }
+        printf("%4d columns where used, expected %4d\n", total_columns_used, t.n_journeys);
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;
