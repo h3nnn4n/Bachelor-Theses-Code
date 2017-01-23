@@ -1,0 +1,636 @@
+Starting
+   0 	   169    399: 0 9 
+   1 	   300    449: 1 17 
+   2 	     0    152: 2 
+   3 	   349    479: 3 14 
+   4 	     0    231: 4 
+   5 	   309    477: 5 24 
+   6 	   307    463: 6 19 
+   7 	     0    220: 7 
+   8 	   303    432: 8 20 
+   9 	    26    460: 10 21 
+  10 	    23    446: 11 23 
+  11 	   184    384: 12 26 
+  12 	   192    423: 13 30 
+  13 	   278    381: 15 29 
+  14 	   552    381: 16 31 
+  15 	   190    272: 18 27 
+  16 	   124    341: 22 32 
+  17 	     0    115: 25 
+  18 	   226    295: 28 33 
+  19 	   164    245: 34 38 
+  20 	   294    405: 35 42 
+  21 	   182    366: 36 43 
+  22 	   218    448: 37 41 
+  23 	    21    333: 40 49 
+  24 	     0    127: 44 
+  25 	   297    449: 46 39 45 
+  26 	     0    203: 47 
+  27 	     0    188: 48 
+
+RMP status = Optimal  value  = 4708
+y[ 5, 16] = 1.00000000, cost = 109.0000, time = 137.0000
+y[16, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  5] = 1.00000000, cost = 0.0000, time = 187.0000
+v[ 5] = 1.0000
+v[16] = 1.0000
+New Column cost =  109  time =  324  Covered [   5,   16]
+ Iterations    1 reduced cost = -752.00
+
+RMP status = Optimal  value  = 4708
+y[ 6, 16] = 1.00000000, cost = 154.0000, time = 190.0000
+y[16, 24] = 1.00000000, cost = 150.0000, time = 153.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  6] = 1.00000000, cost = 0.0000, time = 129.0000
+v[ 6] = 1.0000
+v[16] = 1.0000
+v[24] = 1.0000
+New Column cost =  304  time =  472  Covered [   6,   16,   24]
+ Iterations    2 reduced cost = -1307.00
+
+RMP status = Optimal  value  = 4708
+y[31, 34] = 1.00000000, cost = 121.0000, time = 136.0000
+y[34, 37] = 1.00000000, cost = 96.0000, time = 128.0000
+y[37, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 31] = 1.00000000, cost = 0.0000, time = 25.0000
+v[31] = 1.0000
+v[34] = 1.0000
+v[37] = 1.0000
+New Column cost =  217  time =  289  Covered [  31,   34,   37]
+ Iterations    3 reduced cost = -818.50
+
+RMP status = Optimal  value  = 4708
+y[31, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 31] = 1.00000000, cost = 0.0000, time = 25.0000
+v[31] = 1.0000
+New Column cost =    0  time =   25  Covered [  31]
+ Iterations    4 reduced cost = -653.50
+
+RMP status = Optimal  value  = 4708
+y[19, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 19] = 1.00000000, cost = 0.0000, time = 161.0000
+v[19] = 1.0000
+New Column cost =    0  time =  161  Covered [  19]
+ Iterations    5 reduced cost = -1389.50
+
+RMP status = Optimal  value  = 4708
+y[ 8, 15] = 1.00000000, cost = 236.0000, time = 210.0000
+y[15, 22] = 1.00000000, cost = 137.0000, time = 228.0000
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[15] = 1.0000
+v[22] = 1.0000
+New Column cost =  373  time =  473  Covered [   8,   15,   22]
+ Iterations    6 reduced cost = -2946.00
+
+RMP status = Optimal  value  = 4708
+y[38, 40] = 1.00000000, cost = 68.0000, time = 239.0000
+y[40, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 38] = 1.00000000, cost = 0.0000, time = 108.0000
+v[38] = 1.0000
+v[40] = 1.0000
+New Column cost =   68  time =  347  Covered [  38,   40]
+ Iterations    7 reduced cost = -2732.00
+
+RMP status = Optimal  value  = 4708
+y[20, 31] = 1.00000000, cost = 220.0000, time = 139.0000
+y[31, 34] = 1.00000000, cost = 121.0000, time = 136.0000
+y[34, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 20] = 1.00000000, cost = 0.0000, time = 191.0000
+v[20] = 1.0000
+v[31] = 1.0000
+v[34] = 1.0000
+New Column cost =  341  time =  466  Covered [  20,   31,   34]
+ Iterations    8 reduced cost = -4029.00
+
+RMP status = Optimal  value  = 4708
+y[29, 35] = 1.00000000, cost = 151.0000, time = 318.0000
+y[35, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[35] = 1.0000
+New Column cost =  151  time =  430  Covered [  29,   35]
+ Iterations    9 reduced cost = -4172.00
+
+RMP status = Optimal  value  = 4708
+y[15, 24] = 1.00000000, cost = 125.0000, time = 150.0000
+y[24, 32] = 1.00000000, cost = 304.0000, time = 267.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 15] = 1.00000000, cost = 0.0000, time = 60.0000
+v[15] = 1.0000
+v[24] = 1.0000
+v[32] = 1.0000
+New Column cost =  429  time =  477  Covered [  15,   24,   32]
+ Iterations   10 reduced cost = -4916.00
+
+RMP status = Optimal  value  = 4708
+y[ 8, 18] = 1.00000000, cost = 285.0000, time = 252.0000
+y[18, 24] = 1.00000000, cost = 48.0000, time = 108.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[18] = 1.0000
+v[24] = 1.0000
+New Column cost =  333  time =  395  Covered [   8,   18,   24]
+ Iterations   11 reduced cost = -3302.00
+
+RMP status = Optimal  value  = 4708
+y[ 8, 27] = 1.00000000, cost = 713.0000, time = 436.0000
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[27] = 1.0000
+New Column cost =  713  time =  471  Covered [   8,   27]
+ Iterations   12 reduced cost = -3975.00
+
+RMP status = Optimal  value  = 4708
+y[39, 46] = 1.00000000, cost = 165.0000, time = 172.0000
+y[46, 49] = 1.00000000, cost = 27.0000, time = 166.0000
+y[49, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 39] = 1.00000000, cost = 0.0000, time = 34.0000
+v[39] = 1.0000
+v[46] = 1.0000
+v[49] = 1.0000
+New Column cost =  192  time =  372  Covered [  39,   46,   49]
+ Iterations   13 reduced cost = -2092.50
+
+RMP status = Optimal  value  = 4708
+y[38, 45] = 1.00000000, cost = 199.0000, time = 302.0000
+y[45, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 38] = 1.00000000, cost = 0.0000, time = 108.0000
+v[38] = 1.0000
+v[45] = 1.0000
+New Column cost =  199  time =  410  Covered [  38,   45]
+ Iterations   14 reduced cost = -2621.00
+
+RMP status = Optimal  value  = 4183.8
+y[ 1, 12] = 1.00000000, cost = 155.0000, time = 227.0000
+y[12, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  1] = 1.00000000, cost = 0.0000, time = 203.0000
+v[ 1] = 1.0000
+v[12] = 1.0000
+New Column cost =  155  time =  430  Covered [   1,   12]
+ Iterations   15 reduced cost = -587.60
+
+RMP status = Optimal  value  = 4183.8
+y[17, 27] = 1.00000000, cost = 206.0000, time = 228.0000
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[27] = 1.0000
+New Column cost =  206  time =  277  Covered [  17,   27]
+ Iterations   16 reduced cost = -651.20
+
+RMP status = Optimal  value  = 4183.8
+y[26, 32] = 1.00000000, cost = 86.0000, time = 174.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 26] = 1.00000000, cost = 0.0000, time = 132.0000
+v[26] = 1.0000
+v[32] = 1.0000
+New Column cost =   86  time =  306  Covered [  26,   32]
+ Iterations   17 reduced cost = -633.70
+
+RMP status = Optimal  value  = 4183.8
+y[29, 34] = 1.00000000, cost = 101.0000, time = 141.0000
+y[34, 38] = 1.00000000, cost = 164.0000, time = 204.0000
+y[38, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[34] = 1.0000
+v[38] = 1.0000
+New Column cost =  265  time =  457  Covered [  29,   34,   38]
+ Iterations   18 reduced cost = -936.60
+
+RMP status = Optimal  value  = 4050
+y[ 6, 17] = 1.00000000, cost = 170.0000, time = 191.0000
+y[17, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  6] = 1.00000000, cost = 0.0000, time = 129.0000
+v[ 6] = 1.0000
+v[17] = 1.0000
+New Column cost =  170  time =  320  Covered [   6,   17]
+ Iterations   19 reduced cost = -350.00
+
+RMP status = Optimal  value  = 3933.33
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 22] = 1.00000000, cost = 0.0000, time = 152.0000
+v[22] = 1.0000
+New Column cost =    0  time =  152  Covered [  22]
+ Iterations   20 reduced cost = -746.33
+
+RMP status = Optimal  value  = 3708
+y[ 3, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  3] = 1.00000000, cost = 0.0000, time = 21.0000
+v[ 3] = 1.0000
+New Column cost =    0  time =   21  Covered [   3]
+ Iterations   21 reduced cost = -349.00
+
+RMP status = Optimal  value  = 3708
+y[ 5, 14] = 1.00000000, cost = 130.0000, time = 251.0000
+y[14, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  5] = 1.00000000, cost = 0.0000, time = 187.0000
+v[ 5] = 1.0000
+v[14] = 1.0000
+New Column cost =  130  time =  438  Covered [   5,   14]
+ Iterations   22 reduced cost = -328.20
+
+RMP status = Optimal  value  = 3589.67
+y[ 0, 10] = 1.00000000, cost = 131.0000, time = 334.0000
+y[10, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  0] = 1.00000000, cost = 0.0000, time = 143.0000
+v[ 0] = 1.0000
+v[10] = 1.0000
+New Column cost =  131  time =  477  Covered [   0,   10]
+ Iterations   23 reduced cost = -486.33
+
+RMP status = Optimal  value  = 3589.67
+y[ 9, 20] = 1.00000000, cost = 82.0000, time = 252.0000
+y[20, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  9] = 1.00000000, cost = 0.0000, time = 169.0000
+v[ 9] = 1.0000
+v[20] = 1.0000
+New Column cost =   82  time =  421  Covered [   9,   20]
+ Iterations   24 reduced cost = -476.00
+
+RMP status = Optimal  value  = 3589.67
+y[11, 28] = 1.00000000, cost = 233.0000, time = 195.0000
+y[28, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 11] = 1.00000000, cost = 0.0000, time = 230.0000
+v[11] = 1.0000
+v[28] = 1.0000
+New Column cost =  233  time =  425  Covered [  11,   28]
+ Iterations   25 reduced cost = -438.33
+
+RMP status = Optimal  value  = 3589.67
+y[13, 23] = 1.00000000, cost = 22.0000, time = 213.0000
+y[23, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 13] = 1.00000000, cost = 0.0000, time = 192.0000
+v[13] = 1.0000
+v[23] = 1.0000
+New Column cost =   22  time =  405  Covered [  13,   23]
+ Iterations   26 reduced cost = -608.33
+
+RMP status = Optimal  value  = 3589.67
+y[18, 24] = 1.00000000, cost = 48.0000, time = 108.0000
+y[24, 30] = 1.00000000, cost = 160.0000, time = 150.0000
+y[30, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 18] = 1.00000000, cost = 0.0000, time = 88.0000
+v[18] = 1.0000
+v[24] = 1.0000
+v[30] = 1.0000
+New Column cost =  208  time =  346  Covered [  18,   24,   30]
+ Iterations   27 reduced cost = -502.00
+
+RMP status = Optimal  value  = 3589.67
+y[11, 26] = 1.00000000, cost = 83.0000, time = 177.0000
+y[26, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 11] = 1.00000000, cost = 0.0000, time = 230.0000
+v[11] = 1.0000
+v[26] = 1.0000
+New Column cost =   83  time =  407  Covered [  11,   26]
+ Iterations   28 reduced cost = -388.00
+
+RMP status = Optimal  value  = 3487.2
+y[16, 21] = 1.00000000, cost = 58.0000, time = 262.0000
+y[21, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 16] = 1.00000000, cost = 0.0000, time = 52.0000
+v[16] = 1.0000
+v[21] = 1.0000
+New Column cost =   58  time =  314  Covered [  16,   21]
+ Iterations   29 reduced cost = -415.20
+
+RMP status = Optimal  value  = 3276.5
+y[ 8, 11] = 1.00000000, cost = 61.0000, time = 276.0000
+y[11, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[11] = 1.0000
+New Column cost =   61  time =  311  Covered [   8,   11]
+ Iterations   30 reduced cost = -257.00
+
+RMP status = Optimal  value  = 3231.4
+y[ 6, 14] = 1.00000000, cost = 148.0000, time = 304.0000
+y[14, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  6] = 1.00000000, cost = 0.0000, time = 129.0000
+v[ 6] = 1.0000
+v[14] = 1.0000
+New Column cost =  148  time =  433  Covered [   6,   14]
+ Iterations   31 reduced cost = -357.40
+
+RMP status = Optimal  value  = 3205.67
+y[ 5, 15] = 1.00000000, cost = 121.0000, time = 140.0000
+y[15, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  5] = 1.00000000, cost = 0.0000, time = 187.0000
+v[ 5] = 1.0000
+v[15] = 1.0000
+New Column cost =  121  time =  327  Covered [   5,   15]
+ Iterations   32 reduced cost = -248.33
+
+RMP status = Optimal  value  = 3081.5
+y[42, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 42] = 1.00000000, cost = 0.0000, time = 49.0000
+v[42] = 1.0000
+New Column cost =    0  time =   49  Covered [  42]
+ Iterations   33 reduced cost = -288.50
+
+RMP status = Optimal  value  = 3081.5
+y[ 4, 18] = 1.00000000, cost = 77.0000, time = 142.0000
+y[18, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  4] = 1.00000000, cost = 0.0000, time = 231.0000
+v[ 4] = 1.0000
+v[18] = 1.0000
+New Column cost =   77  time =  373  Covered [   4,   18]
+ Iterations   34 reduced cost = -275.00
+
+RMP status = Optimal  value  = 3052.67
+y[ 7, 16] = 1.00000000, cost = 91.0000, time = 98.0000
+y[16, 24] = 1.00000000, cost = 150.0000, time = 153.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  7] = 1.00000000, cost = 0.0000, time = 220.0000
+v[ 7] = 1.0000
+v[16] = 1.0000
+v[24] = 1.0000
+New Column cost =  241  time =  471  Covered [   7,   16,   24]
+ Iterations   35 reduced cost = -203.33
+
+RMP status = Optimal  value  = 3010
+y[41, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 41] = 1.00000000, cost = 0.0000, time = 229.0000
+v[41] = 1.0000
+New Column cost =    0  time =  229  Covered [  41]
+ Iterations   36 reduced cost = -212.75
+
+RMP status = Optimal  value  = 2930.12
+y[36, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 36] = 1.00000000, cost = 0.0000, time = 236.0000
+v[36] = 1.0000
+New Column cost =    0  time =  236  Covered [  36]
+ Iterations   37 reduced cost = -182.00
+
+RMP status = Optimal  value  = 2930.12
+y[39, 48] = 1.00000000, cost = 182.0000, time = 349.0000
+y[48, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 39] = 1.00000000, cost = 0.0000, time = 34.0000
+v[39] = 1.0000
+v[48] = 1.0000
+New Column cost =  182  time =  383  Covered [  39,   48]
+ Iterations   38 reduced cost = -173.62
+
+RMP status = Optimal  value  = 2930.12
+y[12, 27] = 1.00000000, cost = 280.0000, time = 247.0000
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 12] = 1.00000000, cost = 0.0000, time = 120.0000
+v[12] = 1.0000
+v[27] = 1.0000
+New Column cost =  280  time =  367  Covered [  12,   27]
+ Iterations   39 reduced cost = -128.75
+
+RMP status = Optimal  value  = 2930.12
+y[31, 35] = 1.00000000, cost = 167.0000, time = 313.0000
+y[35, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 31] = 1.00000000, cost = 0.0000, time = 25.0000
+v[31] = 1.0000
+v[35] = 1.0000
+New Column cost =  167  time =  338  Covered [  31,   35]
+ Iterations   40 reduced cost = -127.00
+
+RMP status = Optimal  value  = 2930.12
+y[20, 31] = 1.00000000, cost = 220.0000, time = 139.0000
+y[31, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 20] = 1.00000000, cost = 0.0000, time = 191.0000
+v[20] = 1.0000
+v[31] = 1.0000
+New Column cost =  220  time =  330  Covered [  20,   31]
+ Iterations   41 reduced cost = -122.00
+
+RMP status = Optimal  value  = 2930.12
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 27] = 1.00000000, cost = 0.0000, time = 59.0000
+v[27] = 1.0000
+New Column cost =    0  time =   59  Covered [  27]
+ Iterations   42 reduced cost = -113.00
+
+RMP status = Optimal  value  = 2930.12
+y[28, 34] = 1.00000000, cost = 171.0000, time = 201.0000
+y[34, 37] = 1.00000000, cost = 96.0000, time = 128.0000
+y[37, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 28] = 1.00000000, cost = 0.0000, time = 70.0000
+v[28] = 1.0000
+v[34] = 1.0000
+v[37] = 1.0000
+New Column cost =  267  time =  399  Covered [  28,   34,   37]
+ Iterations   43 reduced cost = -110.25
+
+RMP status = Optimal  value  = 2930.12
+y[12, 25] = 1.00000000, cost = 175.0000, time = 245.0000
+y[25, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 12] = 1.00000000, cost = 0.0000, time = 120.0000
+v[12] = 1.0000
+v[25] = 1.0000
+New Column cost =  175  time =  365  Covered [  12,   25]
+ Iterations   44 reduced cost = -105.00
+
+RMP status = Optimal  value  = 2930.12
+y[25, 32] = 1.00000000, cost = 104.0000, time = 193.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 25] = 1.00000000, cost = 0.0000, time = 115.0000
+v[25] = 1.0000
+v[32] = 1.0000
+New Column cost =  104  time =  308  Covered [  25,   32]
+ Iterations   45 reduced cost = -93.75
+
+RMP status = Optimal  value  = 2852
+y[17, 24] = 1.00000000, cost = 97.0000, time = 152.0000
+y[24, 30] = 1.00000000, cost = 160.0000, time = 150.0000
+y[30, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[24] = 1.0000
+v[30] = 1.0000
+New Column cost =  257  time =  351  Covered [  17,   24,   30]
+ Iterations   46 reduced cost = -80.00
+
+RMP status = Optimal  value  = 2798.25
+y[30, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 30] = 1.00000000, cost = 0.0000, time = 54.0000
+v[30] = 1.0000
+New Column cost =    0  time =   54  Covered [  30]
+ Iterations   47 reduced cost = -92.00
+
+RMP status = Optimal  value  = 2798.25
+y[ 0, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  0] = 1.00000000, cost = 0.0000, time = 143.0000
+v[ 0] = 1.0000
+New Column cost =    0  time =  143  Covered [   0]
+ Iterations   48 reduced cost = -52.50
+
+RMP status = Optimal  value  = 2772
+y[ 8, 15] = 1.00000000, cost = 236.0000, time = 210.0000
+y[15, 22] = 1.00000000, cost = 137.0000, time = 228.0000
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[15] = 1.0000
+v[22] = 1.0000
+New Column cost =  373  time =  473  Covered [   8,   15,   22]
+ Iterations   49 reduced cost = -105.00
+
+RMP status = Optimal  value  = 2772
+y[ 7, 16] = 1.00000000, cost = 91.0000, time = 98.0000
+y[16, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  7] = 1.00000000, cost = 0.0000, time = 220.0000
+v[ 7] = 1.0000
+v[16] = 1.0000
+New Column cost =   91  time =  318  Covered [   7,   16]
+ Iterations   50 reduced cost = -72.00
+
+RMP status = Optimal  value  = 2726.25
+y[28, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 28] = 1.00000000, cost = 0.0000, time = 70.0000
+v[28] = 1.0000
+New Column cost =    0  time =   70  Covered [  28]
+ Iterations   51 reduced cost = -50.00
+
+RMP status = Optimal  value  = 2726.25
+y[12, 22] = 1.00000000, cost = 128.0000, time = 249.0000
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 12] = 1.00000000, cost = 0.0000, time = 120.0000
+v[12] = 1.0000
+v[22] = 1.0000
+New Column cost =  128  time =  369  Covered [  12,   22]
+ Iterations   52 reduced cost = -47.00
+
+RMP status = Optimal  value  = 2726.25
+y[ 6, 17] = 1.00000000, cost = 170.0000, time = 191.0000
+y[17, 24] = 1.00000000, cost = 97.0000, time = 152.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  6] = 1.00000000, cost = 0.0000, time = 129.0000
+v[ 6] = 1.0000
+v[17] = 1.0000
+v[24] = 1.0000
+New Column cost =  267  time =  472  Covered [   6,   17,   24]
+ Iterations   53 reduced cost = -33.50
+
+RMP status = Optimal  value  = 2723
+y[22, 33] = 1.00000000, cost = 193.0000, time = 258.0000
+y[33, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 22] = 1.00000000, cost = 0.0000, time = 152.0000
+v[22] = 1.0000
+v[33] = 1.0000
+New Column cost =  193  time =  410  Covered [  22,   33]
+ Iterations   54 reduced cost = -33.00
+
+RMP status = Optimal  value  = 2718
+y[ 7, 16] = 1.00000000, cost = 91.0000, time = 98.0000
+y[16, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  7] = 1.00000000, cost = 0.0000, time = 220.0000
+v[ 7] = 1.0000
+v[16] = 1.0000
+New Column cost =   91  time =  318  Covered [   7,   16]
+ Iterations   55 reduced cost = -36.00
+
+RMP status = Optimal  value  = 2718
+y[39, 45] = 1.00000000, cost = 132.0000, time = 243.0000
+y[45, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 39] = 1.00000000, cost = 0.0000, time = 34.0000
+v[39] = 1.0000
+v[45] = 1.0000
+New Column cost =  132  time =  277  Covered [  39,   45]
+ Iterations   56 reduced cost = -25.00
+
+RMP status = Optimal  value  = 2718
+y[19, 31] = 1.00000000, cost = 286.0000, time = 185.0000
+y[31, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 19] = 1.00000000, cost = 0.0000, time = 161.0000
+v[19] = 1.0000
+v[31] = 1.0000
+New Column cost =  286  time =  346  Covered [  19,   31]
+ Iterations   57 reduced cost = -21.00
+
+RMP status = Optimal  value  = 2718
+y[46, 49] = 1.00000000, cost = 27.0000, time = 166.0000
+y[49, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 46] = 1.00000000, cost = 0.0000, time = 29.0000
+v[46] = 1.0000
+v[49] = 1.0000
+New Column cost =   27  time =  195  Covered [  46,   49]
+ Iterations   58 reduced cost = -8.00
+
+RMP status = Optimal  value  = 2710
+y[46, 49] = 1.00000000, cost = 27.0000, time = 166.0000
+y[49, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 46] = 1.00000000, cost = 0.0000, time = 29.0000
+v[46] = 1.0000
+v[49] = 1.0000
+New Column cost =   27  time =  195  Covered [  46,   49]
+ Iterations   59 reduced cost = -8.00
+
+RMP status = Optimal  value  = 2710
+y[39, 45] = 1.00000000, cost = 132.0000, time = 243.0000
+y[45, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 39] = 1.00000000, cost = 0.0000, time = 34.0000
+v[39] = 1.0000
+v[45] = 1.0000
+New Column cost =  132  time =  277  Covered [  39,   45]
+ Iterations   60 reduced cost = -8.00
+
+RMP status = Optimal  value  = 2710
+y[29, 34] = 1.00000000, cost = 101.0000, time = 141.0000
+y[34, 37] = 1.00000000, cost = 96.0000, time = 128.0000
+y[37, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[34] = 1.0000
+v[37] = 1.0000
+New Column cost =  197  time =  381  Covered [  29,   34,   37]
+ Iterations   61 reduced cost = -4.00
+
+RMP status = Optimal  value  = 2706
+y[29, 34] = 1.00000000, cost = 101.0000, time = 141.0000
+y[34, 37] = 1.00000000, cost = 96.0000, time = 128.0000
+y[37, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[34] = 1.0000
+v[37] = 1.0000
+New Column cost =  197  time =  381  Covered [  29,   34,   37]
+ Iterations   62 reduced cost = -4.00
+
+RMP status = Optimal  value  = 2706
+y[ 0, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  0] = 1.00000000, cost = 0.0000, time = 143.0000
+v[ 0] = 1.0000
+New Column cost =    0  time =  143  Covered [   0]
+ Iterations   63 reduced cost =  0.00
+
+RMP has cost =  0.00, stopping
+Master Problem Status = Optimal value  = 4204
+x[  0] = 1.000000000000000000  cost =  169  time =  399  [   0,    9]
+x[  1] = 1.000000000000000000  cost =  300  time =  449  [   1,   17]
+x[  2] = 1.000000000000000000  cost =    0  time =  152  [   2]
+x[  6] = 1.000000000000000000  cost =  307  time =  463  [   6,   19]
+x[  8] = 1.000000000000000000  cost =  303  time =  432  [   8,   20]
+x[  9] = 1.000000000000000000  cost =   26  time =  460  [  10,   21]
+x[ 10] = 1.000000000000000000  cost =   23  time =  446  [  11,   23]
+x[ 11] = 1.000000000000000000  cost =  184  time =  384  [  12,   26]
+x[ 12] = 1.000000000000000000  cost =  192  time =  423  [  13,   30]
+x[ 13] = 1.000000000000000000  cost =  278  time =  381  [  15,   29]
+x[ 16] = 1.000000000000000000  cost =  124  time =  341  [  22,   32]
+x[ 17] = 1.000000000000000000  cost =    0  time =  115  [  25]
+x[ 18] = 1.000000000000000000  cost =  226  time =  295  [  28,   33]
+x[ 19] = 1.000000000000000000  cost =  164  time =  245  [  34,   38]
+x[ 20] = 1.000000000000000000  cost =  294  time =  405  [  35,   42]
+x[ 21] = 1.000000000000000000  cost =  182  time =  366  [  36,   43]
+x[ 22] = 1.000000000000000000  cost =  218  time =  448  [  37,   41]
+x[ 23] = 1.000000000000000000  cost =   21  time =  333  [  40,   49]
+x[ 24] = 1.000000000000000000  cost =    0  time =  127  [  44]
+x[ 25] = 1.000000000000000000  cost =  297  time =  449  [  46,   39,   45]
+x[ 26] = 1.000000000000000000  cost =    0  time =  203  [  47]
+x[ 27] = 1.000000000000000000  cost =    0  time =  188  [  48]
+x[ 31] = 1.000000000000000000  cost =    0  time =   25  [  31]
+x[ 48] = 1.000000000000000000  cost =    0  time =   21  [   3]
+x[ 49] = 1.000000000000000000  cost =  130  time =  438  [   5,   14]
+x[ 61] = 1.000000000000000000  cost =   77  time =  373  [   4,   18]
+x[ 62] = 1.000000000000000000  cost =  241  time =  471  [   7,   16,   24]
+x[ 69] = 1.000000000000000000  cost =    0  time =   59  [  27]
+  28 columns where used, expected   28
