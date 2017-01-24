@@ -66,8 +66,11 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         cost_mat[t->N][i     ] = 0.0;
         cost_mat[i   ][t->N+1] = 0.0;
 
-        time_mat[t->N][i     ] = 0.0;
-        time_mat[i   ][t->N+1] = t->task[i].end_time - t->task[i].start_time; // This accounts the time for the first task in a journey
+        //time_mat[t->N][i     ] = 0.0;
+        //time_mat[i   ][t->N+1] = t->task[i].end_time - t->task[i].start_time;
+
+        time_mat[t->N][i     ] = t->task[i].end_time - t->task[i].start_time; // This accounts the time for the first task in a journey
+        time_mat[i   ][t->N+1] = 0.0;
     }
 
     // Print the matrix, for debugging purposes
@@ -174,6 +177,10 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         expr.end();
     }
     //printf("Added time limit contraint\n");
+
+    IloModel model_final(env);
+    model_final.add(model);
+    model_final.add(IloConversion(env, v, ILOFLOAT));
 
     if ( !cplex.solve() ) {
         env.error() << "Failed to optimize SubProblem" << endl;

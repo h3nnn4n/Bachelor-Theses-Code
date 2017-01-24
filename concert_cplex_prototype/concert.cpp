@@ -45,8 +45,8 @@ int main (int argc, char **argv) {
 
         printf("Starting\n");
 
-        //srand(time(NULL));
-        srand(666);
+        srand(time(NULL));
+        //srand(666);
 
         ////Prints the graph (it indexes from zero)
         //for (int i = 0; i < (int)t.graph.size(); ++i) {
