@@ -181,28 +181,49 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         EXPR.end();
     }
     //printf("Added time limit contraint\n");
+    // // Beginning of the HEURISTIC section
+    //
+    // Copies the model to solve the linear relaxixation
+    IloModel model_final(env);
+    IloCplex cplex_final(model_final);
+    model_final.add(model);
+    model_final.add(IloConversion(env, v, ILOFLOAT));
+
+    for (int i = 0; i < t->N+2; ++i) {
+        model_final.add(IloConversion(env, y[i], ILOFLOAT));
+    }
+
+    if ( !cplex_final.solve() ) {
+        env.error() << "Failed to optimize Relaxed subproblem" << endl;
+        throw(-1);
+    }
+
+    // Extracts the values
+    IloNumArray vals(env);
+    env.out() << "Solution status = " << cplex_final.getStatus() << endl;
+    env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
 
     // greedyLpHeur
     {
-        // Copies the model to solve the linear relaxixation
-        IloModel model_final(env);
-        IloCplex cplex_final(model_final);
-        model_final.add(model);
-        model_final.add(IloConversion(env, v, ILOFLOAT));
+        //// Copies the model to solve the linear relaxixation
+        //IloModel model_final(env);
+        //IloCplex cplex_final(model_final);
+        //model_final.add(model);
+        //model_final.add(IloConversion(env, v, ILOFLOAT));
 
-        for (int i = 0; i < t->N+2; ++i) {
-            model_final.add(IloConversion(env, y[i], ILOFLOAT));
-        }
+        //for (int i = 0; i < t->N+2; ++i) {
+            //model_final.add(IloConversion(env, y[i], ILOFLOAT));
+        //}
 
-        if ( !cplex_final.solve() ) {
-            env.error() << "Failed to optimize Relaxed subproblem" << endl;
-            throw(-1);
-        }
+        //if ( !cplex_final.solve() ) {
+            //env.error() << "Failed to optimize Relaxed subproblem" << endl;
+            //throw(-1);
+        //}
 
-        // Extracts the values
-        IloNumArray vals(env);
-        env.out() << "Solution status = " << cplex_final.getStatus() << endl;
-        env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
+        //// Extracts the values
+        //IloNumArray vals(env);
+        //env.out() << "Solution status = " << cplex_final.getStatus() << endl;
+        //env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
 
         //double x = cplex_final.getObjValue();
         //*reduced_cost = x;
@@ -297,6 +318,123 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
 
     //End of greedyLpHeur
 
+    // greedyHeur
+    if ( 0 )
+    {
+        // Copies the model to solve the linear relaxixation
+        //IloModel model_final(env);
+        //IloCplex cplex_final(model_final);
+        //model_final.add(model);
+        //model_final.add(IloConversion(env, v, ILOFLOAT));
+
+        //for (int i = 0; i < t->N+2; ++i) {
+            //model_final.add(IloConversion(env, y[i], ILOFLOAT));
+        //}
+
+        //if ( !cplex_final.solve() ) {
+            //env.error() << "Failed to optimize Relaxed subproblem" << endl;
+            //throw(-1);
+        //}
+
+        // Extracts the values
+        //IloNumArray vals(env);
+        //env.out() << "Solution status = " << cplex_final.getStatus() << endl;
+        //env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
+
+        //double x = cplex_final.getObjValue();
+        //*reduced_cost = x;
+        for (int i = 0; i < t->N+2; ++i) {
+            cplex_final.getValues(vals, y[i]);
+            //env.out() << "y["<<i<<"]      = " << vals << endl;
+            for (int j = 0; j < t->N+2; ++j) {
+                if ( vals[j] > 0.0 ) {
+                    printf("y[%2d, %2d] = %2.16f, cost = %4.4f, time = %4.4f\n", i, j, vals[j], cost_mat[i][j], time_mat[i][j]);
+                    //journey.cost += cost_mat[i][j];
+                    //journey.time += time_mat[i][j];
+                }
+            }
+        }
+
+        // This reads the covered vertices
+        cplex_final.getValues(vals, v);
+        //env.out() << "v         = " << vals << endl;
+        for (int i = 0; i < t->N; ++i) {
+            if ( vals[i] > 0.0 ) {
+                //journey.covered.push_back(i);
+                printf("v[%2d] = %2.4f\n", i, vals[i]);
+            }
+        }
+
+        _journey journey;
+        journey.time = 0;
+        journey.cost = 0;
+        journey.covered.clear();
+
+        double best = 0;
+        double objValue = 0;
+        int bestIndex = -1;
+        int doit = 1;
+        int atual = t->N;
+
+        do {
+            cplex_final.getValues(vals, y[atual]);
+
+            for (int i = 0; i < t->N+2; ++i) {
+                if ( vals[i] > best ) {
+                    bestIndex = i;
+                    best = vals[i];
+                }
+            }
+
+            if ( bestIndex != -1 && best > 0 && bestIndex <= t->N ) {
+                int j = bestIndex;
+
+                if ( journey.time + time_mat[atual][j] < t->time_limit ) {
+                    journey.cost += cost_mat[atual][j];
+                    journey.time += time_mat[atual][j];
+
+                    objValue += cost_mat[atual][j];
+
+                    //printf("Covering %3d -> %3d = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", atual, j, vals[j], (float)cost_mat[atual][j], (float)time_mat[atual][j], duals[j] );
+                    printf("Covering %3d -> %3d", atual, j);
+                    printf(" = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", vals[j], (float)cost_mat[atual][j], (float)time_mat[atual][j], duals[j] );
+
+                    atual = bestIndex;
+                    best  = 0;
+
+                    objValue -= duals[atual];
+
+                    journey.covered.push_back ( atual );
+                } else {
+                    printf("MaxTime limit %4.8f, stoping\n", (float)journey.time);
+                    doit = false;
+                }
+            } else {
+                //assert ( 0 && "This should never happen" );
+                printf("Found the last task with time %4.8f, stoping\n", (float)journey.time);
+                doit = false;
+            }
+        } while ( doit && atual < t->N+1 );
+        printf("Reduced value = %4.8f\n", objValue);
+
+        if ( objValue < 0 ) {
+            if ( usedJourneys.count(journey.covered) == 0 ) {
+                printf("Using greedyLpHeuristic solution\n");
+                *reduced_cost = objValue;
+                return journey;
+            } else {
+                printf("Solution not unique\n");
+            }
+        } else {
+            printf("Solution is bad\n");
+            //exit(0);
+            //Do Nothing
+        }
+    }
+
+    //End of greedyHeur
+
+
     if ( !cplex.solve() ) {
         env.error() << "Failed to optimize SubProblem" << endl;
         throw(-1);
@@ -308,7 +446,7 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
     journey.time = 0;
     journey.cost = 0;
 
-    IloNumArray vals(env);
+    //IloNumArray vals(env);
     //env.out() << "Solution status = " << cplex.getStatus() << endl;
     //env.out() << "Solution value  = " << cplex.getObjValue() << endl;
     double x = cplex.getObjValue();
