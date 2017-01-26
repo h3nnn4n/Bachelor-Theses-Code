@@ -1,9 +1,9 @@
 #include <iostream>
-#include <vector>
 #include <cstdlib>
 #include <cstdio>
 
 #include <map>
+#include <vector>
 
 #include "reader.h"
 #include "types.h"
@@ -35,6 +35,7 @@ int main (int argc, char **argv) {
 
         _csp t = file_reader(input_name);
         std::vector<_journey> journeys;
+        std::map<std::vector<int>, bool> usedJourneys;
 
         if ( argc == 3 ) {
             t.n_journeys = atoi(argv[2]);
@@ -45,8 +46,8 @@ int main (int argc, char **argv) {
 
         printf("Starting\n");
 
-        srand(time(NULL));
-        //srand(666);
+        //srand(time(NULL));
+        srand(666);
 
         ////Prints the graph (it indexes from zero)
         //for (int i = 0; i < (int)t.graph.size(); ++i) {
@@ -58,6 +59,11 @@ int main (int argc, char **argv) {
         //}
 
         build_heur_sol ( &t, journeys );
+
+        for (int i = 0; i < (int) journeys.size(); ++i) {
+            usedJourneys[journeys[i].covered] = true;
+        }
+
         //journeys.push_back(all_powerful_journey(&t));
 
         //for (int i = 0; i < 5; ++i) {
@@ -176,21 +182,17 @@ int main (int argc, char **argv) {
             cplex.getReducedCosts(red_cost, var);
             cplex.getDuals(duals, con);
 
-            _journey new_journey = subproblem(red_cost, duals, &t, journeys, &reduced_cost);
+            _journey new_journey = subproblem(red_cost, duals, &t, journeys, &reduced_cost, usedJourneys);
 
             journeys.push_back(new_journey);
-
-            // Gets a reference to the objective function and adds the new coef for the column
-            //IloObjective obj = IloMinimize(env);
+            usedJourneys[new_journey.covered] = true;
 
             // Create a new expression to build the new column
             IloNumColumn col = obj(new_journey.cost);
-            //IloNumColumn col = obj((int)journeys.size());
             printf("New Column cost = %4d  time = %4d  Covered [", new_journey.cost, new_journey.time);
 
             // Walks throught the new journey and builds the coeffs for the column
             for (int i = 0; i < (int)new_journey.covered.size(); ++i) {
-                //expr +=
                 printf("%4d, ", new_journey.covered[i]);
                 col += con[new_journey.covered[i]](1.0);
             }
@@ -199,13 +201,8 @@ int main (int argc, char **argv) {
 
             col += con[t.N](1.0);
 
-            //model.add(expr <= t->time_limit);
-            //var.add(IloNumVar(end, 0.0, 1.0, ILOFLOAT));
-            //var.add(IloNumVar( expr ));
-
             var.add( IloNumVar(col + obj(new_journey.cost), 0.0, 1.0, ILOFLOAT));
             model.add(var);
-            //obj.setLinearCoef(tmp, new_journey.cost);
 
             //char name[256];
             //sprintf(name, "rmp_%04d.lp", cont);
@@ -218,22 +215,17 @@ int main (int argc, char **argv) {
 
         printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
 
-        IloModel model_final(env);
-        model_final.add(model);
-        model_final.add(IloConversion(env, var, ILOINT));
 
-        IloCplex       cplex_final(model_final);
-
-        cplex_final.setOut(env.getNullStream());
+        cplex.setOut(env.getNullStream());
         // Optimize the problem with the final set of columns
-        if ( !cplex_final.solve() ) {
+        if ( !cplex.solve() ) {
             env.error() << "Failed to optimize LP" << endl;
             throw(-1);
         }
 
         IloNumArray vals(env);
-        env.out() << "Master Problem Status = " << cplex_final.getStatus() <<  " value  = " << cplex_final.getObjValue() << endl;
-        cplex_final.getValues(vals, var);
+        env.out() << "Master Problem Status = " << cplex.getStatus() <<  " value  = " << cplex.getObjValue() << endl;
+        cplex.getValues(vals, var);
 
         int total_columns_used = 0;
         for (int i = 0; i < (int) journeys.size(); ++i) {
@@ -247,6 +239,37 @@ int main (int argc, char **argv) {
                 printf("\b\b]\n");
             }
         }
+
+        //IloModel model_final(env);
+        //model_final.add(model);
+        //model_final.add(IloConversion(env, var, ILOINT));
+
+        //IloCplex       cplex_final(model_final);
+
+        //cplex_final.setOut(env.getNullStream());
+        //// Optimize the problem with the final set of columns
+        //if ( !cplex_final.solve() ) {
+            //env.error() << "Failed to optimize LP" << endl;
+            //throw(-1);
+        //}
+
+        //IloNumArray vals(env);
+        //env.out() << "Master Problem Status = " << cplex_final.getStatus() <<  " value  = " << cplex_final.getObjValue() << endl;
+        //cplex_final.getValues(vals, var);
+
+        //int total_columns_used = 0;
+        //for (int i = 0; i < (int) journeys.size(); ++i) {
+            //if ( vals[i] ) {
+                //total_columns_used++;
+                //printf("x[%3d] = %2.18f ", i, vals[i]);
+                //printf(" cost = %4d  time = %4d  [", journeys[i].cost, journeys[i].time);
+                //for (int j = 0; j < (int)journeys[i].covered.size(); ++j) {
+                    //printf("%4d, ", journeys[i].covered[j]);
+                //}
+                //printf("\b\b]\n");
+            //}
+        //}
+
         printf("%4d columns where used, expected %4d\n", total_columns_used, t.n_journeys);
     }
     catch (IloException& e) {
