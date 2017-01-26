@@ -178,10 +178,11 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
             }
         }
         model.add(expr <= t->time_limit);
-        expr.end();
+        EXPR.end();
     }
     //printf("Added time limit contraint\n");
 
+    // greedyLpHeur
     {
         // Copies the model to solve the linear relaxixation
         IloModel model_final(env);
@@ -294,9 +295,7 @@ _journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::
         }
     }
 
-    //exit(0);
-
-    //End of the heuristic
+    //End of greedyLpHeur
 
     if ( !cplex.solve() ) {
         env.error() << "Failed to optimize SubProblem" << endl;
