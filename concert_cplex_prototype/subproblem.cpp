@@ -13,22 +13,55 @@
 
 using namespace std;
 
-//_journey findTaskWithNegativeReducedCost ( _csp *t, double *duals, double time_mat[][], double cost_mat[][] ) {
-    //_journey journey;
+_journey greedyHillClimbingHeur ( _csp *csp, _subproblem_info *sp, double *objValue ) {
+    printf("Running greedyHillClimbingHeur\n");
+    _journey journey;
 
-    //int bestIndex = -1;
-    //int bestObj = 10; // Only important if it is less than zero
+    for (int i = 0; i < csp->N; ++i) {
+        int atual = i;
+        double obj = - sp->mi - sp->duals[atual];
 
-    //for (int i = 0; i < count; ++i) {
+        journey.time = 0;
+        journey.cost = 0;
+        journey.covered.clear();
+        journey.time += sp->time_mat[csp->N][atual];
+        journey.covered.push_back(atual);
 
-    //}
+        assert ( journey.time > 0 && "JOURNEY TIME <= ZERO!!");
 
-    //if ( duals[i] )
+        bool found_something;
+        do {
+            found_something = false;
+            for (int j = 0; j < (int) csp->graph[atual].size(); ++j) {
+                int dest = csp->graph[atual][j].dest;
+                if ( sp->cost_mat[atual][dest] + obj < 0 ) {
+                    if ( sp->time_mat[atual][dest] + journey.time <= csp->time_limit ) {
+                        journey.cost += sp->cost_mat[atual][dest];
+                        journey.time += sp->time_mat[atual][dest];
+                        journey.covered.push_back(dest);
+                        found_something = true;
+                        printf("%3d -> %3d\n", atual, dest);
+                        atual = dest;
+                    }
+                }
+            }
+        } while ( found_something );
 
-    //return journey;
-//}
+        if ( obj <= 0 && journey.covered.size() > 1 &&  sp->usedJourneys.count(journey.covered) == 0 ) {
+            printf("Found new journey with reduced cost < 0\n");
+            *objValue = obj;
+            break;
+        }
+    }
+
+
+    printf("Reduced value = %4.8f\n", *objValue);
+
+    return journey;
+}
 
 _journey greedyLpHeur ( _csp *csp, _subproblem_info *sp, IloArray<IloNumVarArray> y, IloEnv &env, IloCplex &cplex_final, double *objValue ) {
+    printf("Running greedyLpheur\n");
     _journey journey;
     journey.time = 0;
     journey.cost = 0;
@@ -278,59 +311,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
 
     // greedyLpHeur
-    if ( 1 )
-    {
-        //// Copies the model to solve the linear relaxixation
-        //IloModel model_final(env);
-        //IloCplex cplex_final(model_final);
-        //model_final.add(model);
-        //model_final.add(IloConversion(env, v, ILOFLOAT));
-
-        //for (int i = 0; i < csp->N+2; ++i) {
-            //model_final.add(IloConversion(env, y[i], ILOFLOAT));
-        //}
-
-        //if ( !cplex_final.solve() ) {
-            //env.error() << "Failed to optimize Relaxed subproblem" << endl;
-            //throw(-1);
-        //}
-
-        //// Extracts the values
-        //IloNumArray vals(env);
-        //env.out() << "Solution status = " << cplex_final.getStatus() << endl;
-        //env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
-
-        //double x = cplex_final.getObjValue();
-        //*reduced_cost = x;
-
-        // This walks the graph
-        //
-        //double bestFirstObj = 10;
-        //int bestFirstIndex
-        //for (int i = 0; i < csp->N+2; ++i) {
-            //cplex_final.getValues(vals, y[i]);
-            //env.out() << "y["<<i<<"]      = " << vals << endl;
-            //for (int j = 0; j < csp->N+2; ++j) {
-                //if ( csp->graph[i][j]
-                //if ( vals[j] > 0.0 ) {
-                    //printf("y[%2d, %2d] = %2.16f, cost = %4.4f, time = %4.4f\n", i, j, vals[j], cost_mat[i][j], sp->time_mat[i][j]);
-                    ////journey.cost += cost_mat[i][j];
-                    ////journey.time += sp->time_mat[i][j];
-                //}
-            //}
-        //}
-
-        // This reads the covered vertices
-        //cplex_final.getValues(vals, v);
-        //env.out() << "v         = " << vals << endl;
-        //for (int i = 0; i < csp->N; ++i) {
-            //if ( vals[i] > 0.0 ) {
-                ////journey.covered.push_back(i);
-                //printf("v[%2d] = %2.4f\n", i, vals[i]);
-            //}
-        //}
-        //
-
+    if ( 0 ) {
         double objValue = 0;
 
         _journey journey = greedyLpHeur ( csp, sp, y, env, cplex_final, &objValue );
@@ -349,111 +330,17 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
             //Do Nothing
         }
     }
-
     //End of greedyLpHeur
 
     // greedyHeur
-    if ( 0 )
-    {
-        // Copies the model to solve the linear relaxixation
-        //IloModel model_final(env);
-        //IloCplex cplex_final(model_final);
-        //model_final.add(model);
-        //model_final.add(IloConversion(env, v, ILOFLOAT));
-
-        //for (int i = 0; i < csp->N+2; ++i) {
-            //model_final.add(IloConversion(env, y[i], ILOFLOAT));
-        //}
-
-        //if ( !cplex_final.solve() ) {
-            //env.error() << "Failed to optimize Relaxed subproblem" << endl;
-            //throw(-1);
-        //}
-
-        // Extracts the values
-        //IloNumArray vals(env);
-        //env.out() << "Solution status = " << cplex_final.getStatus() << endl;
-        //env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
-
-        //double x = cplex_final.getObjValue();
-        //*reduced_cost = x;
-        for (int i = 0; i < csp->N+2; ++i) {
-            cplex_final.getValues(vals, y[i]);
-            //env.out() << "y["<<i<<"]      = " << vals << endl;
-            for (int j = 0; j < csp->N+2; ++j) {
-                if ( vals[j] > 0.0 ) {
-                    printf("y[%2d, %2d] = %2.16f, cost = %4.4f, time = %4.4f\n", i, j, vals[j], sp->cost_mat[i][j], sp->time_mat[i][j]);
-                    //journey.cost += cost_mat[i][j];
-                    //journey.time += sp->time_mat[i][j];
-                }
-            }
-        }
-
-        // This reads the covered vertices
-        cplex_final.getValues(vals, v);
-        //env.out() << "v         = " << vals << endl;
-        for (int i = 0; i < csp->N; ++i) {
-            if ( vals[i] > 0.0 ) {
-                //journey.covered.push_back(i);
-                printf("v[%2d] = %2.4f\n", i, vals[i]);
-            }
-        }
-
-        _journey journey;
-        journey.time = 0;
-        journey.cost = 0;
-        journey.covered.clear();
-
-        double best = 0;
+    if ( 1 ) {
         double objValue = 0;
-        int bestIndex = -1;
-        int doit = 1;
-        int atual = csp->N;
 
-        do {
-            cplex_final.getValues(vals, y[atual]);
-
-            for (int i = 0; i < csp->N+2; ++i) {
-                if ( vals[i] > best ) {
-                    bestIndex = i;
-                    best = vals[i];
-                }
-            }
-
-            if ( bestIndex != -1 && best > 0 && bestIndex <= csp->N ) {
-                int j = bestIndex;
-
-                if ( journey.time + sp->time_mat[atual][j] < csp->time_limit ) {
-                    journey.cost += sp->cost_mat[atual][j];
-                    journey.time += sp->time_mat[atual][j];
-
-                    objValue += sp->cost_mat[atual][j];
-
-                    //printf("Covering %3d -> %3d = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", atual, j, vals[j], (float)cost_mat[atual][j], (float)sp->time_mat[atual][j], duals[j] );
-                    printf("Covering %3d -> %3d", atual, j);
-                    printf(" = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", vals[j], (float)sp->cost_mat[atual][j], (float)sp->time_mat[atual][j], duals[j] );
-
-                    atual = bestIndex;
-                    best  = 0;
-
-                    objValue -= duals[atual];
-
-                    journey.covered.push_back ( atual );
-                } else {
-                    printf("MaxTime limit %4.8f, stoping\n", (float)journey.time);
-                    doit = false;
-                }
-            } else {
-                //assert ( 0 && "This should never happen" );
-                printf("Found the last task with time %4.8f, stoping\n", (float)journey.time);
-                doit = false;
-            }
-        } while ( doit && atual < csp->N+1 );
-        printf("Reduced value = %4.8f\n", objValue);
+        _journey journey = greedyHillClimbingHeur ( csp, sp, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("Using greedyLpHeuristic solution\n");
+                printf("Using greedyHillClimbingHeur solution\n");
                 *reduced_cost = objValue;
                 return journey;
             } else {
@@ -465,7 +352,6 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
             //Do Nothing
         }
     }
-
     //End of greedyHeur
 
 
