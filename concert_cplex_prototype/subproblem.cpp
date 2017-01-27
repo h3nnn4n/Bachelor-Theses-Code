@@ -28,6 +28,68 @@ using namespace std;
     //return journey;
 //}
 
+_journey greedyLpHeur ( _csp *csp, _subproblem_info *sp, IloArray<IloNumVarArray> y, IloEnv &env, IloCplex &cplex_final, double *objValue ) {
+    _journey journey;
+    journey.time = 0;
+    journey.cost = 0;
+    journey.covered.clear();
+
+    IloNumArray vals(env);
+
+    double best = 0;
+    int bestIndex = -1;
+    int doit = 1;
+    int atual = csp->N;
+
+    *objValue = 0;
+
+    *objValue -= sp->mi; // Mi
+
+    do {
+        cplex_final.getValues(vals, y[atual]);
+
+        for (int i = 0; i < csp->N+2; ++i) {
+            if ( vals[i] > best ) {
+                bestIndex = i;
+                best = vals[i];
+            }
+        }
+
+        if ( bestIndex != -1 && best > 0 && bestIndex <= csp->N ) {
+            int j = bestIndex;
+
+            if ( journey.time + sp->time_mat[atual][j] < csp->time_limit ) {
+                journey.cost += sp->cost_mat[atual][j];
+                journey.time += sp->time_mat[atual][j];
+
+                *objValue += sp->cost_mat[atual][j];
+
+                //printf("Covering %3d -> %3d = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", atual, j, vals[j], (float)cost_mat[atual][j], (float)sp->time_mat[atual][j], duals[j] );
+                printf("Covering %3d -> %3d", atual, j);
+                printf(" = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", vals[j], (float)sp->cost_mat[atual][j], (float)sp->time_mat[atual][j], sp->duals[j] );
+
+                atual = bestIndex;
+                best  = 0;
+
+                *objValue -= sp->duals[atual];
+
+                journey.covered.push_back ( atual );
+            } else {
+                printf("MaxTime limit %4.8f, stoping\n", (float)journey.time);
+                doit = false;
+            }
+        } else {
+            //assert ( 0 && "This should never happen" );
+            printf("Found the last task with time %4.8f, stoping\n", (float)journey.time);
+            doit = false;
+        }
+    } while ( doit && atual < csp->N+1 );
+
+    printf("Reduced value = %4.8f\n", *objValue);
+
+    return journey;
+}
+
 void update_subproblem_duals ( _subproblem_info *sp, _csp *csp, IloNumArray duals ) {
     printf("SUBPROBLEM UPDATAE DUALS\n");
     for (int i = 0; i < csp->N; ++i) {
@@ -267,60 +329,11 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
                 //printf("v[%2d] = %2.4f\n", i, vals[i]);
             //}
         //}
+        //
 
-        _journey journey;
-        journey.time = 0;
-        journey.cost = 0;
-        journey.covered.clear();
-
-        double best = 0;
         double objValue = 0;
-        int bestIndex = -1;
-        int doit = 1;
-        int atual = csp->N;
 
-        objValue -= duals[csp->N]; // Mi
-
-        do {
-            cplex_final.getValues(vals, y[atual]);
-
-            for (int i = 0; i < csp->N+2; ++i) {
-                if ( vals[i] > best ) {
-                    bestIndex = i;
-                    best = vals[i];
-                }
-            }
-
-            if ( bestIndex != -1 && best > 0 && bestIndex <= csp->N ) {
-                int j = bestIndex;
-
-                if ( journey.time + sp->time_mat[atual][j] < csp->time_limit ) {
-                    journey.cost += sp->cost_mat[atual][j];
-                    journey.time += sp->time_mat[atual][j];
-
-                    objValue += sp->cost_mat[atual][j];
-
-                    //printf("Covering %3d -> %3d = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", atual, j, vals[j], (float)cost_mat[atual][j], (float)sp->time_mat[atual][j], duals[j] );
-                    printf("Covering %3d -> %3d", atual, j);
-                    printf(" = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", vals[j], (float)sp->cost_mat[atual][j], (float)sp->time_mat[atual][j], duals[j] );
-
-                    atual = bestIndex;
-                    best  = 0;
-
-                    objValue -= duals[atual];
-
-                    journey.covered.push_back ( atual );
-                } else {
-                    printf("MaxTime limit %4.8f, stoping\n", (float)journey.time);
-                    doit = false;
-                }
-            } else {
-                //assert ( 0 && "This should never happen" );
-                printf("Found the last task with time %4.8f, stoping\n", (float)journey.time);
-                doit = false;
-            }
-        } while ( doit && atual < csp->N+1 );
-        printf("Reduced value = %4.8f\n", objValue);
+        _journey journey = greedyLpHeur ( csp, sp, y, env, cplex_final, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
