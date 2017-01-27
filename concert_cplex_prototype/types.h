@@ -2,6 +2,7 @@
 #define TYPES_H
 
 #include <vector>
+#include <map>
 
 typedef struct {
     std::vector<int> covered;
@@ -29,5 +30,16 @@ typedef struct {
     std::vector<int> start_nodes;
     std::vector<int> end_nodes;
 } _csp;
+
+typedef struct {
+    double **adj_mat;
+    double **cost_mat;
+    double **time_mat;
+    double *duals;
+    double mi;
+
+    std::vector<_journey> journeys;
+    std::map<std::vector<int>, bool> usedJourneys;
+} _subproblem_info;
 
 #endif /* TYPES_H */

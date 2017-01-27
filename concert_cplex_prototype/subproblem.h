@@ -8,6 +8,9 @@
 
 #include <ilcplex/ilocplex.h>
 
-_journey subproblem(IloNumArray reduced_costs, IloNumArray duals, _csp *t, std::vector<_journey> &journeys, double *reduced_cost, std::map<std::vector<int>, bool> &usedJourneys) ;
+void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) ;
+void update_subproblem_duals ( _subproblem_info *sp, _csp *csp, IloNumArray duals ) ;
+
+_journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *subproblemInfo, double *reduced_cost) ;
 
 #endif /* SUBPROBLEM_H */
