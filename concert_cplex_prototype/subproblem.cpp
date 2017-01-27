@@ -6,6 +6,7 @@
 
 #include "types.h"
 #include "greedy_heur.h"
+#include "simmulated_annealing.h"
 
 #include <ilcplex/ilocplex.h>
 #include <ilcp/cpext.h>
@@ -224,7 +225,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     //End of greedyLpHeur
 
     // greedyHeur
-    if ( 1 ) {
+    if ( 0 ) {
         double objValue = 0;
 
         _journey journey = greedyHillClimbingHeur ( csp, sp, &objValue );
@@ -245,6 +246,27 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     }
     //End of greedyHeur
 
+    // Simmulated Annealing
+    if ( 1 ) {
+        double objValue = 0;
+
+        _journey journey = simmulatedAnnealing ( csp, sp, &objValue );
+
+        if ( objValue < 0 ) {
+            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                printf("simmulatedAnnealing solution is good\n");
+                *reduced_cost = objValue;
+                return journey;
+            } else {
+                printf("simmulatedAnnealing solution not unique\n");
+            }
+        } else {
+            printf("simmulatedAnnealing solution is bad\n");
+            //exit(0);
+            //Do Nothing
+        }
+    }
+    //End of greedyHeur
 
     if ( !cplex.solve() ) {
         env.error() << "Failed to optimize SubProblem" << endl;
