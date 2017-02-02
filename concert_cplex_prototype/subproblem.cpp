@@ -7,6 +7,7 @@
 #include "types.h"
 #include "greedy_heur.h"
 #include "simmulated_annealing.h"
+#include "ant_colony_optimization.h"
 
 #include <ilcplex/ilocplex.h>
 #include <ilcp/cpext.h>
@@ -247,7 +248,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     //End of greedyHeur
 
     // Simmulated Annealing
-    if ( 1 ) {
+    if ( 0 ) {
         double objValue = 0;
 
         _journey journey = simmulatedAnnealing ( csp, sp, &objValue );
@@ -266,7 +267,29 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
             //Do Nothing
         }
     }
-    //End of greedyHeur
+    //End of Simmulated Annealing
+
+    // Ant Colony Optimization
+    if ( 1 ) {
+        double objValue = 0;
+
+        _journey journey = antColonyOptmization ( csp, sp, &objValue );
+
+        if ( objValue < 0 ) {
+            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                printf("antColonyOptmization solution is good\n");
+                *reduced_cost = objValue;
+                return journey;
+            } else {
+                printf("antColonyOptmization solution not unique\n");
+            }
+        } else {
+            printf("antColonyOptmization solution is bad\n");
+            //exit(0);
+            //Do Nothing
+        }
+    }
+    //End of Ant Colony Optimization
 
     if ( !cplex.solve() ) {
         env.error() << "Failed to optimize SubProblem" << endl;
