@@ -4,12 +4,17 @@
 #include "types.h"
 
 typedef struct {
-    int dest;
+    int    dest;
     double pheromone;
     double time;
     double cost;
     double dual_cost;
     double scaled_cost;
+    double effective_cost;
+
+    double history;
+    double prob;
+    double heuristic;
 } _path;
 
 typedef std::vector<std::vector<_path> > _graph;

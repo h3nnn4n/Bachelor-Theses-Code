@@ -22,3 +22,9 @@ void print_graph(_csp csp) {
         }
     }
 }
+
+void init_journey( _journey &journey) {
+    journey.cost = 0;
+    journey.time = 0;
+    journey.covered.clear();
+}
