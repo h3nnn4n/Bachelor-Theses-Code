@@ -83,6 +83,7 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
 
         bool found_something = true;
 
+        //puts("");
         // loops while it is possible to add something to the current solution
         do {
             found_something = false;
@@ -129,7 +130,7 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                     continue;
                 }
 
-                //std::cout << "going to " << csp->graph[atual][x].dest << " with cost " << csp->graph[atual][x].cost << std::endl;
+                //std::cout << atual << " is going to " << csp->graph[atual][x].dest << " with cost " << csp->graph[atual][x].cost << std::endl;
 
                 if ( csp->graph[atual][x].cost == 0 ) {
                     printf(" # %3d -> %3d has cost = %3d\n", atual, dest, csp->graph[atual][x].cost);
@@ -161,6 +162,19 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
                     int dest = csp->graph[uncovered][i].dest;
                     //printf("%2d goes to %2d\n", uncovered, dest);
 
+                    // Needs to check that it will go to a task in the beggining of a journey
+                    bool goingToFirstTask = false;
+                    for (int j = 0; j < (int)journeys.size(); ++j) {
+                        if ( journeys[j].covered[0] == dest ) {
+                            goingToFirstTask = true;
+                            break;
+                        }
+                    }
+
+                    if ( !goingToFirstTask ) {
+                        continue;
+                    }
+
                     //int j_index = -1;
                     for (int k = 0; k < (int)journeys.size(); ++k) {
                         for (int j = 0; j < (int)journeys[k].covered.size(); ++j) {
@@ -172,10 +186,12 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
 
                                     journeys[k].cost += csp->graph[uncovered][i].cost;
 
-                                    journeys[k].covered.push_back(uncovered);
+                                    //journeys[k].covered.push_back(uncovered);
+                                    journeys[k].covered.insert(journeys[k].covered.begin(), uncovered);
 
                                     if ( csp->graph[uncovered][i].cost == 0 ) {
                                         printf(" + %3d -> %3d has cost = zero\n", uncovered, dest);
+                                        exit(0);
                                     }
 
                                     covered[uncovered] = true;

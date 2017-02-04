@@ -61,7 +61,7 @@ void validateJourney ( _subproblem_info *sp, _journey &journey) {
             if ( i < (int)journey.covered.size() - 1) {
                 int source = journey.covered[i    ];
                 int dest   = journey.covered[i + 1];
-                printf("%4d -> %4d\n", source, dest);
+                printf("%4d -> %4d cost %7.2f time %7.2f\n", source, dest, sp->cost_mat[source][dest], sp->time_mat[source][dest]);
             }
         }
 
