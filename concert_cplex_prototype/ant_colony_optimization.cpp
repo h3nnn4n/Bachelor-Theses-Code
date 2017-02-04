@@ -17,6 +17,37 @@ double costACO ( _graph &graph ) {
     return 0;
 }
 
+//int getIndexForEdge( _graph &graph, int a, int b) {
+    //for (int i = 0; i < (int) graph[a].size(); ++i) {
+        //if ( graph[a][i].dest == b ) {
+            //return i;
+        //}
+    //}
+
+    //return -1;
+//}
+
+void updateLocalPheromones ( _graph &graph, _journey candidate , double c_local_phero, double init_pheromone) {
+    std::vector<int> covered;
+    covered.push_back(graph.size() - 2);
+
+    for (int i = 0; i < (int)candidate.covered.size(); ++i) {
+        covered.push_back(candidate.covered[i]);
+    }
+
+    for (int sourceIndex = 0; sourceIndex < (int)covered.size() - 1; ++sourceIndex) {
+
+        int source = covered[sourceIndex    ];
+        int dest   = covered[sourceIndex + 1];
+
+        double value = ((1.0 - c_local_phero) * graph[source][dest].pheromone) + (c_local_phero * init_pheromone);
+
+        //printf("%4d -> %4d   %4.8f -> %4.8f\n", source, dest, value, graph[source][dest].pheromone);
+
+        graph[source][dest].pheromone = value;
+    }
+}
+
 _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
     _journey candidate;
     init_journey(candidate);
@@ -103,7 +134,6 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
     double c_heur        = 2.5;
     double c_local_phero = 0.1;
     double c_greed       = 0.9;
-    //double c_greed       = 1.9;
 
     double init_pheromone;
 
@@ -188,6 +218,7 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
         }
 
         init_pheromone = 1.0 / (total * csp->N);
+        init_pheromone = 1.0 / (csp->N * 327); // FIXME I just placed a random value here
 
         for (int i = 0; i < (int) graph.size(); ++i) {
             for (int j = 0; j < (int) graph[i].size(); ++j) {
@@ -217,6 +248,8 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
                 printf("New best\n");
                 best = candidate;
             }
+
+            //printf("%8.8f\n", init_pheromone);
 
             updateLocalPheromones(graph, candidate, c_local_phero, init_pheromone);
         }
