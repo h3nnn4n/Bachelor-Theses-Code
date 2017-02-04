@@ -7,7 +7,7 @@
 #include "ant_colony_optimization.h"
 #include "utils.h"
 
-bool debug_aco = true;
+bool debug_aco = false;
 
 double min(double a, double b) {
     return a < b ? a : b;
@@ -26,6 +26,57 @@ double costACO ( _graph &graph ) {
 
     //return -1;
 //}
+
+
+double getScaledCost ( _graph &graph, _journey &journey) {
+    std::vector<int> covered;
+    covered.push_back(graph.size() - 2);
+
+    double journey_cost = 0;
+
+    for (int i = 0; i < (int)journey.covered.size(); ++i) {
+        covered.push_back(journey.covered[i]);
+    }
+
+    for (int sourceIndex = 0; sourceIndex < (int)covered.size() - 1; ++sourceIndex) {
+        int source = covered[sourceIndex    ];
+        int dest   = covered[sourceIndex + 1];
+
+        journey_cost += graph[source][dest].scaled_cost;
+    }
+
+    return journey_cost;
+}
+
+void updateGlobalPheromones( _graph &graph, _journey &best, double decay) {
+    std::vector<int> covered;
+    covered.push_back(graph.size() - 2);
+
+    double best_cost = 0;
+
+    for (int i = 0; i < (int)best.covered.size(); ++i) {
+        covered.push_back(best.covered[i]);
+    }
+
+    for (int sourceIndex = 0; sourceIndex < (int)covered.size() - 1; ++sourceIndex) {
+        int source = covered[sourceIndex    ];
+        int dest   = covered[sourceIndex + 1];
+
+        best_cost += graph[source][dest].scaled_cost;
+    }
+
+    for (int sourceIndex = 0; sourceIndex < (int)covered.size() - 1; ++sourceIndex) {
+
+        int source = covered[sourceIndex    ];
+        int dest   = covered[sourceIndex + 1];
+
+        double value = ((1.0 - decay) * graph[source][dest].pheromone) + (decay * ( 1.0 / best_cost ));
+
+        //printf("%4d -> %4d   %4.8f -> %4.8f\n", source, dest, value, graph[source][dest].pheromone);
+
+        graph[source][dest].pheromone = value;
+    }
+}
 
 void updateLocalPheromones ( _graph &graph, _journey candidate , double c_local_phero, double init_pheromone) {
     std::vector<int> covered;
@@ -237,15 +288,14 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
 
     _journey best;
     init_journey(best);
-    best.cost = INT_MAX;
 
     for (int iter = 0; iter < max_it; ++iter) {
         for (int antIndex = 0; antIndex < num_ants; ++antIndex) {
             _journey candidate = ACOdoAntWalk ( graph, c_heur, c_greed );
-            printf("iter %5d ant %3d \n", iter, antIndex);
+            //printf("iter %5d ant %3d    best %4.4f  candidate %4.4f \n", iter, antIndex, getScaledCost(graph, candidate), getScaledCost(graph, best));
 
-            if ( candidate.cost < best.cost ) {
-                printf("New best\n");
+            if ( getScaledCost(graph, candidate) < getScaledCost(graph, best) || ( iter + antIndex == 0 ) ) {
+                //printf("New best\n");
                 best = candidate;
             }
 
@@ -253,7 +303,7 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
 
             updateLocalPheromones(graph, candidate, c_local_phero, init_pheromone);
         }
-        //updateGlobalPheromones
+        updateGlobalPheromones(graph, best, decay);
     }
 
     exit(0);
