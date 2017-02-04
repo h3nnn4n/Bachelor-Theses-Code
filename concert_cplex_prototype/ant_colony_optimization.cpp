@@ -7,7 +7,9 @@
 #include "ant_colony_optimization.h"
 #include "utils.h"
 
-int getIndexForEdge( _graph &graph, int a, int b) {
+_subproblem_info *_sp;
+
+static int getIndexForEdge( _graph &graph, int a, int b) {
     for (int i = 0; i < (int) graph[a].size(); ++i) {
         if ( graph[a][i].dest == b ) {
             return i;
@@ -151,10 +153,10 @@ _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
 
             assert ( bestCost != FLT_MAX );
 
-            //printf("%4d -> %4d %4.1f %4.1f\n", atual, bestIndex, graph[atual][bestIndex].cost, graph[atual][bestIndex].time);
+            //printf("%4d -> %4d %4.1f %4.1f\n", atual, dest, graph[atual][bestIndex].cost, graph[atual][bestIndex].time);
 
-            candidate.cost += graph[atual][dest].cost;
-            candidate.time += graph[atual][dest].time;
+            candidate.cost += graph[atual][bestIndex].cost;
+            candidate.time += graph[atual][bestIndex].time;
             candidate.covered.push_back(dest);
 
             atual = graph[atual][bestIndex].dest;
@@ -195,6 +197,7 @@ _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
             } while ( v > 0 && step < (int) graph[atual].size() );
         }
         //printf(" atual = %4d\n", atual);
+        validateJourney(_sp, candidate);
     } while ( atual < (int)graph.size() - 2 );
 
     if(debug_aco){printf(" cost = %4d time = %4d covered [", candidate.cost, candidate.time); for (int i = 0; i < (int)candidate.covered.size(); ++i) { printf("%4d, ", candidate.covered[i]); } printf("\b\b]\n");}
@@ -210,12 +213,16 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
     double c_local_phero = 0.1;
     double c_greed       = 0.9;
 
+    _sp = sp;
+
     double init_pheromone;
 
     _graph graph;
 
     _journey best;
+    _journey bestUnique;
     init_journey(best);
+    init_journey(bestUnique);
 
     graph.resize(csp->N + 2); // This has the virtual starting and ending nodes
 
@@ -319,9 +326,21 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
             //printf("iter %5d ant %3d    best %4.4f  candidate %4.4f \n", iter, antIndex, getEffectiveCost(graph, best), getEffectiveCost(graph, candidate));
             //printf(" cost = %4d time = %4d covered [", candidate.cost, candidate.time); for (int i = 0; i < (int)candidate.covered.size(); ++i) { printf("%4d, ", candidate.covered[i]); } printf("\b\b]\n");
 
+            validateJourney(sp, candidate);
+
             if ( getScaledCost(graph, candidate) < getScaledCost(graph, best) || ( iter + antIndex == 0 ) ) {
                 //printf("New best\n");
                 best = candidate;
+            }
+
+            if ( ( getScaledCost(graph, candidate) < getScaledCost(graph, bestUnique)) || ( iter + antIndex == 0 ) ) {
+                //printf("New best\n");
+                std::vector<int> covered;
+                covered.push_back(graph.size() - 2);
+                for (int i = 0; i < (int)candidate.covered.size() - 1; ++i) { covered.push_back(candidate.covered[i]); }
+                if ( sp->usedJourneys[covered] == 0 ) {
+                    bestUnique = candidate;
+                }
             }
 
             //printf("%8.8f\n", init_pheromone);
@@ -332,10 +351,15 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
         //printf("iter %5d best %4.4f\n", iter, getEffectiveCost(graph, best));
     }
 
-    best.covered.erase(best.covered.end() - 1);
-    *objValue = getEffectiveCost (graph, best);
+    bestUnique.covered.erase(bestUnique.covered.end() - 1);
+    *objValue = getEffectiveCost (graph, bestUnique);
+    if(1){printf("cost = %4d time = %4d covered [", bestUnique.cost, bestUnique.time); for (int i = 0; i < (int)bestUnique.covered.size(); ++i) { printf("%4d, ", bestUnique.covered[i]); } printf("\b\b]\n");}
+    return bestUnique;
 
-    if(1){printf("cost = %4d time = %4d covered [", best.cost, best.time); for (int i = 0; i < (int)best.covered.size(); ++i) { printf("%4d, ", best.covered[i]); } printf("\b\b]\n");}
+    //best.covered.erase(best.covered.end() - 1);
+    //*objValue = getEffectiveCost (graph, best);
 
-    return best;
+    //if(1){printf("cost = %4d time = %4d covered [", best.cost, best.time); for (int i = 0; i < (int)best.covered.size(); ++i) { printf("%4d, ", best.covered[i]); } printf("\b\b]\n");}
+
+    //return best;
  }

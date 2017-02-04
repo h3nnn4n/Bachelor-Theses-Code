@@ -25,8 +25,7 @@ _journey randomInitialSolution ( _csp *csp, _subproblem_info *sp ) {
         journey.covered.push_back(atual);
         //journey.time = csp->task[atual].end_time - csp->task[atual].start_time;
         journey.time = sp->time_mat[csp->N][atual];
-        journey.cost = 0;
-
+        journey.cost = 0; 
         std::cout << "Starting at: " << atual << " with time " << journey.time << std::endl;
 
         while ( csp->graph[atual].size() ) {

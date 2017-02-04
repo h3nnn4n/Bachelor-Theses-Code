@@ -33,6 +33,8 @@ void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
     sp->cost_mat = (double**) malloc ( sizeof ( double* ) * (csp->N+2) );
     sp->duals    = (double* ) malloc ( sizeof ( double  ) * (csp->N  ) );
 
+    sp->N        = csp->N;
+
     if ( sp->adj_mat == NULL || sp->time_mat == NULL || sp->cost_mat == NULL || sp->duals == NULL ) {
         printf("adj_mat = %p\ntime_mat = %p\ncost_mat = %p\nsp->duals %p\n", sp->adj_mat , sp->time_mat, sp->cost_mat, sp->duals);
         exit(-1);

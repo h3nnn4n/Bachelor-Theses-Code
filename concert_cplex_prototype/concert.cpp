@@ -68,11 +68,14 @@ int main (int argc, char **argv) {
             //journeys.push_back(random_journey(&t));
         //}
 
-
         print_journeys(subproblemInfo.journeys);
         printf("\n");
 
         init_subproblem_info( &subproblemInfo, &csp );
+
+        for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
+            validateJourney(&subproblemInfo, subproblemInfo.journeys[i]);
+        }
 
         IloModel model(env);
 
@@ -187,6 +190,7 @@ int main (int argc, char **argv) {
             update_subproblem_duals( &subproblemInfo, &csp, duals);
             //_journey new_journey;
             _journey new_journey = subproblem(duals, &csp, &subproblemInfo, &reduced_cost);
+            validateJourney(&subproblemInfo, new_journey);
             //_journey new_journey = subproblem(duals, &t, journeys, &reduced_cost, usedJourneys);
 
             subproblemInfo.journeys.push_back(new_journey);

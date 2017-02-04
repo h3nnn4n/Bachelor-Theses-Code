@@ -38,6 +38,8 @@ typedef struct {
     double *duals;
     double mi;
 
+    int N;
+
     std::vector<_journey> journeys;
     std::map<std::vector<int>, bool> usedJourneys;
 } _subproblem_info;
