@@ -193,6 +193,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
         model_final.add(IloConversion(env, y[i], ILOFLOAT));
     }
 
+    cplex_final.setOut(env.getNullStream());
     if ( !cplex_final.solve() ) {
         env.error() << "Failed to optimize Relaxed subproblem" << endl;
         throw(-1);
