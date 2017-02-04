@@ -40,7 +40,8 @@ double getEffectiveCost ( _graph &graph, _journey &journey) {
         int source = covered[sourceIndex    ];
         int dest   = covered[sourceIndex + 1];
 
-        journey_cost += graph[source][dest].effective_cost;
+        int destIndex = getIndexForEdge(graph, source, dest);
+        journey_cost += graph[source][destIndex].effective_cost;
     }
 
     return journey_cost;
@@ -60,7 +61,8 @@ double getScaledCost ( _graph &graph, _journey &journey) {
         int source = covered[sourceIndex    ];
         int dest   = covered[sourceIndex + 1];
 
-        journey_cost += graph[source][dest].scaled_cost;
+        int destIndex = getIndexForEdge(graph, source, dest);
+        journey_cost += graph[source][destIndex].scaled_cost;
     }
 
     return journey_cost;
@@ -146,6 +148,8 @@ _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
                     dest = graph[atual][i].dest;
                 }
             }
+
+            assert ( bestCost != FLT_MAX );
 
             //printf("%4d -> %4d %4.1f %4.1f\n", atual, bestIndex, graph[atual][bestIndex].cost, graph[atual][bestIndex].time);
 
@@ -330,6 +334,8 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
 
     best.covered.erase(best.covered.end() - 1);
     *objValue = getEffectiveCost (graph, best);
+
+    if(1){printf("cost = %4d time = %4d covered [", best.cost, best.time); for (int i = 0; i < (int)best.covered.size(); ++i) { printf("%4d, ", best.covered[i]); } printf("\b\b]\n");}
 
     return best;
  }
