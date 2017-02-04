@@ -1,9 +1,12 @@
 #include <float.h>
 #include <math.h>
+#include <assert.h>
 
 #include "types.h"
 #include "ant_colony_optimization.h"
 #include "utils.h"
+
+bool debug_aco = true;
 
 double min(double a, double b) {
     return a < b ? a : b;
@@ -15,30 +18,41 @@ double costACO ( _graph &graph ) {
 
 _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
     _journey candidate;
+    init_journey(candidate);
 
     int atual = graph.size() - 2; // It starts at the first virtual node (V_0)
+
+    //printf("Starting at %4d\n", atual);
 
     do {
         double prob = drand48();
 
         if ( prob <= c_greed ) { // Greedy choice, grabs the next task with the best (lowest) reduced cost
+            //printf("Going Greedy\n");
+
             int bestIndex = 0;
+            int dest = -1;
             double bestCost = FLT_MAX;
 
             for (int i = 0; i < (int)graph[atual].size(); ++i) {
                 double w = graph[atual][i].cost;
+                //printf("%4d %4d %4d %4.1f %4.1f\n", atual, i, graph[atual][i].dest, w, graph[atual][i].time);
                 if ( w < bestCost ) {
                     bestIndex = i;
                     bestCost = w;
+                    dest = graph[atual][i].dest;
                 }
             }
 
-            candidate.cost += graph[atual][bestIndex].cost;
-            candidate.time += graph[atual][bestIndex].time;
-            candidate.covered.push_back(bestIndex);
+            //printf("%4d -> %4d %4.1f %4.1f\n", atual, bestIndex, graph[atual][bestIndex].cost, graph[atual][bestIndex].time);
 
-            atual = bestIndex;
+            candidate.cost += graph[atual][dest].cost;
+            candidate.time += graph[atual][dest].time;
+            candidate.covered.push_back(dest);
+
+            atual = graph[atual][bestIndex].dest;
         } else { // This is the heuristic choice
+            //printf("Going Heuristic\n");
 
             // this first step calculates all the probabilities
             double c_hist = 1.0;
@@ -62,11 +76,21 @@ _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
             do {
                 v -= graph[atual][step].prob / sum;
 
-                step ++;
-            } while ( v > 0 && step < (int) graph[atual].size() );
+                if ( v <= 0 ) { // This is the one
+                    candidate.cost += graph[atual][step].cost;
+                    candidate.time += graph[atual][step].time;
+                    candidate.covered.push_back(step);
+                    atual = step;
+                }
 
+                step ++;
+                //assert(step < (int) graph[atual].size());
+            } while ( v > 0 && step < (int) graph[atual].size() );
         }
+        //printf(" atual = %4d\n", atual);
     } while ( atual < (int)graph.size() - 2 );
+
+    if(debug_aco){printf(" cost = %4d time = %4d covered [", candidate.cost, candidate.time); for (int i = 0; i < (int)candidate.covered.size(); ++i) { printf("%4d, ", candidate.covered[i]); } printf("\b\b]\n");}
 
     return candidate;
 }
@@ -77,7 +101,8 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
     double decay         = 0.1;
     double c_heur        = 2.5;
     double c_local_phero = 0.1;
-    double c_greed       = 0.9;
+    //double c_greed       = 0.9;
+    double c_greed       = 1.9;
 
     double init_pheromone;
 
@@ -94,6 +119,7 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
 
             p.dest           = csp->graph[i][j].dest;
             p.cost           = sp->cost_mat[i][p.dest];
+            //printf("%3d %3d %3d, %4.1f %4.1f\n", i, j, p.dest, p.cost, (float)csp->graph[i][j].cost);
             p.time           = sp->time_mat[i][p.dest];
             p.dual_cost      = sp->duals[p.dest];
             p.scaled_cost    = p.cost - sp->duals[p.dest];
@@ -105,6 +131,8 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
             minCost = min(p.scaled_cost, minCost);
 
             //printf(" %3d -> %3d cost %5.1f time %5.1f dual %5.1f redcost %7.1f minCost %5.1f\n", i, p.dest, p.cost, p.time, p.dual_cost, p.scaled_cost, minCost);
+            //printf(" %3d -> %3d cost %5.1f time %5.1f dual %5.1f redcost %7.1f minCost %5.1f\n", i, p.dest, p.cost, p.time, p.dual_cost, p.scaled_cost, minCost);
+            //printf("\n");
         }
 
         // This adds the sink final node
@@ -128,8 +156,8 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
         _path p;
 
         p.dest           = i;
-        p.cost           = sp->cost_mat[i][p.dest];
-        p.time           = sp->time_mat[i][p.dest];
+        p.cost           = sp->cost_mat[csp->N][p.dest];
+        p.time           = sp->time_mat[csp->N][p.dest];
         p.dual_cost      = sp->duals[p.dest];
         p.scaled_cost    = p.cost - sp->duals[p.dest];
         p.effective_cost = p.cost - sp->duals[p.dest];
@@ -140,13 +168,21 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
         minCost = min(p.scaled_cost, minCost);
     }
 
+/*    for (int i = 0; i < (int) csp->graph.size(); ++i) {*/
+        //for (int j = 0; j < (int) csp->graph[i].size(); ++j) {
+            //printf(" %4d -> %4d %4.1f\n", i, csp->graph[i][j].dest, (float)csp->graph[i][j].cost);
+            //printf(" %4d -> %4d %4.1f\n", i, graph[i][j].dest, graph[i][j].cost);
+            //printf("\n");
+        //}
+/*    }*/
+
     if ( minCost < 0 ) { // If minCost is zero or more no useful solution can be found
         double total = 0;
         for (int i = 0; i < (int) graph.size(); ++i) {
             for (int j = 0; j < (int) graph[i].size(); ++j) {
                 graph[i][j].scaled_cost += -minCost + 1; // This will make everything at least one
                 total += graph[i][j].scaled_cost;
-                printf("%3d -> %3d   %7.1f\n", i, graph[i][j].dest, graph[i][j].scaled_cost);
+                //printf("%3d -> %3d   %7.1f\n", i, graph[i][j].dest, graph[i][j].scaled_cost);
             }
         }
 
@@ -170,6 +206,7 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
     for (int iter = 0; iter < max_it; ++iter) {
         for (int antIndex = 0; antIndex < num_ants; ++antIndex) {
             _journey candidate = ACOdoAntWalk ( graph, c_heur, c_greed );
+            printf("iter %5d ant %3d \n", iter, antIndex);
 
             //updateLocalPheromones
         }
