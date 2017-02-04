@@ -1,4 +1,5 @@
 #include <float.h>
+#include <limits.h>
 #include <math.h>
 #include <assert.h>
 
@@ -79,8 +80,8 @@ _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
                 if ( v <= 0 ) { // This is the one
                     candidate.cost += graph[atual][step].cost;
                     candidate.time += graph[atual][step].time;
-                    candidate.covered.push_back(step);
-                    atual = step;
+                    candidate.covered.push_back(graph[atual][step].dest);
+                    atual = graph[atual][step].dest;
                 }
 
                 step ++;
@@ -101,8 +102,8 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
     double decay         = 0.1;
     double c_heur        = 2.5;
     double c_local_phero = 0.1;
-    //double c_greed       = 0.9;
-    double c_greed       = 1.9;
+    double c_greed       = 0.9;
+    //double c_greed       = 1.9;
 
     double init_pheromone;
 
@@ -203,12 +204,21 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
         return journey;
     }
 
+    _journey best;
+    init_journey(best);
+    best.cost = INT_MAX;
+
     for (int iter = 0; iter < max_it; ++iter) {
         for (int antIndex = 0; antIndex < num_ants; ++antIndex) {
             _journey candidate = ACOdoAntWalk ( graph, c_heur, c_greed );
             printf("iter %5d ant %3d \n", iter, antIndex);
 
-            //updateLocalPheromones
+            if ( candidate.cost < best.cost ) {
+                printf("New best\n");
+                best = candidate;
+            }
+
+            updateLocalPheromones(graph, candidate, c_local_phero, init_pheromone);
         }
         //updateGlobalPheromones
     }
