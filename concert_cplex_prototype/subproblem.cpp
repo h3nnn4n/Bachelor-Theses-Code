@@ -273,7 +273,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     //End of Simmulated Annealing
 
     // Ant Colony Optimization
-    if ( 1 ) {
+    if ( 0 ) {
         double objValue = 0;
 
         _journey journey = antColonyOptmization ( csp, sp, &objValue );

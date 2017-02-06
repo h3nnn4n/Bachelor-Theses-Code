@@ -56,6 +56,7 @@ int main (int argc, char **argv) {
             //printf("\n");
         //}
 
+        // generation for the first set of columns
         build_heur_sol ( &csp, subproblemInfo.journeys );
 
         for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
@@ -70,6 +71,8 @@ int main (int argc, char **argv) {
 
         print_journeys(subproblemInfo.journeys);
         printf("\n");
+
+        exit(0);
 
         init_subproblem_info( &subproblemInfo, &csp );
 

@@ -188,7 +188,7 @@ _journey ACOdoAntWalk ( _graph &graph, double c_heur, double c_greed ) {
                 if ( v <= 0 ) { // This is the one
                     candidate.cost += graph[atual][step].cost;
                     candidate.time += graph[atual][step].time;
-                    candidate.covered.push_back(graph[atual][step].dest);
+                    candidate.covered.push_back(graph[atual][step].dest); // FIXME I think step is not right index to use here
                     atual = graph[atual][step].dest;
                 }
 

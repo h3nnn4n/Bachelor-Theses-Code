@@ -1,4 +1,4 @@
-#ifndef TYPES_H
+#ifndef TtYPES_H
 #define TYPES_H
 
 #include <vector>
@@ -22,9 +22,9 @@ typedef struct {
 } _edge;
 
 typedef struct {
-    int N;
-    int n_journeys;
-    int time_limit;
+    int N;   // Number of tasks
+    int n_journeys; // Expected number of journeys
+    int time_limit; //
     std::vector<_task> task;
     std::vector<std::vector<_edge > > graph;
     std::vector<int> start_nodes;

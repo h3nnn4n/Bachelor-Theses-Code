@@ -7,6 +7,20 @@
 #include "types.h"
 #include "random.h"
 
+//#include "types.h"
+//#include "utils.h"
+
+//_journey journey;
+//init_journey(journey);
+
+//journey.cost += sp->cost_mat[csp->N][0];
+//journey.time += sp->time_mat[csp->N][0];
+//journey.covered.push_back(0);
+
+//journey.cost += sp->cost_mat[0][10];
+//journey.time += sp->time_mat[0][10];
+//journey.covered.push_back(10);
+
 // Builds a full feasible solution to the master problem using a simple random/greddy heuristic
 void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
     // Inits the journey vector
