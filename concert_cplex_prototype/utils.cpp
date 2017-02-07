@@ -1,5 +1,6 @@
 #include <vector>
 #include <cstdio>
+#include <assert.h>
 
 #include "types.h"
 #include "utils.h"
@@ -40,6 +41,12 @@ static int getIndexForEdge( _csp &csp, int a, int b) {
 }
 
 void validateJourney ( _subproblem_info *sp, _journey &journey) {
+    if ( journey.covered.size() == 0 ) {
+        assert( journey.cost == 0 && "Journey cost should be zero");
+        assert( journey.time == 0 && "Journey time should be zero");
+        return;
+    }
+
     double cost = 0;
     double time = 0;
 
