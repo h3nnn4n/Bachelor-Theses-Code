@@ -15,7 +15,7 @@
 
 using namespace std;
 
-_journey subproblemExactSolve(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) {
+_journey subproblemExactSolve(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     IloEnv         env         ;
     IloModel       model(env  );
     IloCplex       cplex(model);
@@ -59,10 +59,10 @@ _journey subproblemExactSolve(IloNumArray duals, _csp *csp, _subproblem_info *sp
         }
 
         for (int i = 0; i < csp->N; ++i) {
-            obj -= duals[i] * v[i];
+            obj -= sp->duals[i] * v[i];
         }
 
-        obj -= duals[csp->N]; // Mi
+        obj -= sp->mi; // Mi
         model.add(IloMinimize(env, obj));
         obj.end();
     }

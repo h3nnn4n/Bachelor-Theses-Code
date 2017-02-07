@@ -178,7 +178,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
 
     // Exact solution
     if ( runExact ) {
-        journey = subproblemExactSolve(duals, csp, sp, &objValue) ;
+        journey = subproblemExactSolve(csp, sp, &objValue) ;
         //printf("exact solution is : %4.3f\n", objValue);
 
         if ( objValue < 0 ) {
