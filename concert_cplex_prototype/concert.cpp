@@ -72,7 +72,7 @@ int main (int argc, char **argv) {
         print_journeys(subproblemInfo.journeys);
         printf("\n");
 
-        exit(0);
+        //exit(0);
 
         init_subproblem_info( &subproblemInfo, &csp );
 
