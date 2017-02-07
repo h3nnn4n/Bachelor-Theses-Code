@@ -11,8 +11,6 @@
 void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) ;
 void update_subproblem_duals ( _subproblem_info *sp, _csp *csp, IloNumArray duals ) ;
 
-_journey greedyLpHeur ( _csp *csp, _subproblem_info *sp, IloArray<IloNumVarArray> y, IloEnv &env, IloCplex &cplex_final, double *objValue ) ;
-
 _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *subproblemInfo, double *reduced_cost) ;
 
 #endif /* SUBPROBLEM_H */

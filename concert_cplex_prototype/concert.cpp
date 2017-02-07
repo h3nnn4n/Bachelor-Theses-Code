@@ -13,6 +13,7 @@
 #include "random.h"
 #include "model.h"
 #include "subproblem.h"
+#include "exact_subproblem.h"
 
 #include <ilcplex/ilocplex.h>
 
@@ -193,6 +194,7 @@ int main (int argc, char **argv) {
             update_subproblem_duals( &subproblemInfo, &csp, duals);
             //_journey new_journey;
             _journey new_journey = subproblem(duals, &csp, &subproblemInfo, &reduced_cost);
+            //_journey new_journey = subproblemExactSolve(duals, &csp, &subproblemInfo, &reduced_cost);
             validateJourney(&subproblemInfo, new_journey);
             //_journey new_journey = subproblem(duals, &t, journeys, &reduced_cost, usedJourneys);
 
@@ -223,7 +225,7 @@ int main (int argc, char **argv) {
             //if ( cont > 2 ) break;
 
             printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
-        } while ( reduced_cost != 0 );
+        } while ( reduced_cost < 0 );
 
         printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
 
