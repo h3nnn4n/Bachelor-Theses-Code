@@ -4,8 +4,11 @@
 #include <ilcplex/ilocplex.h>
 #include <ilcp/cpext.h>
 
+bool debug_HillClimbing = false;
+bool debig_GreedyLp = false;
+
 _journey greedyHillClimbingHeur ( _csp *csp, _subproblem_info *sp, double *objValue ) {
-    printf("Running greedyHillClimbingHeur\n");
+    if(debug_HillClimbing)printf("Running greedyHillClimbingHeur\n");
     _journey journey;
 
     for (int i = 0; i < csp->N; ++i) {
@@ -31,7 +34,7 @@ _journey greedyHillClimbingHeur ( _csp *csp, _subproblem_info *sp, double *objVa
                         journey.time += sp->time_mat[atual][dest];
                         journey.covered.push_back(dest);
                         found_something = true;
-                        printf("%3d -> %3d\n", atual, dest);
+                        if(debug_HillClimbing)printf("%3d -> %3d\n", atual, dest);
                         atual = dest;
                     }
                 }
@@ -39,20 +42,20 @@ _journey greedyHillClimbingHeur ( _csp *csp, _subproblem_info *sp, double *objVa
         } while ( found_something );
 
         if ( obj <= 0 && journey.covered.size() > 1 &&  sp->usedJourneys.count(journey.covered) == 0 ) {
-            printf("Found new journey with reduced cost < 0\n");
+            if(debug_HillClimbing)printf("Found new journey with reduced cost < 0\n");
             *objValue = obj;
             break;
         }
     }
 
 
-    printf("Reduced value = %4.8f\n", *objValue);
+    if(debug_HillClimbing)printf("Reduced value = %4.8f\n", *objValue);
 
     return journey;
 }
 
 _journey greedyLpHeur ( _csp *csp, _subproblem_info *sp, IloArray<IloNumVarArray> y, IloEnv &env, IloCplex &cplex_final, double *objValue ) {
-    printf("Running greedyLpheur\n");
+    if(debig_GreedyLp)printf("Running greedyLpheur\n");
     _journey journey;
     journey.time = 0;
     journey.cost = 0;
@@ -89,8 +92,8 @@ _journey greedyLpHeur ( _csp *csp, _subproblem_info *sp, IloArray<IloNumVarArray
                 *objValue += sp->cost_mat[atual][j];
 
                 //printf("Covering %3d -> %3d = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", atual, j, vals[j], (float)cost_mat[atual][j], (float)sp->time_mat[atual][j], duals[j] );
-                printf("Covering %3d -> %3d", atual, j);
-                printf(" = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", vals[j], (float)sp->cost_mat[atual][j], (float)sp->time_mat[atual][j], sp->duals[j] );
+                if(debig_GreedyLp)printf("Covering %3d -> %3d", atual, j);
+                if(debig_GreedyLp)printf(" = %4.8f  cost = %4.4f time = %4.4f dual = %4.4f\n", vals[j], (float)sp->cost_mat[atual][j], (float)sp->time_mat[atual][j], sp->duals[j] );
 
                 atual = bestIndex;
                 best  = 0;
@@ -99,17 +102,17 @@ _journey greedyLpHeur ( _csp *csp, _subproblem_info *sp, IloArray<IloNumVarArray
 
                 journey.covered.push_back ( atual );
             } else {
-                printf("MaxTime limit %4.8f, stoping\n", (float)journey.time);
+                if(debig_GreedyLp)printf("MaxTime limit %4.8f, stoping\n", (float)journey.time);
                 doit = false;
             }
         } else {
             //assert ( 0 && "This should never happen" );
-            printf("Found the last task with time %4.8f, stoping\n", (float)journey.time);
+            if(debig_GreedyLp)printf("Found the last task with time %4.8f, stoping\n", (float)journey.time);
             doit = false;
         }
     } while ( doit && atual < csp->N+1 );
 
-    printf("Reduced value = %4.8f\n", *objValue);
+    if(debig_GreedyLp)printf("Reduced value = %4.8f\n", *objValue);
 
     return journey;
 }
