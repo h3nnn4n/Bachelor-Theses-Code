@@ -85,19 +85,19 @@ void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
 }
 
 _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) {
-    bool runGreedyHeurLp = false;
-    bool runGreedyHeur   = false;
-    bool runSimmulatedAnnealing = false;
+    bool runGreedyHeurLp          = false;
+    bool runGreedyHeur            = false;
+    bool runSimmulatedAnnealing   = false;
     bool runAntColonyOptimization = false;
-    bool runExact = true;
+    bool runExact                 = true;
+
+    double objValue               = 0;
 
     _journey journey;
     init_journey(journey);
 
     // greedyLpHeur
     if ( runGreedyHeurLp ) {
-        double objValue = 0;
-
         //journey = greedyLpHeur ( csp, sp, y, env, cplex_final, &objValue );
 
         if ( objValue < 0 ) {
@@ -118,9 +118,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
 
     // greedyHeur
     if ( runGreedyHeur ) {
-        double objValue = 0;
-
-        _journey journey = greedyHillClimbingHeur ( csp, sp, &objValue );
+        journey = greedyHillClimbingHeur ( csp, sp, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
@@ -140,9 +138,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
 
     // Simmulated Annealing
     if ( runSimmulatedAnnealing ) {
-        double objValue = 0;
-
-        _journey journey = simmulatedAnnealing ( csp, sp, &objValue );
+        journey = simmulatedAnnealing ( csp, sp, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
@@ -162,9 +158,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
 
     // Ant Colony Optimization
     if ( runAntColonyOptimization ) {
-        double objValue = 0;
-
-        _journey journey = antColonyOptmization ( csp, sp, &objValue );
+        journey = antColonyOptmization ( csp, sp, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
@@ -184,8 +178,6 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
 
     // Exact solution
     if ( runExact ) {
-        double objValue = 0;
-
         journey = subproblemExactSolve(duals, csp, sp, &objValue) ;
 
         if ( objValue < 0 ) {
