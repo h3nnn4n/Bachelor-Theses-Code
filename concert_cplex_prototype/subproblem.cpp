@@ -7,6 +7,7 @@
 #include "types.h"
 #include "utils.h"
 #include "greedy_heur.h"
+#include "tabu_search.h"
 #include "exact_subproblem.h"
 #include "simmulated_annealing.h"
 #include "ant_colony_optimization.h"
@@ -89,6 +90,7 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     bool runGreedyHeur            = false;
     bool runSimmulatedAnnealing   = false;
     bool runAntColonyOptimization = false;
+    bool runTabuSearch            = true;
     bool runExact                 = true;
 
     double objValue               = 0;
@@ -174,7 +176,26 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
             //Do Nothing
         }
     }
-    //End of Ant Colony Optimization
+
+    // TabuSearch
+    if ( runTabuSearch ) {
+        journey = tabuSearch ( csp, sp, &objValue );
+
+        if ( objValue < 0 ) {
+            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                printf("tabuSearch solution is good\n");
+                *reduced_cost = objValue;
+                return journey;
+            } else {
+                printf("tabuSearch solution not unique\n");
+            }
+        } else {
+            printf("tabuSearch solution is bad\n");
+            //exit(0);
+            //Do Nothing
+        }
+    }
+    //End of TabuSearch
 
     // Exact solution
     if ( runExact ) {

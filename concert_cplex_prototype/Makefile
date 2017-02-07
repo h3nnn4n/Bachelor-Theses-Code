@@ -11,6 +11,7 @@ SOURCES=                          \
     random.cpp                    \
     model.cpp                     \
     subproblem.cpp                \
+    tabu_search.cpp               \
     greedy_heur.cpp               \
     meta_heuristics_utils.cpp     \
     ant_colony_optimization.cpp   \
