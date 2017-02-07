@@ -5,10 +5,6 @@
 #include <map>
 
 #include "types.h"
-#include "greedy_heur.h"
-#include "simmulated_annealing.h"
-#include "ant_colony_optimization.h"
-#include "exact_subproblem.h"
 
 #include <ilcplex/ilocplex.h>
 #include <ilcp/cpext.h>
