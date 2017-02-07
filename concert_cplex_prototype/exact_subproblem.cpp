@@ -128,8 +128,8 @@ _journey subproblemExactSolve(IloNumArray duals, _csp *csp, _subproblem_info *sp
     journey.cost = 0;
 
     IloNumArray vals(env);
-    //env.out() << "Solution status = " << cplex.getStatus() << endl;
-    //env.out() << "Solution value  = " << cplex.getObjValue() << endl;
+    env.out() << "Solution status = " << cplex.getStatus() << endl;
+    env.out() << "Solution value  = " << cplex.getObjValue() << endl;
     double x = cplex.getObjValue();
     *reduced_cost = x;
     for (int i = 0; i < csp->N+2; ++i) {

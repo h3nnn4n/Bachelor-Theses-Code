@@ -179,23 +179,24 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     // Exact solution
     if ( runExact ) {
         journey = subproblemExactSolve(duals, csp, sp, &objValue) ;
+        //printf("exact solution is : %4.3f\n", objValue);
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
                 printf("exact solution is good\n");
-                *reduced_cost = objValue;
-                return journey;
             } else {
                 printf("exact solution not unique\n");
             }
         } else {
-            printf("exact solution is bad: %4.3f\n", objValue);
-            //exit(0);
-            //Do Nothing
+            printf("exact solution is bad\n");
         }
+
+        *reduced_cost = objValue;
+        return journey;
     }
     //End of Exact solution
 
     *reduced_cost = 1; // This is enough to signal the master problem that no good journey was found
+    // This code should be actually unreachable, since the exact solved always will return before
     return journey;
 }
