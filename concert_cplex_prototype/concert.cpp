@@ -223,7 +223,7 @@ int main (int argc, char **argv) {
             //if ( cont > 2 ) break;
 
             printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
-        } while ( reduced_cost != 0 );
+        } while ( reduced_cost < 0 );
 
         printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
 
