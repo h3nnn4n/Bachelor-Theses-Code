@@ -1,0 +1,4800 @@
+Starting
+   0 	   286    443: 0 12 
+   1 	   300    449: 1 17 
+   2 	   245    474: 2 13 
+   3 	   287    434: 3 11 
+   4 	    77    373: 4 18 
+   5 	   130    438: 5 14 
+   6 	   307    463: 6 19 
+   7 	   324    471: 7 24 
+   8 	   713    471: 8 27 
+   9 	   327    477: 9 26 
+  10 	    26    460: 10 21 
+  11 	   217    321: 15 28 
+  12 	   410    355: 16 30 
+  13 	   220    330: 20 31 
+  14 	   124    341: 22 32 
+  15 	   181    398: 23 33 
+  16 	   273    353: 25 34 
+  17 	   419    381: 29 37 
+  18 	   294    405: 35 42 
+  19 	   182    366: 36 43 
+  20 	     0    229: 41 
+  21 	     0    127: 44 
+  22 	   199    410: 38 45 
+  23 	   165    206: 39 46 
+  24 	     0    203: 47 
+  25 	     0    188: 48 
+  26 	    21    333: 40 49 
+
+INIT SUBPROBLEM INFO
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals 713.00
+Duals 327.00
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals 410.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 273.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 419.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 294.00
+Duals 182.00
+Duals 0.00
+Duals 199.00
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -882.349
+y[ 8, 16] = 1.00000000, cost = 297.0000, time = 207.0000
+y[16, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[16] = 1.0000
+New Column cost =  297  time =  242  Covered [   8,   16, ]
+ Iterations    1 reduced cost = -826.00
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals -113.00
+Duals 327.00
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals 410.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 273.00
+Duals 0.00
+Duals 826.00
+Duals 0.00
+Duals 419.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 294.00
+Duals 182.00
+Duals 0.00
+Duals 199.00
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -917.282
+y[ 9, 27] = 1.00000000, cost = 311.0000, time = 291.0000
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  9] = 1.00000000, cost = 0.0000, time = 169.0000
+v[ 9] = 1.0000
+v[27] = 1.0000
+New Column cost =  311  time =  460  Covered [   9,   27, ]
+ Iterations    2 reduced cost = -842.00
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals -113.00
+Duals -515.00
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals 410.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 273.00
+Duals 842.00
+Duals 826.00
+Duals 0.00
+Duals 419.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 294.00
+Duals 182.00
+Duals 0.00
+Duals 199.00
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -1230.42
+y[16, 26] = 1.00000000, cost = 181.0000, time = 246.0000
+y[26, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 16] = 1.00000000, cost = 0.0000, time = 52.0000
+v[16] = 1.0000
+v[26] = 1.0000
+New Column cost =  181  time =  298  Covered [  16,   26, ]
+ Iterations    3 reduced cost = -1071.00
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals 422.50
+Duals 20.50
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -125.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 273.00
+Duals 306.50
+Duals 290.50
+Duals 0.00
+Duals 419.00
+Duals 535.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 294.00
+Duals 182.00
+Duals 0.00
+Duals 199.00
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -638.313
+y[29, 35] = 1.00000000, cost = 151.0000, time = 318.0000
+y[35, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[35] = 1.0000
+New Column cost =  151  time =  430  Covered [  29,   35, ]
+ Iterations    4 reduced cost = -562.00
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals 422.50
+Duals 20.50
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -125.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 273.00
+Duals 306.50
+Duals 290.50
+Duals 0.00
+Duals -143.00
+Duals 535.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 294.00
+Duals 182.00
+Duals 562.00
+Duals 199.00
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -863.323
+y[30, 34] = 1.00000000, cost = 171.0000, time = 162.0000
+y[34, 37] = 1.00000000, cost = 96.0000, time = 128.0000
+y[37, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 30] = 0.99999955, cost = 0.0000, time = 54.0000
+v[30] = 1.0000
+v[34] = 1.0000
+v[37] = 1.0000
+New Column cost =  267  time =  344  Covered [  30,   34,   37, ]
+ Iterations    5 reduced cost = -830.50
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals 422.50
+Duals 20.50
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -125.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 1103.50
+Duals 306.50
+Duals 290.50
+Duals 0.00
+Duals -143.00
+Duals 535.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -830.50
+Duals 294.00
+Duals 182.00
+Duals 562.00
+Duals 199.00
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -1103.5
+y[25, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 25] = 1.00000000, cost = 0.0000, time = 115.0000
+v[25] = 1.0000
+New Column cost =    0  time =  115  Covered [  25, ]
+ Iterations    6 reduced cost = -1103.50
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals 422.50
+Duals 20.50
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -125.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 0.00
+Duals 306.50
+Duals 290.50
+Duals 0.00
+Duals 960.50
+Duals 535.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals -809.50
+Duals 182.00
+Duals -541.50
+Duals 199.00
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 1103.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -1519.4
+y[29, 34] = 1.00000012, cost = 101.0000, time = 141.0000
+y[34, 38] = 1.00000000, cost = 164.0000, time = 204.0000
+y[38, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[34] = 1.0000
+v[38] = 1.0000
+New Column cost =  265  time =  457  Covered [  29,   34,   38, ]
+ Iterations    7 reduced cost = -1167.50
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals 422.50
+Duals 20.50
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -125.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 0.00
+Duals 306.50
+Duals 290.50
+Duals 0.00
+Duals 960.50
+Duals 535.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals -809.50
+Duals 182.00
+Duals -541.50
+Duals -968.50
+Duals 165.00
+Duals 21.00
+Duals 0.00
+Duals 1103.50
+Duals 0.00
+Duals 0.00
+Duals 1167.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -1709.02
+y[39, 45] = 1.00000000, cost = 132.0000, time = 243.0000
+y[45, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 39] = 1.00000000, cost = 0.0000, time = 34.0000
+v[39] = 1.0000
+v[45] = 1.0000
+New Column cost =  132  time =  277  Covered [  39,   45, ]
+ Iterations    8 reduced cost = -1200.50
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 286.00
+Duals 300.00
+Duals 245.00
+Duals 287.00
+Duals 77.00
+Duals 130.00
+Duals 307.00
+Duals 324.00
+Duals 422.50
+Duals 20.50
+Duals 26.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -125.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 220.00
+Duals 0.00
+Duals 124.00
+Duals 181.00
+Duals 0.00
+Duals 0.00
+Duals 306.50
+Duals 290.50
+Duals 0.00
+Duals 960.50
+Duals 535.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals -809.50
+Duals 182.00
+Duals -541.50
+Duals -968.50
+Duals -1035.50
+Duals 21.00
+Duals 0.00
+Duals 1103.50
+Duals 0.00
+Duals 0.00
+Duals 1167.50
+Duals 1200.50
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Solution status = Optimal
+Solution value  = -1549
+y[46, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 46] = 1.00000000, cost = 0.0000, time = 29.0000
+v[46] = 1.0000
+New Column cost =    0  time =   29  Covered [  46, ]
+ Iterations    9 reduced cost = -1200.50
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 2687.00
+Duals 2701.00
+Duals 2646.00
+Duals 2688.00
+Duals 2478.00
+Duals 2531.00
+Duals 2708.00
+Duals 2725.00
+Duals 1623.00
+Duals 1221.00
+Duals 2427.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 2618.00
+Duals 1075.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 2621.00
+Duals 0.00
+Duals 2525.00
+Duals 2582.00
+Duals 0.00
+Duals 2401.00
+Duals 1507.00
+Duals 1491.00
+Duals 0.00
+Duals 2161.00
+Duals 1736.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals 391.00
+Duals 2583.00
+Duals 659.00
+Duals 232.00
+Duals 165.00
+Duals 2422.00
+Duals 2401.00
+Duals 2304.00
+Duals 0.00
+Duals 2401.00
+Duals 2368.00
+Duals 2401.00
+Duals 2401.00
+Duals 2401.00
+Duals 0.00
+Duals -2401.00
+Solution status = Optimal
+Solution value  = -4471.8
+y[ 8, 15] = 1.00000000, cost = 236.0000, time = 210.0000
+y[15, 22] = 1.00000000, cost = 137.0000, time = 228.0000
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[15] = 1.0000
+v[22] = 1.0000
+New Column cost =  373  time =  473  Covered [   8,   15,   22, ]
+ Iterations   10 reduced cost = -3992.00
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 2687.00
+Duals 2701.00
+Duals 2646.00
+Duals 2688.00
+Duals 2478.00
+Duals 2531.00
+Duals 2708.00
+Duals 2725.00
+Duals 1623.00
+Duals 1221.00
+Duals 2427.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -1374.00
+Duals 1075.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 2621.00
+Duals 0.00
+Duals 2525.00
+Duals 2582.00
+Duals 0.00
+Duals 2401.00
+Duals 1507.00
+Duals 1491.00
+Duals 3992.00
+Duals 2161.00
+Duals 1736.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals 391.00
+Duals 2583.00
+Duals 659.00
+Duals 232.00
+Duals 165.00
+Duals 2422.00
+Duals 2401.00
+Duals 2304.00
+Duals 0.00
+Duals 2401.00
+Duals 2368.00
+Duals 2401.00
+Duals 2401.00
+Duals 2401.00
+Duals 0.00
+Duals -2401.00
+Solution status = Optimal
+Solution value  = -5065.36
+y[10, 28] = 1.00000000, cost = 200.0000, time = 248.0000
+y[28, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 10] = 1.00000000, cost = 0.0000, time = 214.0000
+v[10] = 1.0000
+v[28] = 1.0000
+New Column cost =  200  time =  462  Covered [  10,   28, ]
+ Iterations   11 reduced cost = -3818.00
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 2687.00
+Duals 2701.00
+Duals 2646.00
+Duals 2688.00
+Duals 2478.00
+Duals 2531.00
+Duals 2708.00
+Duals 2725.00
+Duals 1623.00
+Duals 1221.00
+Duals -1391.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -1374.00
+Duals 1075.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 2621.00
+Duals 3818.00
+Duals 2525.00
+Duals 2582.00
+Duals 0.00
+Duals 2401.00
+Duals 1507.00
+Duals 1491.00
+Duals 3992.00
+Duals 2161.00
+Duals 1736.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals 391.00
+Duals 2583.00
+Duals 659.00
+Duals 232.00
+Duals 165.00
+Duals 2422.00
+Duals 2401.00
+Duals 2304.00
+Duals 0.00
+Duals 2401.00
+Duals 2368.00
+Duals 2401.00
+Duals 2401.00
+Duals 2401.00
+Duals 0.00
+Duals -2401.00
+Solution status = Optimal
+Solution value  = -4386.24
+y[16, 28] = 1.00000000, cost = 232.0000, time = 264.0000
+y[28, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 16] = 1.00000000, cost = 0.0000, time = 52.0000
+v[16] = 1.0000
+v[28] = 1.0000
+New Column cost =  232  time =  316  Covered [  16,   28, ]
+ Iterations   12 reduced cost = -2434.00
+
+RMP status = Optimal  value  = 5727
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 2687.00
+Duals 2701.00
+Duals 2646.00
+Duals 2688.00
+Duals 2478.00
+Duals 2531.00
+Duals 2708.00
+Duals 2725.00
+Duals 1623.00
+Duals 1221.00
+Duals 1043.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 1060.00
+Duals 1075.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 2621.00
+Duals 1384.00
+Duals 91.00
+Duals 2582.00
+Duals 0.00
+Duals 2401.00
+Duals 1507.00
+Duals 1491.00
+Duals 1558.00
+Duals 2161.00
+Duals 1736.00
+Duals 0.00
+Duals 2434.00
+Duals 0.00
+Duals 273.00
+Duals 391.00
+Duals 2583.00
+Duals 659.00
+Duals 232.00
+Duals 165.00
+Duals 2422.00
+Duals 2401.00
+Duals 2304.00
+Duals 0.00
+Duals 2401.00
+Duals 2368.00
+Duals 2401.00
+Duals 2401.00
+Duals 2401.00
+Duals 0.00
+Duals -2401.00
+Solution status = Optimal
+Solution value  = -3568.49
+y[16, 26] = 1.00000000, cost = 181.0000, time = 246.0000
+y[26, 32] = 1.00000000, cost = 86.0000, time = 174.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 16] = 1.00000000, cost = 0.0000, time = 52.0000
+v[16] = 1.0000
+v[26] = 1.0000
+v[32] = 1.0000
+New Column cost =  267  time =  472  Covered [  16,   26,   32, ]
+ Iterations   13 reduced cost = -2348.00
+
+RMP status = Optimal  value  = 5140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 339.00
+Duals 353.00
+Duals 298.00
+Duals 340.00
+Duals 130.00
+Duals 183.00
+Duals 360.00
+Duals 377.00
+Duals 449.00
+Duals 47.00
+Duals -131.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -114.00
+Duals -99.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals 210.00
+Duals 91.00
+Duals 234.00
+Duals 0.00
+Duals 53.00
+Duals 333.00
+Duals 317.00
+Duals 384.00
+Duals 400.00
+Duals 562.00
+Duals 0.00
+Duals 86.00
+Duals 0.00
+Duals -314.00
+Duals -196.00
+Duals 235.00
+Duals 72.00
+Duals 232.00
+Duals 165.00
+Duals 74.00
+Duals 53.00
+Duals 543.00
+Duals 0.00
+Duals 53.00
+Duals 20.00
+Duals 53.00
+Duals 53.00
+Duals 53.00
+Duals 0.00
+Duals -53.00
+Solution status = Optimal
+Solution value  = -583.599
+y[30, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 30] = 1.00000000, cost = 0.0000, time = 54.0000
+v[30] = 1.0000
+New Column cost =    0  time =   54  Covered [  30, ]
+ Iterations   14 reduced cost = -509.00
+
+RMP status = Optimal  value  = 4885.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 339.00
+Duals 353.00
+Duals 298.00
+Duals 340.00
+Duals 130.00
+Duals 183.00
+Duals 360.00
+Duals 377.00
+Duals 449.00
+Duals 47.00
+Duals -131.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -114.00
+Duals -99.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 273.00
+Duals 210.00
+Duals 91.00
+Duals 234.00
+Duals 0.00
+Duals 53.00
+Duals 333.00
+Duals 317.00
+Duals 384.00
+Duals 145.50
+Duals 53.00
+Duals 0.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 235.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 74.00
+Duals 53.00
+Duals 288.50
+Duals 0.00
+Duals 53.00
+Duals 20.00
+Duals 53.00
+Duals 53.00
+Duals 53.00
+Duals 0.00
+Duals -53.00
+Solution status = Optimal
+Solution value  = -581.662
+y[ 8, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+New Column cost =    0  time =   35  Covered [   8, ]
+ Iterations   15 reduced cost = -396.00
+
+RMP status = Optimal  value  = 4885.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 735.00
+Duals 749.00
+Duals 694.00
+Duals 736.00
+Duals 526.00
+Duals 579.00
+Duals 756.00
+Duals 773.00
+Duals 449.00
+Duals 47.00
+Duals -131.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -114.00
+Duals -99.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 669.00
+Duals 606.00
+Duals 487.00
+Duals 630.00
+Duals 0.00
+Duals 449.00
+Duals 729.00
+Duals 713.00
+Duals 780.00
+Duals 541.50
+Duals 449.00
+Duals 0.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 631.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 470.00
+Duals 449.00
+Duals 684.50
+Duals 0.00
+Duals 449.00
+Duals 416.00
+Duals 449.00
+Duals 449.00
+Duals 449.00
+Duals 0.00
+Duals -449.00
+Solution status = Optimal
+Solution value  = -671.68
+y[ 8, 20] = 1.00000000, cost = 303.0000, time = 397.0000
+y[20, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[20] = 1.0000
+New Column cost =  303  time =  432  Covered [   8,   20, ]
+ Iterations   16 reduced cost = -366.00
+
+RMP status = Optimal  value  = 4885.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 735.00
+Duals 749.00
+Duals 694.00
+Duals 736.00
+Duals 526.00
+Duals 579.00
+Duals 756.00
+Duals 773.00
+Duals 449.00
+Duals 47.00
+Duals -131.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -114.00
+Duals -99.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 606.00
+Duals 487.00
+Duals 630.00
+Duals 0.00
+Duals 449.00
+Duals 729.00
+Duals 713.00
+Duals 780.00
+Duals 541.50
+Duals 449.00
+Duals 366.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 631.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 470.00
+Duals 449.00
+Duals 684.50
+Duals 0.00
+Duals 449.00
+Duals 416.00
+Duals 449.00
+Duals 449.00
+Duals 449.00
+Duals 0.00
+Duals -449.00
+Solution status = Optimal
+Solution value  = -622.316
+y[36, 46] = 1.00000000, cost = 280.0000, time = 194.0000
+y[46, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 36] = 1.00000000, cost = 0.0000, time = 236.0000
+v[36] = 1.0000
+v[46] = 1.0000
+New Column cost =  280  time =  430  Covered [  36,   46, ]
+ Iterations   17 reduced cost = -351.00
+
+RMP status = Optimal  value  = 4885.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 735.00
+Duals 749.00
+Duals 694.00
+Duals 736.00
+Duals 526.00
+Duals 579.00
+Duals 756.00
+Duals 773.00
+Duals 449.00
+Duals 47.00
+Duals -131.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -114.00
+Duals -99.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 606.00
+Duals 487.00
+Duals 630.00
+Duals 0.00
+Duals 449.00
+Duals 729.00
+Duals 713.00
+Duals 780.00
+Duals 541.50
+Duals 449.00
+Duals 366.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 470.00
+Duals 449.00
+Duals 684.50
+Duals 351.00
+Duals 449.00
+Duals 416.00
+Duals 449.00
+Duals 449.00
+Duals 449.00
+Duals 0.00
+Duals -449.00
+Solution status = Optimal
+Solution value  = -622.316
+y[28, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 28] = 1.00000000, cost = 0.0000, time = 70.0000
+v[28] = 1.0000
+New Column cost =    0  time =   70  Covered [  28, ]
+ Iterations   18 reduced cost = -331.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 735.00
+Duals 749.00
+Duals 694.00
+Duals 736.00
+Duals 526.00
+Duals 579.00
+Duals 756.00
+Duals 773.00
+Duals 449.00
+Duals 47.00
+Duals -131.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals -114.00
+Duals -99.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 606.00
+Duals 487.00
+Duals 630.00
+Duals 0.00
+Duals 449.00
+Duals 729.00
+Duals 713.00
+Duals 780.00
+Duals 541.50
+Duals 449.00
+Duals 366.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 470.00
+Duals 449.00
+Duals 684.50
+Duals 351.00
+Duals 449.00
+Duals 416.00
+Duals 449.00
+Duals 449.00
+Duals 449.00
+Duals 0.00
+Duals -449.00
+Solution status = Optimal
+Solution value  = -622.316
+y[28, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 28] = 1.00000000, cost = 0.0000, time = 70.0000
+v[28] = 1.0000
+New Column cost =    0  time =   70  Covered [  28, ]
+ Iterations   19 reduced cost = -331.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 1066.00
+Duals 1080.00
+Duals 1025.00
+Duals 1067.00
+Duals 857.00
+Duals 910.00
+Duals 1087.00
+Duals 1104.00
+Duals 780.00
+Duals 378.00
+Duals 200.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals 232.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 606.00
+Duals 156.00
+Duals 961.00
+Duals 0.00
+Duals 780.00
+Duals 729.00
+Duals 713.00
+Duals 780.00
+Duals 872.50
+Duals 780.00
+Duals 697.00
+Duals 748.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 801.00
+Duals 780.00
+Duals 1015.50
+Duals 682.00
+Duals 780.00
+Duals 747.00
+Duals 780.00
+Duals 780.00
+Duals 780.00
+Duals 0.00
+Duals -780.00
+Solution status = Optimal
+Solution value  = -1175.55
+y[16, 26] = 1.00000000, cost = 181.0000, time = 246.0000
+y[26, 32] = 1.00000000, cost = 86.0000, time = 174.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 16] = 1.00000000, cost = 0.0000, time = 52.0000
+v[16] = 1.0000
+v[26] = 1.0000
+v[32] = 1.0000
+New Column cost =  267  time =  472  Covered [  16,   26,   32, ]
+ Iterations   20 reduced cost = -662.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 1066.00
+Duals 1080.00
+Duals 1025.00
+Duals 1067.00
+Duals 857.00
+Duals 910.00
+Duals 1087.00
+Duals 1104.00
+Duals 780.00
+Duals 378.00
+Duals 200.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals 232.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 606.00
+Duals 818.00
+Duals 961.00
+Duals 0.00
+Duals 780.00
+Duals 729.00
+Duals 713.00
+Duals 780.00
+Duals 872.50
+Duals 780.00
+Duals 697.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 801.00
+Duals 780.00
+Duals 1015.50
+Duals 682.00
+Duals 780.00
+Duals 747.00
+Duals 780.00
+Duals 780.00
+Duals 780.00
+Duals 0.00
+Duals -780.00
+Solution status = Optimal
+Solution value  = -1020.7
+y[ 8, 15] = 1.00000000, cost = 236.0000, time = 210.0000
+y[15, 22] = 1.00000000, cost = 137.0000, time = 228.0000
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[15] = 1.0000
+v[22] = 1.0000
+New Column cost =  373  time =  473  Covered [   8,   15,   22, ]
+ Iterations   21 reduced cost = -662.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 404.00
+Duals 418.00
+Duals 363.00
+Duals 405.00
+Duals 195.00
+Duals 248.00
+Duals 425.00
+Duals 442.00
+Duals 118.00
+Duals 378.00
+Duals 200.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals 232.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals -56.00
+Duals 156.00
+Duals 299.00
+Duals 0.00
+Duals 118.00
+Duals 67.00
+Duals 51.00
+Duals 118.00
+Duals 210.50
+Duals 118.00
+Duals 35.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 139.00
+Duals 118.00
+Duals 353.50
+Duals 20.00
+Duals 118.00
+Duals 85.00
+Duals 118.00
+Duals 118.00
+Duals 118.00
+Duals 0.00
+Duals -118.00
+Solution status = Optimal
+Solution value  = -641.135
+y[ 0,  9] = 1.00000000, cost = 169.0000, time = 256.0000
+y[ 9, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  0] = 1.00000000, cost = 0.0000, time = 143.0000
+v[ 0] = 1.0000
+v[ 9] = 1.0000
+New Column cost =  169  time =  399  Covered [   0,    9, ]
+ Iterations   22 reduced cost = -495.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 404.00
+Duals 418.00
+Duals 363.00
+Duals 405.00
+Duals 195.00
+Duals 248.00
+Duals 425.00
+Duals 442.00
+Duals 118.00
+Duals -117.00
+Duals 200.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -263.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals -56.00
+Duals 156.00
+Duals 299.00
+Duals 0.00
+Duals 118.00
+Duals 562.00
+Duals 546.00
+Duals 118.00
+Duals 210.50
+Duals 118.00
+Duals 35.00
+Duals 86.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 139.00
+Duals 118.00
+Duals 353.50
+Duals 20.00
+Duals 118.00
+Duals 85.00
+Duals 118.00
+Duals 118.00
+Duals 118.00
+Duals 0.00
+Duals -118.00
+Solution status = Optimal
+Solution value  = -657.567
+y[10, 26] = 1.00000000, cost = 142.0000, time = 230.0000
+y[26, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 10] = 1.00000000, cost = 0.0000, time = 214.0000
+v[10] = 1.0000
+v[26] = 1.0000
+New Column cost =  142  time =  444  Covered [  10,   26, ]
+ Iterations   23 reduced cost = -502.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 411.00
+Duals 425.00
+Duals 370.00
+Duals 412.00
+Duals 202.00
+Duals 255.00
+Duals 432.00
+Duals 449.00
+Duals 125.00
+Duals -117.00
+Duals 200.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals 232.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals -49.00
+Duals 156.00
+Duals 306.00
+Duals 0.00
+Duals 125.00
+Duals 67.00
+Duals 553.00
+Duals 125.00
+Duals 217.50
+Duals 125.00
+Duals 42.00
+Duals 93.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 146.00
+Duals 125.00
+Duals 360.50
+Duals 27.00
+Duals 125.00
+Duals 92.00
+Duals 125.00
+Duals 125.00
+Duals 125.00
+Duals 0.00
+Duals -125.00
+Solution status = Optimal
+Solution value  = -609.477
+y[ 7, 16] = 1.00000000, cost = 91.0000, time = 98.0000
+y[16, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  7] = 1.00000000, cost = 0.0000, time = 220.0000
+v[ 7] = 1.0000
+v[16] = 1.0000
+New Column cost =   91  time =  318  Covered [   7,   16, ]
+ Iterations   24 reduced cost = -465.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 585.00
+Duals 530.00
+Duals 572.00
+Duals 362.00
+Duals 415.00
+Duals 592.00
+Duals 609.00
+Duals 285.00
+Duals -117.00
+Duals -105.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 217.00
+Duals -233.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 416.00
+Duals 156.00
+Duals 466.00
+Duals 0.00
+Duals 285.00
+Duals 532.00
+Duals 713.00
+Duals 285.00
+Duals 377.50
+Duals 285.00
+Duals 202.00
+Duals 253.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 306.00
+Duals 285.00
+Duals 520.50
+Duals 187.00
+Duals 285.00
+Duals 252.00
+Duals 285.00
+Duals 285.00
+Duals 285.00
+Duals 0.00
+Duals -285.00
+Solution status = Optimal
+Solution value  = -613.963
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 27] = 1.00000000, cost = 0.0000, time = 59.0000
+v[27] = 1.0000
+New Column cost =    0  time =   59  Covered [  27, ]
+ Iterations   25 reduced cost = -428.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 1013.00
+Duals 958.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 1020.00
+Duals 1037.00
+Duals 713.00
+Duals 311.00
+Duals 200.00
+Duals 0.00
+Duals 428.00
+Duals 0.00
+Duals 0.00
+Duals 94.00
+Duals -233.00
+Duals 0.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 539.00
+Duals 279.00
+Duals 894.00
+Duals 0.00
+Duals 713.00
+Duals 655.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 558.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -979.564
+y[ 1, 12] = 1.00000000, cost = 155.0000, time = 227.0000
+y[12, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  1] = 1.00000000, cost = 0.0000, time = 203.0000
+v[ 1] = 1.0000
+v[12] = 1.0000
+New Column cost =  155  time =  430  Covered [   1,   12, ]
+ Iterations   26 reduced cost = -573.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 958.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 1020.00
+Duals 1037.00
+Duals 713.00
+Duals 311.00
+Duals 200.00
+Duals 0.00
+Duals 428.00
+Duals 0.00
+Duals 0.00
+Duals 94.00
+Duals -233.00
+Duals 573.00
+Duals 0.00
+Duals 0.00
+Duals 303.00
+Duals 539.00
+Duals 279.00
+Duals 894.00
+Duals 0.00
+Duals 713.00
+Duals 655.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 558.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -1190.04
+y[ 6, 17] = 1.00000000, cost = 170.0000, time = 191.0000
+y[17, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  6] = 1.00000000, cost = 0.0000, time = 129.0000
+v[ 6] = 1.0000
+v[17] = 1.0000
+New Column cost =  170  time =  320  Covered [   6,   17, ]
+ Iterations   27 reduced cost = -710.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 958.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 1037.00
+Duals 713.00
+Duals 311.00
+Duals 200.00
+Duals 0.00
+Duals 428.00
+Duals 0.00
+Duals 0.00
+Duals 94.00
+Duals -233.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 539.00
+Duals 279.00
+Duals 894.00
+Duals 0.00
+Duals 713.00
+Duals 655.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 558.00
+Duals 0.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -967.089
+y[17, 23] = 1.00000000, cost = 170.0000, time = 284.0000
+y[23, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[23] = 1.0000
+New Column cost =  170  time =  333  Covered [  17,   23, ]
+ Iterations   28 reduced cost = -584.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 958.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 1037.00
+Duals 713.00
+Duals 311.00
+Duals 200.00
+Duals 0.00
+Duals 428.00
+Duals 0.00
+Duals 0.00
+Duals 94.00
+Duals -233.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 539.00
+Duals 279.00
+Duals 310.00
+Duals 0.00
+Duals 713.00
+Duals 655.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 558.00
+Duals 584.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -967.089
+y[ 2, 17] = 1.00000000, cost = 360.0000, time = 251.0000
+y[17, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  2] = 1.00000000, cost = 0.0000, time = 152.0000
+v[ 2] = 1.0000
+v[17] = 1.0000
+New Column cost =  360  time =  403  Covered [   2,   17, ]
+ Iterations   29 reduced cost = -458.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 500.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 1037.00
+Duals 713.00
+Duals 311.00
+Duals 200.00
+Duals 0.00
+Duals 428.00
+Duals 458.00
+Duals 0.00
+Duals 94.00
+Duals -233.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 539.00
+Duals 279.00
+Duals 310.00
+Duals 0.00
+Duals 713.00
+Duals 655.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 558.00
+Duals 584.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -967.089
+y[25, 32] = 1.00000000, cost = 104.0000, time = 193.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 25] = 1.00000000, cost = 0.0000, time = 115.0000
+v[25] = 1.0000
+v[32] = 1.0000
+New Column cost =  104  time =  308  Covered [  25,   32, ]
+ Iterations   30 reduced cost = -454.00
+
+RMP status = Optimal  value  = 4554.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 500.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 657.00
+Duals 713.00
+Duals 311.00
+Duals 126.00
+Duals 0.00
+Duals 428.00
+Duals 458.00
+Duals 0.00
+Duals -360.00
+Duals 147.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 613.00
+Duals 733.00
+Duals 310.00
+Duals 380.00
+Duals 713.00
+Duals 729.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 104.00
+Duals 584.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -927.614
+y[17, 24] = 1.00000000, cost = 97.0000, time = 152.0000
+y[24, 30] = 1.00000000, cost = 160.0000, time = 150.0000
+y[30, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[24] = 1.0000
+v[30] = 1.0000
+New Column cost =  257  time =  351  Covered [  17,   24,   30, ]
+ Iterations   31 reduced cost = -696.00
+
+RMP status = Optimal  value  = 4206.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 919.00
+Duals 788.00
+Duals 848.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 658.00
+Duals 1005.00
+Duals 713.00
+Duals -37.00
+Duals -222.00
+Duals 0.00
+Duals 80.00
+Duals 110.00
+Duals 0.00
+Duals -360.00
+Duals -201.00
+Duals 225.00
+Duals 0.00
+Duals 362.00
+Duals 303.00
+Duals 961.00
+Duals 733.00
+Duals 658.00
+Duals 32.00
+Duals 713.00
+Duals 1077.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 104.00
+Duals 236.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -921.934
+y[26, 32] = 1.00000000, cost = 86.0000, time = 174.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 26] = 1.00000000, cost = 0.0000, time = 132.0000
+v[26] = 1.0000
+v[32] = 1.0000
+New Column cost =   86  time =  306  Covered [  26,   32, ]
+ Iterations   32 reduced cost = -382.00
+
+RMP status = Optimal  value  = 4157
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 500.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 657.00
+Duals 713.00
+Duals 311.00
+Duals 126.00
+Duals 0.00
+Duals 428.00
+Duals 458.00
+Duals 0.00
+Duals -360.00
+Duals 147.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 613.00
+Duals 733.00
+Duals 310.00
+Duals 380.00
+Duals 713.00
+Duals 729.00
+Duals 713.00
+Duals 713.00
+Duals 457.50
+Duals 17.00
+Duals 630.00
+Duals 104.00
+Duals 584.00
+Duals 288.50
+Duals 406.50
+Duals 280.00
+Duals 674.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 600.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -1022.28
+y[28, 34] = 1.00000000, cost = 171.0000, time = 201.0000
+y[34, 37] = 1.00000000, cost = 96.0000, time = 128.0000
+y[37, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 28] = 1.00000000, cost = 0.0000, time = 70.0000
+v[28] = 1.0000
+v[34] = 1.0000
+v[37] = 1.0000
+New Column cost =  267  time =  399  Covered [  28,   34,   37, ]
+ Iterations   33 reduced cost = -696.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 919.00
+Duals 788.00
+Duals 848.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 658.00
+Duals 1005.00
+Duals 713.00
+Duals -37.00
+Duals -222.00
+Duals 0.00
+Duals 80.00
+Duals 110.00
+Duals 0.00
+Duals -360.00
+Duals -201.00
+Duals 225.00
+Duals 0.00
+Duals 362.00
+Duals 303.00
+Duals 961.00
+Duals 733.00
+Duals 658.00
+Duals 32.00
+Duals 713.00
+Duals 1077.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 104.00
+Duals 236.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -921.934
+y[26, 32] = 1.00000000, cost = 86.0000, time = 174.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 26] = 1.00000000, cost = 0.0000, time = 132.0000
+v[26] = 1.0000
+v[32] = 1.0000
+New Column cost =   86  time =  306  Covered [  26,   32, ]
+ Iterations   34 reduced cost = -382.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 500.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 623.00
+Duals 713.00
+Duals 311.00
+Duals 160.00
+Duals 0.00
+Duals 428.00
+Duals 458.00
+Duals 0.00
+Duals -360.00
+Duals 181.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 579.00
+Duals 733.00
+Duals 310.00
+Duals 414.00
+Duals 713.00
+Duals 695.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 104.00
+Duals 584.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -951.734
+y[17, 24] = 1.00000000, cost = 97.0000, time = 152.0000
+y[24, 30] = 1.00000000, cost = 160.0000, time = 150.0000
+y[30, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[24] = 1.0000
+v[30] = 1.0000
+New Column cost =  257  time =  351  Covered [  17,   24,   30, ]
+ Iterations   35 reduced cost = -730.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 500.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 1353.00
+Duals 713.00
+Duals 311.00
+Duals 160.00
+Duals 0.00
+Duals 428.00
+Duals 458.00
+Duals 0.00
+Duals -360.00
+Duals -549.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 579.00
+Duals 733.00
+Duals 310.00
+Duals -316.00
+Duals 713.00
+Duals 695.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 713.00
+Duals 630.00
+Duals 104.00
+Duals 584.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -961.104
+y[ 7, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  7] = 1.00000000, cost = 0.0000, time = 220.0000
+v[ 7] = 1.0000
+New Column cost =    0  time =  220  Covered [   7, ]
+ Iterations   36 reduced cost = -640.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 571.00
+Duals 440.00
+Duals 500.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 310.00
+Duals 713.00
+Duals 713.00
+Duals 311.00
+Duals 160.00
+Duals 0.00
+Duals 428.00
+Duals 458.00
+Duals 0.00
+Duals -360.00
+Duals 91.00
+Duals 573.00
+Duals 0.00
+Duals 710.00
+Duals 303.00
+Duals 579.00
+Duals 733.00
+Duals 310.00
+Duals 324.00
+Duals 713.00
+Duals 695.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 73.00
+Duals 630.00
+Duals 104.00
+Duals 584.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -912.959
+y[ 3, 12] = 1.00000000, cost = 288.0000, time = 326.0000
+y[12, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  3] = 1.00000000, cost = 0.0000, time = 21.0000
+v[ 3] = 1.0000
+v[12] = 1.0000
+New Column cost =  288  time =  347  Covered [   3,   12, ]
+ Iterations   37 reduced cost = -427.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 998.00
+Duals 867.00
+Duals 927.00
+Duals 1000.00
+Duals 790.00
+Duals 843.00
+Duals 737.00
+Duals 713.00
+Duals 713.00
+Duals -116.00
+Duals 160.00
+Duals 0.00
+Duals 1.00
+Duals 31.00
+Duals 0.00
+Duals -360.00
+Duals 91.00
+Duals 146.00
+Duals 0.00
+Duals 283.00
+Duals 303.00
+Duals 579.00
+Duals 733.00
+Duals 737.00
+Duals 324.00
+Duals 713.00
+Duals 695.00
+Duals 713.00
+Duals 713.00
+Duals 805.50
+Duals 500.00
+Duals 630.00
+Duals 104.00
+Duals 157.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 734.00
+Duals 713.00
+Duals 948.50
+Duals 615.00
+Duals 713.00
+Duals 680.00
+Duals 713.00
+Duals 713.00
+Duals 713.00
+Duals 0.00
+Duals -713.00
+Solution status = Optimal
+Solution value  = -703.212
+y[ 8, 16] = 1.00000000, cost = 297.0000, time = 207.0000
+y[16, 22] = 1.00000000, cost = 152.0000, time = 231.0000
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[16] = 1.0000
+v[22] = 1.0000
+New Column cost =  449  time =  473  Covered [   8,   16,   22, ]
+ Iterations   38 reduced cost = -375.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 623.00
+Duals 492.00
+Duals 552.00
+Duals 625.00
+Duals 415.00
+Duals 468.00
+Duals 362.00
+Duals 338.00
+Duals 338.00
+Duals -116.00
+Duals 160.00
+Duals 0.00
+Duals 1.00
+Duals 31.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 146.00
+Duals 0.00
+Duals 283.00
+Duals 303.00
+Duals 204.00
+Duals 358.00
+Duals 362.00
+Duals 324.00
+Duals 338.00
+Duals 320.00
+Duals 338.00
+Duals 338.00
+Duals 430.50
+Duals 125.00
+Duals 255.00
+Duals 104.00
+Duals 157.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 359.00
+Duals 338.00
+Duals 573.50
+Duals 240.00
+Duals 338.00
+Duals 305.00
+Duals 338.00
+Duals 338.00
+Duals 338.00
+Duals 0.00
+Duals -338.00
+Solution status = Optimal
+Solution value  = -424.165
+y[ 0, 10] = 1.00000000, cost = 131.0000, time = 334.0000
+y[10, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  0] = 1.00000000, cost = 0.0000, time = 143.0000
+v[ 0] = 1.0000
+v[10] = 1.0000
+New Column cost =  131  time =  477  Covered [   0,   10, ]
+ Iterations   39 reduced cost = -314.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 515.00
+Duals 384.00
+Duals 444.00
+Duals 517.00
+Duals 307.00
+Duals 360.00
+Duals 254.00
+Duals 230.00
+Duals 230.00
+Duals -116.00
+Duals -154.00
+Duals 0.00
+Duals 1.00
+Duals 31.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 146.00
+Duals 0.00
+Duals 283.00
+Duals 303.00
+Duals 410.00
+Duals 358.00
+Duals 254.00
+Duals 324.00
+Duals 230.00
+Duals 320.00
+Duals 230.00
+Duals 230.00
+Duals 322.50
+Duals 17.00
+Duals 147.00
+Duals -4.00
+Duals 157.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 251.00
+Duals 230.00
+Duals 465.50
+Duals 132.00
+Duals 230.00
+Duals 197.00
+Duals 230.00
+Duals 230.00
+Duals 230.00
+Duals 0.00
+Duals -230.00
+Solution status = Optimal
+Solution value  = -430.793
+y[ 3, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  3] = 1.00000000, cost = 0.0000, time = 21.0000
+v[ 3] = 1.0000
+New Column cost =    0  time =   21  Covered [   3, ]
+ Iterations   40 reduced cost = -287.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 309.00
+Duals 178.00
+Duals 238.00
+Duals 311.00
+Duals 388.00
+Duals 441.00
+Duals 48.00
+Duals 311.00
+Duals 311.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 318.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 433.00
+Duals 0.00
+Duals 570.00
+Duals 303.00
+Duals 204.00
+Duals 358.00
+Duals 48.00
+Duals 324.00
+Duals 311.00
+Duals 320.00
+Duals 311.00
+Duals 311.00
+Duals 403.50
+Duals -189.00
+Duals 228.00
+Duals 77.00
+Duals 444.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 332.00
+Duals 311.00
+Duals 546.50
+Duals 213.00
+Duals 311.00
+Duals 278.00
+Duals 311.00
+Duals 311.00
+Duals 311.00
+Duals 0.00
+Duals -311.00
+Solution status = Optimal
+Solution value  = -495.87
+y[17, 24] = 1.00000000, cost = 97.0000, time = 152.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[24] = 1.0000
+New Column cost =   97  time =  201  Covered [  17,   24, ]
+ Iterations   41 reduced cost = -349.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 658.00
+Duals 527.00
+Duals 587.00
+Duals 660.00
+Duals 737.00
+Duals 790.00
+Duals 397.00
+Duals 660.00
+Duals 660.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 318.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 433.00
+Duals 0.00
+Duals 570.00
+Duals 303.00
+Duals 553.00
+Duals 358.00
+Duals 397.00
+Duals 324.00
+Duals 660.00
+Duals 669.00
+Duals 660.00
+Duals 660.00
+Duals 752.50
+Duals 160.00
+Duals 577.00
+Duals 77.00
+Duals 444.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 681.00
+Duals 660.00
+Duals 895.50
+Duals 562.00
+Duals 660.00
+Duals 627.00
+Duals 660.00
+Duals 660.00
+Duals 660.00
+Duals 0.00
+Duals -660.00
+Solution status = Optimal
+Solution value  = -801.494
+y[ 5, 16] = 1.00000000, cost = 109.0000, time = 137.0000
+y[16, 24] = 1.00000000, cost = 150.0000, time = 153.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  5] = 1.00000000, cost = 0.0000, time = 187.0000
+v[ 5] = 1.0000
+v[16] = 1.0000
+v[24] = 1.0000
+New Column cost =  259  time =  477  Covered [   5,   16,   24, ]
+ Iterations   42 reduced cost = -286.00
+
+RMP status = Optimal  value  = 3824.5
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 372.00
+Duals 241.00
+Duals 301.00
+Duals 374.00
+Duals 451.00
+Duals 504.00
+Duals 111.00
+Duals 374.00
+Duals 374.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 318.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 433.00
+Duals 0.00
+Duals 570.00
+Duals 303.00
+Duals 267.00
+Duals 358.00
+Duals 111.00
+Duals 38.00
+Duals 374.00
+Duals 383.00
+Duals 374.00
+Duals 374.00
+Duals 466.50
+Duals 160.00
+Duals 291.00
+Duals 77.00
+Duals 444.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 395.00
+Duals 374.00
+Duals 609.50
+Duals 276.00
+Duals 374.00
+Duals 341.00
+Duals 374.00
+Duals 374.00
+Duals 374.00
+Duals 0.00
+Duals -374.00
+Solution status = Optimal
+Solution value  = -523.36
+y[42, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 42] = 1.00000000, cost = 0.0000, time = 49.0000
+v[42] = 1.0000
+New Column cost =    0  time =   49  Covered [  42, ]
+ Iterations   43 reduced cost = -235.50
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 372.00
+Duals 241.00
+Duals 301.00
+Duals 374.00
+Duals 451.00
+Duals 504.00
+Duals 111.00
+Duals 374.00
+Duals 374.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 318.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 433.00
+Duals 0.00
+Duals 570.00
+Duals 303.00
+Duals 267.00
+Duals 358.00
+Duals 111.00
+Duals 38.00
+Duals 374.00
+Duals 383.00
+Duals 374.00
+Duals 374.00
+Duals 466.50
+Duals 160.00
+Duals 291.00
+Duals 77.00
+Duals 444.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 395.00
+Duals 374.00
+Duals 609.50
+Duals 276.00
+Duals 374.00
+Duals 341.00
+Duals 374.00
+Duals 374.00
+Duals 374.00
+Duals 0.00
+Duals -374.00
+Solution status = Optimal
+Solution value  = -523.36
+y[42, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 42] = 1.00000000, cost = 0.0000, time = 49.0000
+v[42] = 1.0000
+New Column cost =    0  time =   49  Covered [  42, ]
+ Iterations   44 reduced cost = -235.50
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 372.00
+Duals 241.00
+Duals 301.00
+Duals 374.00
+Duals 451.00
+Duals 504.00
+Duals 111.00
+Duals 374.00
+Duals 374.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 318.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 433.00
+Duals 0.00
+Duals 570.00
+Duals 303.00
+Duals 267.00
+Duals 358.00
+Duals 111.00
+Duals 38.00
+Duals 374.00
+Duals 383.00
+Duals 374.00
+Duals 374.00
+Duals 466.50
+Duals 160.00
+Duals 291.00
+Duals 77.00
+Duals 444.00
+Duals -59.50
+Duals 294.00
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 395.00
+Duals 374.00
+Duals 374.00
+Duals 276.00
+Duals 374.00
+Duals 341.00
+Duals 374.00
+Duals 374.00
+Duals 374.00
+Duals 0.00
+Duals -374.00
+Solution status = Optimal
+Solution value  = -517.927
+y[29, 35] = 1.00000000, cost = 151.0000, time = 318.0000
+y[35, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[35] = 1.0000
+New Column cost =  151  time =  430  Covered [  29,   35, ]
+ Iterations   45 reduced cost = -235.50
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 372.00
+Duals 241.00
+Duals 301.00
+Duals 374.00
+Duals 451.00
+Duals 504.00
+Duals 111.00
+Duals 374.00
+Duals 374.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 318.00
+Duals 0.00
+Duals 15.00
+Duals 91.00
+Duals 433.00
+Duals 0.00
+Duals 570.00
+Duals 303.00
+Duals 267.00
+Duals 358.00
+Duals 111.00
+Duals 38.00
+Duals 374.00
+Duals 383.00
+Duals 374.00
+Duals 374.00
+Duals 466.50
+Duals 160.00
+Duals 291.00
+Duals 77.00
+Duals 444.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 395.00
+Duals 374.00
+Duals 374.00
+Duals 276.00
+Duals 374.00
+Duals 341.00
+Duals 374.00
+Duals 374.00
+Duals 374.00
+Duals 0.00
+Duals -374.00
+Solution status = Optimal
+Solution value  = -517.927
+y[22, 33] = 1.00000000, cost = 193.0000, time = 258.0000
+y[33, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 22] = 1.00000000, cost = 0.0000, time = 152.0000
+v[22] = 1.0000
+v[33] = 1.0000
+New Column cost =  193  time =  410  Covered [  22,   33, ]
+ Iterations   46 reduced cost = -235.00
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 405.00
+Duals 274.00
+Duals 334.00
+Duals 407.00
+Duals 484.00
+Duals 537.00
+Duals 144.00
+Duals 407.00
+Duals 407.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 318.00
+Duals 0.00
+Duals 217.00
+Duals 91.00
+Duals 433.00
+Duals 0.00
+Duals 570.00
+Duals 303.00
+Duals 300.00
+Duals 156.00
+Duals 144.00
+Duals 38.00
+Duals 407.00
+Duals 416.00
+Duals 407.00
+Duals 407.00
+Duals 499.50
+Duals 193.00
+Duals 324.00
+Duals 77.00
+Duals 444.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 428.00
+Duals 407.00
+Duals 407.00
+Duals 309.00
+Duals 407.00
+Duals 374.00
+Duals 407.00
+Duals 407.00
+Duals 407.00
+Duals 0.00
+Duals -407.00
+Solution status = Optimal
+Solution value  = -549.424
+y[ 8, 19] = 1.00000000, cost = 342.0000, time = 351.0000
+y[19, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[19] = 1.0000
+New Column cost =  342  time =  386  Covered [   8,   19, ]
+ Iterations   47 reduced cost = -228.00
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 205.00
+Duals 74.00
+Duals 348.00
+Duals 207.00
+Duals 284.00
+Duals 337.00
+Duals 158.00
+Duals 207.00
+Duals 193.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 104.00
+Duals 0.00
+Duals 217.00
+Duals 91.00
+Duals 219.00
+Duals 0.00
+Duals 356.00
+Duals 317.00
+Duals 100.00
+Duals 170.00
+Duals 158.00
+Duals 38.00
+Duals 207.00
+Duals 216.00
+Duals 207.00
+Duals 207.00
+Duals 299.50
+Duals 207.00
+Duals 110.00
+Duals 77.00
+Duals 230.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 228.00
+Duals 207.00
+Duals 207.00
+Duals 109.00
+Duals 207.00
+Duals 174.00
+Duals 207.00
+Duals 207.00
+Duals 207.00
+Duals 0.00
+Duals -207.00
+Solution status = Optimal
+Solution value  = -340.805
+y[ 5, 15] = 1.00000000, cost = 121.0000, time = 140.0000
+y[15, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  5] = 1.00000000, cost = 0.0000, time = 187.0000
+v[ 5] = 1.0000
+v[15] = 1.0000
+New Column cost =  121  time =  327  Covered [   5,   15, ]
+ Iterations   48 reduced cost = -226.00
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 379.00
+Duals 248.00
+Duals 536.00
+Duals 381.00
+Duals 458.00
+Duals 487.00
+Duals 346.00
+Duals 381.00
+Duals 381.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 90.00
+Duals 24.00
+Duals 15.00
+Duals 91.00
+Duals 205.00
+Duals 0.00
+Duals 342.00
+Duals 303.00
+Duals 274.00
+Duals 358.00
+Duals 346.00
+Duals 62.00
+Duals 381.00
+Duals 390.00
+Duals 381.00
+Duals 381.00
+Duals 473.50
+Duals 371.00
+Duals 298.00
+Duals 77.00
+Duals 216.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 402.00
+Duals 381.00
+Duals 381.00
+Duals 283.00
+Duals 381.00
+Duals 348.00
+Duals 381.00
+Duals 381.00
+Duals 381.00
+Duals 0.00
+Duals -381.00
+Solution status = Optimal
+Solution value  = -524
+y[11, 23] = 1.00000000, cost = 23.0000, time = 216.0000
+y[23, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 11] = 1.00000000, cost = 0.0000, time = 230.0000
+v[11] = 1.0000
+v[23] = 1.0000
+New Column cost =   23  time =  446  Covered [  11,   23, ]
+ Iterations   49 reduced cost = -229.00
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 608.00
+Duals 477.00
+Duals 765.00
+Duals 610.00
+Duals 687.00
+Duals 716.00
+Duals 575.00
+Duals 610.00
+Duals 610.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 90.00
+Duals 24.00
+Duals 15.00
+Duals 91.00
+Duals 205.00
+Duals 0.00
+Duals 342.00
+Duals 303.00
+Duals 503.00
+Duals 358.00
+Duals 346.00
+Duals 62.00
+Duals 610.00
+Duals 619.00
+Duals 610.00
+Duals 610.00
+Duals 702.50
+Duals 600.00
+Duals 527.00
+Duals 77.00
+Duals 445.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 631.00
+Duals 610.00
+Duals 610.00
+Duals 512.00
+Duals 610.00
+Duals 577.00
+Duals 610.00
+Duals 610.00
+Duals 610.00
+Duals 0.00
+Duals -610.00
+Solution status = Optimal
+Solution value  = -748.946
+y[ 8, 11] = 1.00000000, cost = 61.0000, time = 276.0000
+y[11, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[11] = 1.0000
+New Column cost =   61  time =  311  Covered [   8,   11, ]
+ Iterations   50 reduced cost = -226.00
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 834.00
+Duals 703.00
+Duals 765.00
+Duals 836.00
+Duals 913.00
+Duals 942.00
+Duals 575.00
+Duals 836.00
+Duals 610.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 316.00
+Duals 24.00
+Duals 15.00
+Duals 91.00
+Duals 431.00
+Duals 0.00
+Duals 568.00
+Duals 529.00
+Duals 729.00
+Duals 584.00
+Duals 572.00
+Duals 62.00
+Duals 836.00
+Duals 845.00
+Duals 836.00
+Duals 836.00
+Duals 928.50
+Duals 600.00
+Duals 527.00
+Duals 77.00
+Duals 445.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 857.00
+Duals 836.00
+Duals 836.00
+Duals 738.00
+Duals 836.00
+Duals 803.00
+Duals 836.00
+Duals 836.00
+Duals 836.00
+Duals 0.00
+Duals -836.00
+Solution status = Optimal
+Solution value  = -748.946
+y[17, 27] = 1.00000000, cost = 206.0000, time = 228.0000
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[27] = 1.0000
+New Column cost =  206  time =  277  Covered [  17,   27, ]
+ Iterations   51 reduced cost = -225.00
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 834.00
+Duals 703.00
+Duals 990.00
+Duals 836.00
+Duals 913.00
+Duals 942.00
+Duals 800.00
+Duals 836.00
+Duals 610.00
+Duals 171.00
+Duals 133.00
+Duals 287.00
+Duals 288.00
+Duals 91.00
+Duals 24.00
+Duals 15.00
+Duals 91.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 529.00
+Duals 729.00
+Duals 584.00
+Duals 572.00
+Duals 62.00
+Duals 836.00
+Duals 845.00
+Duals 836.00
+Duals 836.00
+Duals 928.50
+Duals 825.00
+Duals 527.00
+Duals 77.00
+Duals 445.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 857.00
+Duals 836.00
+Duals 836.00
+Duals 738.00
+Duals 836.00
+Duals 803.00
+Duals 836.00
+Duals 836.00
+Duals 836.00
+Duals 0.00
+Duals -836.00
+Solution status = Optimal
+Solution value  = -748.946
+y[ 2, 12] = 1.00000000, cost = 219.0000, time = 232.0000
+y[12, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  2] = 1.00000000, cost = 0.0000, time = 152.0000
+v[ 2] = 1.0000
+v[12] = 1.0000
+New Column cost =  219  time =  384  Covered [   2,   12, ]
+ Iterations   52 reduced cost = -223.00
+
+RMP status = Optimal  value  = 3589
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 915.00
+Duals 926.00
+Duals 990.00
+Duals 836.00
+Duals 913.00
+Duals 942.00
+Duals 800.00
+Duals 836.00
+Duals 610.00
+Duals 90.00
+Duals 52.00
+Duals 287.00
+Duals 65.00
+Duals 91.00
+Duals 24.00
+Duals 15.00
+Duals 91.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 529.00
+Duals 810.00
+Duals 584.00
+Duals 572.00
+Duals 62.00
+Duals 836.00
+Duals 926.00
+Duals 836.00
+Duals 836.00
+Duals 928.50
+Duals 825.00
+Duals 527.00
+Duals -4.00
+Duals 445.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 857.00
+Duals 836.00
+Duals 836.00
+Duals 738.00
+Duals 836.00
+Duals 803.00
+Duals 836.00
+Duals 836.00
+Duals 836.00
+Duals 0.00
+Duals -836.00
+Solution status = Optimal
+Solution value  = -828.559
+y[11, 26] = 1.00000000, cost = 83.0000, time = 177.0000
+y[26, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 11] = 1.00000000, cost = 0.0000, time = 230.0000
+v[11] = 1.0000
+v[26] = 1.0000
+New Column cost =   83  time =  407  Covered [  11,   26, ]
+ Iterations   53 reduced cost = -294.00
+
+RMP status = Optimal  value  = 3403
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 637.00
+Duals 796.00
+Duals 860.00
+Duals 706.00
+Duals 783.00
+Duals 682.00
+Duals 670.00
+Duals 706.00
+Duals 480.00
+Duals 238.00
+Duals 200.00
+Duals 287.00
+Duals 65.00
+Duals 91.00
+Duals 154.00
+Duals 145.00
+Duals 221.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 529.00
+Duals 532.00
+Duals 454.00
+Duals 442.00
+Duals 62.00
+Duals 706.00
+Duals 648.00
+Duals 706.00
+Duals 706.00
+Duals 798.50
+Duals 695.00
+Duals 397.00
+Duals 104.00
+Duals 445.00
+Duals -59.50
+Duals 58.50
+Duals 280.00
+Duals 326.50
+Duals 232.00
+Duals 165.00
+Duals 727.00
+Duals 706.00
+Duals 706.00
+Duals 608.00
+Duals 706.00
+Duals 673.00
+Duals 706.00
+Duals 706.00
+Duals 706.00
+Duals 0.00
+Duals -706.00
+Solution status = Optimal
+Solution value  = -555.321
+y[28, 33] = 1.00000000, cost = 226.0000, time = 225.0000
+y[33, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 28] = 1.00000000, cost = 0.0000, time = 70.0000
+v[28] = 1.0000
+v[33] = 1.0000
+New Column cost =  226  time =  295  Covered [  28,   33, ]
+ Iterations   54 reduced cost = -219.00
+
+RMP status = Optimal  value  = 3403
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 442.00
+Duals 506.00
+Duals 352.00
+Duals 429.00
+Duals 346.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 65.00
+Duals 91.00
+Duals 136.00
+Duals 127.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 286.00
+Duals 274.00
+Duals 84.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 319.00
+Duals 428.00
+Duals 319.00
+Duals 229.00
+Duals 104.00
+Duals 259.00
+Duals -43.00
+Duals 75.00
+Duals 280.00
+Duals 343.00
+Duals 232.00
+Duals 165.00
+Duals 373.00
+Duals 352.00
+Duals 352.00
+Duals 254.00
+Duals 352.00
+Duals 319.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 0.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -261.09
+y[38, 40] = 1.00000000, cost = 68.0000, time = 239.0000
+y[40, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 38] = 1.00000000, cost = 0.0000, time = 108.0000
+v[38] = 1.0000
+v[40] = 1.0000
+New Column cost =   68  time =  347  Covered [  38,   40, ]
+ Iterations   55 reduced cost = -185.00
+
+RMP status = Optimal  value  = 3403
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 442.00
+Duals 506.00
+Duals 352.00
+Duals 429.00
+Duals 346.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 65.00
+Duals 91.00
+Duals 136.00
+Duals 127.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 286.00
+Duals 274.00
+Duals 84.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 319.00
+Duals 428.00
+Duals 319.00
+Duals 229.00
+Duals 104.00
+Duals 259.00
+Duals -43.00
+Duals 75.00
+Duals 280.00
+Duals 343.00
+Duals 232.00
+Duals 165.00
+Duals 188.00
+Duals 352.00
+Duals 352.00
+Duals 254.00
+Duals 352.00
+Duals 319.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 185.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -253.136
+y[29, 34] = 1.00000000, cost = 101.0000, time = 141.0000
+y[34, 37] = 1.00000000, cost = 96.0000, time = 128.0000
+y[37, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[34] = 1.0000
+v[37] = 1.0000
+New Column cost =  197  time =  381  Covered [  29,   34,   37, ]
+ Iterations   56 reduced cost = -179.00
+
+RMP status = Optimal  value  = 3403
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 442.00
+Duals 506.00
+Duals 352.00
+Duals 429.00
+Duals 346.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 65.00
+Duals 91.00
+Duals 136.00
+Duals 127.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 286.00
+Duals 274.00
+Duals 84.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 319.00
+Duals 249.00
+Duals 319.00
+Duals 229.00
+Duals 104.00
+Duals 259.00
+Duals -222.00
+Duals 254.00
+Duals 280.00
+Duals 522.00
+Duals 232.00
+Duals 165.00
+Duals 188.00
+Duals 352.00
+Duals 352.00
+Duals 254.00
+Duals 352.00
+Duals 319.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 185.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -316.293
+y[37, 41] = 1.00000000, cost = 218.0000, time = 390.0000
+y[41, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 37] = 1.00000000, cost = 0.0000, time = 58.0000
+v[37] = 1.0000
+v[41] = 1.0000
+New Column cost =  218  time =  448  Covered [  37,   41, ]
+ Iterations   57 reduced cost = -304.00
+
+RMP status = Optimal  value  = 3403
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 442.00
+Duals 506.00
+Duals 352.00
+Duals 429.00
+Duals 346.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 65.00
+Duals 91.00
+Duals 136.00
+Duals 127.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 286.00
+Duals 274.00
+Duals 84.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 319.00
+Duals 249.00
+Duals 319.00
+Duals 229.00
+Duals 104.00
+Duals 259.00
+Duals 82.00
+Duals 254.00
+Duals 280.00
+Duals 218.00
+Duals 232.00
+Duals 165.00
+Duals 188.00
+Duals 352.00
+Duals 352.00
+Duals 254.00
+Duals 352.00
+Duals 319.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 185.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -266.838
+y[46, 49] = 1.00000000, cost = 27.0000, time = 166.0000
+y[49, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 46] = 1.00000000, cost = 0.0000, time = 29.0000
+v[46] = 1.0000
+v[49] = 1.0000
+New Column cost =   27  time =  195  Covered [  46,   49, ]
+ Iterations   58 reduced cost = -158.00
+
+RMP status = Optimal  value  = 3245
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 442.00
+Duals 506.00
+Duals 352.00
+Duals 429.00
+Duals 346.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 65.00
+Duals 91.00
+Duals 136.00
+Duals 127.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 286.00
+Duals 274.00
+Duals 84.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 319.00
+Duals 249.00
+Duals 319.00
+Duals 229.00
+Duals 104.00
+Duals 259.00
+Duals 82.00
+Duals 254.00
+Duals 280.00
+Duals 218.00
+Duals 232.00
+Duals 165.00
+Duals 188.00
+Duals 352.00
+Duals 352.00
+Duals 254.00
+Duals 352.00
+Duals 319.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 185.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -266.838
+y[46, 49] = 1.00000000, cost = 27.0000, time = 166.0000
+y[49, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 46] = 1.00000000, cost = 0.0000, time = 29.0000
+v[46] = 1.0000
+v[49] = 1.0000
+New Column cost =   27  time =  195  Covered [  46,   49, ]
+ Iterations   59 reduced cost = -158.00
+
+RMP status = Optimal  value  = 3245
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 442.00
+Duals 506.00
+Duals 352.00
+Duals 429.00
+Duals 346.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 65.00
+Duals 91.00
+Duals 136.00
+Duals 127.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 286.00
+Duals 274.00
+Duals 84.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 319.00
+Duals 249.00
+Duals 319.00
+Duals 229.00
+Duals 104.00
+Duals 259.00
+Duals 82.00
+Duals 254.00
+Duals 280.00
+Duals 218.00
+Duals 74.00
+Duals 7.00
+Duals 346.00
+Duals 352.00
+Duals 352.00
+Duals 254.00
+Duals 352.00
+Duals 477.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 27.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -253.136
+y[ 2, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  2] = 1.00000000, cost = 0.0000, time = 152.0000
+v[ 2] = 1.0000
+New Column cost =    0  time =  152  Covered [   2, ]
+ Iterations   60 reduced cost = -154.00
+
+RMP status = Optimal  value  = 3245
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 288.00
+Duals 352.00
+Duals 352.00
+Duals 429.00
+Duals 346.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 219.00
+Duals 245.00
+Duals 136.00
+Duals 127.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 286.00
+Duals 274.00
+Duals 84.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 319.00
+Duals 249.00
+Duals 319.00
+Duals 229.00
+Duals 104.00
+Duals 259.00
+Duals 82.00
+Duals 254.00
+Duals 280.00
+Duals 218.00
+Duals 74.00
+Duals 7.00
+Duals 346.00
+Duals 352.00
+Duals 352.00
+Duals 254.00
+Duals 352.00
+Duals 477.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 27.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -248.136
+y[13, 23] = 1.00000000, cost = 22.0000, time = 213.0000
+y[23, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 13] = 1.00000000, cost = 0.0000, time = 192.0000
+v[13] = 1.0000
+v[23] = 1.0000
+New Column cost =   22  time =  405  Covered [  13,   23, ]
+ Iterations   61 reduced cost = -145.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 323.00
+Duals 288.00
+Duals 352.00
+Duals 352.00
+Duals 429.00
+Duals 201.00
+Duals 316.00
+Duals 352.00
+Duals 312.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 219.00
+Duals 245.00
+Duals 281.00
+Duals 272.00
+Duals 181.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 218.00
+Duals 141.00
+Duals 129.00
+Duals 229.00
+Duals 352.00
+Duals 334.00
+Duals 352.00
+Duals 174.00
+Duals 104.00
+Duals 174.00
+Duals 229.00
+Duals 104.00
+Duals 404.00
+Duals 227.00
+Duals 399.00
+Duals 280.00
+Duals 218.00
+Duals 74.00
+Duals 7.00
+Duals 346.00
+Duals 352.00
+Duals 247.00
+Duals 254.00
+Duals 352.00
+Duals 477.00
+Duals 352.00
+Duals 352.00
+Duals 352.00
+Duals 27.00
+Duals -352.00
+Solution status = Optimal
+Solution value  = -285.701
+y[ 7, 16] = 1.00000000, cost = 91.0000, time = 98.0000
+y[16, 24] = 1.00000000, cost = 150.0000, time = 153.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  7] = 1.00000000, cost = 0.0000, time = 220.0000
+v[ 7] = 1.0000
+v[16] = 1.0000
+v[24] = 1.0000
+New Column cost =  241  time =  471  Covered [   7,   16,   24, ]
+ Iterations   62 reduced cost = -169.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 492.00
+Duals 457.00
+Duals 521.00
+Duals 521.00
+Duals 598.00
+Duals 539.00
+Duals 485.00
+Duals 521.00
+Duals 481.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 219.00
+Duals 245.00
+Duals 112.00
+Duals 103.00
+Duals 91.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 387.00
+Duals 310.00
+Duals 298.00
+Duals 150.00
+Duals 521.00
+Duals 503.00
+Duals 521.00
+Duals 343.00
+Duals 352.00
+Duals 422.00
+Duals 398.00
+Duals 104.00
+Duals 404.00
+Duals 148.00
+Duals 320.00
+Duals 280.00
+Duals 218.00
+Duals 74.00
+Duals 7.00
+Duals 515.00
+Duals 521.00
+Duals 495.00
+Duals 423.00
+Duals 521.00
+Duals 646.00
+Duals 521.00
+Duals 521.00
+Duals 521.00
+Duals 27.00
+Duals -521.00
+Solution status = Optimal
+Solution value  = -413.295
+y[45, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 45] = 1.00000000, cost = 0.0000, time = 136.0000
+v[45] = 1.0000
+New Column cost =    0  time =  136  Covered [  45, ]
+ Iterations   63 reduced cost = -125.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 492.00
+Duals 457.00
+Duals 521.00
+Duals 521.00
+Duals 598.00
+Duals 539.00
+Duals 485.00
+Duals 521.00
+Duals 481.00
+Duals 198.00
+Duals 160.00
+Duals 101.00
+Duals 219.00
+Duals 245.00
+Duals 112.00
+Duals 103.00
+Duals 91.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 343.00
+Duals 387.00
+Duals 310.00
+Duals 298.00
+Duals 150.00
+Duals 521.00
+Duals 503.00
+Duals 521.00
+Duals 343.00
+Duals 352.00
+Duals 422.00
+Duals 398.00
+Duals 104.00
+Duals 404.00
+Duals 148.00
+Duals 320.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 390.00
+Duals 521.00
+Duals 495.00
+Duals 423.00
+Duals 521.00
+Duals 521.00
+Duals 521.00
+Duals 521.00
+Duals 521.00
+Duals 27.00
+Duals -521.00
+Solution status = Optimal
+Solution value  = -412.805
+y[26, 33] = 1.00000000, cost = 279.0000, time = 243.0000
+y[33, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 26] = 1.00000000, cost = 0.0000, time = 132.0000
+v[26] = 1.0000
+v[33] = 1.0000
+New Column cost =  279  time =  375  Covered [  26,   33, ]
+ Iterations   64 reduced cost = -107.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 492.00
+Duals 564.00
+Duals 628.00
+Duals 628.00
+Duals 705.00
+Duals 646.00
+Duals 592.00
+Duals 628.00
+Duals 481.00
+Duals 305.00
+Duals 267.00
+Duals 208.00
+Duals 219.00
+Duals 245.00
+Duals 112.00
+Duals 103.00
+Duals 91.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 450.00
+Duals 387.00
+Duals 417.00
+Duals 405.00
+Duals 150.00
+Duals 628.00
+Duals 503.00
+Duals 628.00
+Duals 450.00
+Duals 459.00
+Duals 529.00
+Duals 398.00
+Duals 104.00
+Duals 404.00
+Duals 148.00
+Duals 320.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 497.00
+Duals 628.00
+Duals 602.00
+Duals 530.00
+Duals 628.00
+Duals 628.00
+Duals 628.00
+Duals 628.00
+Duals 628.00
+Duals 27.00
+Duals -628.00
+Solution status = Optimal
+Solution value  = -452.862
+y[ 3,  9] = 1.00000000, cost = 187.0000, time = 282.0000
+y[ 9, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  3] = 1.00000000, cost = 0.0000, time = 21.0000
+v[ 3] = 1.0000
+v[ 9] = 1.0000
+New Column cost =  187  time =  303  Covered [   3,    9, ]
+ Iterations   65 reduced cost = -118.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 426.00
+Duals 380.00
+Duals 444.00
+Duals 444.00
+Duals 521.00
+Duals 488.00
+Duals 408.00
+Duals 444.00
+Duals 402.00
+Duals 187.00
+Duals 149.00
+Duals 103.00
+Duals 219.00
+Duals 245.00
+Duals 86.00
+Duals 77.00
+Duals 91.00
+Duals 206.00
+Duals 0.00
+Duals 343.00
+Duals 345.00
+Duals 321.00
+Duals 338.00
+Duals 221.00
+Duals 124.00
+Duals 444.00
+Duals 424.00
+Duals 444.00
+Duals 371.00
+Duals 301.00
+Duals 371.00
+Duals 319.00
+Duals 104.00
+Duals 299.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 313.00
+Duals 444.00
+Duals 444.00
+Duals 346.00
+Duals 444.00
+Duals 444.00
+Duals 444.00
+Duals 444.00
+Duals 444.00
+Duals 27.00
+Duals -444.00
+Solution status = Optimal
+Solution value  = -335.158
+y[ 4, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  4] = 1.00000000, cost = 0.0000, time = 231.0000
+v[ 4] = 1.0000
+New Column cost =    0  time =  231  Covered [   4, ]
+ Iterations   66 reduced cost = -77.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 426.00
+Duals 380.00
+Duals 444.00
+Duals 444.00
+Duals 444.00
+Duals 488.00
+Duals 408.00
+Duals 444.00
+Duals 402.00
+Duals 187.00
+Duals 149.00
+Duals 103.00
+Duals 219.00
+Duals 245.00
+Duals 86.00
+Duals 77.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 343.00
+Duals 345.00
+Duals 321.00
+Duals 338.00
+Duals 221.00
+Duals 124.00
+Duals 444.00
+Duals 424.00
+Duals 444.00
+Duals 371.00
+Duals 301.00
+Duals 371.00
+Duals 319.00
+Duals 104.00
+Duals 299.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 313.00
+Duals 444.00
+Duals 444.00
+Duals 346.00
+Duals 444.00
+Duals 444.00
+Duals 444.00
+Duals 444.00
+Duals 444.00
+Duals 27.00
+Duals -444.00
+Solution status = Optimal
+Solution value  = -335.158
+y[ 5, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  5] = 1.00000000, cost = 0.0000, time = 187.0000
+v[ 5] = 1.0000
+New Column cost =    0  time =  187  Covered [   5, ]
+ Iterations   67 reduced cost = -44.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 382.00
+Duals 336.00
+Duals 400.00
+Duals 400.00
+Duals 400.00
+Duals 400.00
+Duals 364.00
+Duals 400.00
+Duals 358.00
+Duals 187.00
+Duals 149.00
+Duals 103.00
+Duals 219.00
+Duals 245.00
+Duals 130.00
+Duals 121.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 343.00
+Duals 345.00
+Duals 277.00
+Duals 294.00
+Duals 177.00
+Duals 124.00
+Duals 400.00
+Duals 380.00
+Duals 400.00
+Duals 327.00
+Duals 257.00
+Duals 327.00
+Duals 275.00
+Duals 104.00
+Duals 299.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 269.00
+Duals 400.00
+Duals 400.00
+Duals 302.00
+Duals 400.00
+Duals 400.00
+Duals 400.00
+Duals 400.00
+Duals 400.00
+Duals 27.00
+Duals -400.00
+Solution status = Optimal
+Solution value  = -291.912
+y[ 9, 20] = 1.00000000, cost = 82.0000, time = 252.0000
+y[20, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  9] = 1.00000000, cost = 0.0000, time = 169.0000
+v[ 9] = 1.0000
+v[20] = 1.0000
+New Column cost =   82  time =  421  Covered [   9,   20, ]
+ Iterations   68 reduced cost = -50.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 482.00
+Duals 436.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 464.00
+Duals 500.00
+Duals 408.00
+Duals 187.00
+Duals 149.00
+Duals 153.00
+Duals 219.00
+Duals 245.00
+Duals 130.00
+Duals 121.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 343.00
+Duals 395.00
+Duals 377.00
+Duals 344.00
+Duals 277.00
+Duals 124.00
+Duals 500.00
+Duals 430.00
+Duals 500.00
+Duals 377.00
+Duals 357.00
+Duals 427.00
+Duals 325.00
+Duals 104.00
+Duals 349.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 369.00
+Duals 500.00
+Duals 500.00
+Duals 402.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 27.00
+Duals -500.00
+Solution status = Optimal
+Solution value  = -341.056
+y[12, 25] = 1.00000000, cost = 175.0000, time = 245.0000
+y[25, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 12] = 1.00000000, cost = 0.0000, time = 120.0000
+v[12] = 1.0000
+v[25] = 1.0000
+New Column cost =  175  time =  365  Covered [  12,   25, ]
+ Iterations   69 reduced cost = -44.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 482.00
+Duals 480.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 464.00
+Duals 500.00
+Duals 408.00
+Duals 187.00
+Duals 149.00
+Duals 153.00
+Duals 175.00
+Duals 245.00
+Duals 130.00
+Duals 121.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 343.00
+Duals 395.00
+Duals 377.00
+Duals 344.00
+Duals 277.00
+Duals 124.00
+Duals 500.00
+Duals 430.00
+Duals 500.00
+Duals 377.00
+Duals 357.00
+Duals 427.00
+Duals 325.00
+Duals 104.00
+Duals 349.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 369.00
+Duals 500.00
+Duals 500.00
+Duals 402.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 27.00
+Duals -500.00
+Solution status = Optimal
+Solution value  = -341.056
+y[ 6, 17] = 1.00000000, cost = 170.0000, time = 191.0000
+y[17, 24] = 1.00000000, cost = 97.0000, time = 152.0000
+y[24, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  6] = 1.00000000, cost = 0.0000, time = 129.0000
+v[ 6] = 1.0000
+v[17] = 1.0000
+v[24] = 1.0000
+New Column cost =  267  time =  472  Covered [   6,   17,   24, ]
+ Iterations   70 reduced cost = -27.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 482.00
+Duals 480.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 437.00
+Duals 500.00
+Duals 408.00
+Duals 187.00
+Duals 149.00
+Duals 153.00
+Duals 175.00
+Duals 245.00
+Duals 130.00
+Duals 121.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 370.00
+Duals 395.00
+Duals 377.00
+Duals 344.00
+Duals 277.00
+Duals 124.00
+Duals 500.00
+Duals 430.00
+Duals 500.00
+Duals 377.00
+Duals 357.00
+Duals 427.00
+Duals 325.00
+Duals 104.00
+Duals 349.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 369.00
+Duals 500.00
+Duals 500.00
+Duals 402.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 500.00
+Duals 27.00
+Duals -500.00
+Solution status = Optimal
+Solution value  = -341.056
+y[ 8, 18] = 1.00000000, cost = 285.0000, time = 252.0000
+y[18, 27] = 1.00000000, cost = 190.0000, time = 184.0000
+y[27, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[18] = 1.0000
+v[27] = 1.0000
+New Column cost =  475  time =  471  Covered [   8,   18,   27, ]
+ Iterations   71 reduced cost = -10.00
+
+RMP status = Optimal  value  = 3140
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 462.00
+Duals 460.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 417.00
+Duals 480.00
+Duals 398.00
+Duals 187.00
+Duals 149.00
+Duals 143.00
+Duals 175.00
+Duals 245.00
+Duals 130.00
+Duals 121.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 370.00
+Duals 375.00
+Duals 357.00
+Duals 334.00
+Duals 257.00
+Duals 124.00
+Duals 480.00
+Duals 420.00
+Duals 480.00
+Duals 367.00
+Duals 337.00
+Duals 407.00
+Duals 325.00
+Duals 104.00
+Duals 339.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 349.00
+Duals 480.00
+Duals 480.00
+Duals 382.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 27.00
+Duals -480.00
+Solution status = Optimal
+Solution value  = -331.227
+y[20, 31] = 1.00000000, cost = 220.0000, time = 139.0000
+y[31, 34] = 1.00000000, cost = 121.0000, time = 136.0000
+y[34, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 20] = 1.00000000, cost = 0.0000, time = 191.0000
+v[20] = 1.0000
+v[31] = 1.0000
+v[34] = 1.0000
+New Column cost =  341  time =  466  Covered [  20,   31,   34, ]
+ Iterations   72 reduced cost = -1.00
+
+RMP status = Optimal  value  = 3139
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 462.00
+Duals 460.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 417.00
+Duals 480.00
+Duals 398.00
+Duals 187.00
+Duals 149.00
+Duals 143.00
+Duals 175.00
+Duals 245.00
+Duals 130.00
+Duals 121.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 370.00
+Duals 375.00
+Duals 357.00
+Duals 334.00
+Duals 257.00
+Duals 124.00
+Duals 480.00
+Duals 420.00
+Duals 480.00
+Duals 367.00
+Duals 337.00
+Duals 407.00
+Duals 325.00
+Duals 104.00
+Duals 339.00
+Duals 122.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 349.00
+Duals 480.00
+Duals 480.00
+Duals 382.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 27.00
+Duals -480.00
+Solution status = Optimal
+Solution value  = -331.227
+y[20, 31] = 1.00000000, cost = 220.0000, time = 139.0000
+y[31, 34] = 1.00000000, cost = 121.0000, time = 136.0000
+y[34, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 20] = 1.00000000, cost = 0.0000, time = 191.0000
+v[20] = 1.0000
+v[31] = 1.0000
+v[34] = 1.0000
+New Column cost =  341  time =  466  Covered [  20,   31,   34, ]
+ Iterations   73 reduced cost = -1.00
+
+RMP status = Optimal  value  = 3139
+SUBPROBLEM UPDATE DUALS
+Duals: 
+Duals 462.00
+Duals 460.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 418.00
+Duals 480.00
+Duals 398.00
+Duals 187.00
+Duals 149.00
+Duals 143.00
+Duals 175.00
+Duals 245.00
+Duals 130.00
+Duals 121.00
+Duals 91.00
+Duals 206.00
+Duals 77.00
+Duals 369.00
+Duals 375.00
+Duals 357.00
+Duals 334.00
+Duals 257.00
+Duals 123.00
+Duals 480.00
+Duals 420.00
+Duals 480.00
+Duals 367.00
+Duals 337.00
+Duals 408.00
+Duals 325.00
+Duals 104.00
+Duals 339.00
+Duals 121.00
+Duals 294.00
+Duals 280.00
+Duals 218.00
+Duals 199.00
+Duals 132.00
+Duals 349.00
+Duals 480.00
+Duals 480.00
+Duals 382.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 480.00
+Duals 27.00
+Duals -480.00
+Solution status = Optimal
+Solution value  = -331.227
+y[ 8, 11] = 1.00000000, cost = 61.0000, time = 276.0000
+y[11, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  8] = 1.00000000, cost = 0.0000, time = 35.0000
+v[ 8] = 1.0000
+v[11] = 1.0000
+New Column cost =   61  time =  311  Covered [   8,   11, ]
+ Iterations   74 reduced cost =  0.00
+
+RMP has cost =  0.00, stopping
+Master Problem Status = Optimal value  = 3139
+x[  4] = 1.000000000000000000  cost =   77  time =  373  [   4,   18, ]
+x[  5] = 1.000000000000000000  cost =  130  time =  438  [   5,   14, ]
+x[  6] = 1.000000000000000000  cost =  307  time =  463  [   6,   19, ]
+x[ 10] = 1.000000000000000000  cost =   26  time =  460  [  10,   21, ]
+x[ 19] = 1.000000000000000000  cost =  182  time =  366  [  36,   43, ]
+x[ 21] = 1.000000000000000000  cost =    0  time =  127  [  44, ]
+x[ 24] = 1.000000000000000000  cost =    0  time =  203  [  47, ]
+x[ 25] = 1.000000000000000000  cost =    0  time =  188  [  48, ]
+x[ 30] = 1.000000000000000000  cost =  151  time =  430  [  29,   35, ]
+x[ 34] = 1.000000000000000000  cost =  132  time =  277  [  39,   45, ]
+x[ 36] = 1.000000000000000000  cost =  373  time =  473  [   8,   15,   22, ]
+x[ 48] = 1.000000000000000000  cost =  169  time =  399  [   0,    9, ]
+x[ 50] = 1.000000000000000000  cost =   91  time =  318  [   7,   16, ]
+x[ 51] = 1.000000000000000000  cost =    0  time =   59  [  27, ]
+x[ 52] = 1.000000000000000000  cost =  155  time =  430  [   1,   12, ]
+x[ 56] = 1.000000000000000000  cost =  104  time =  308  [  25,   32, ]
+x[ 57] = 1.000000000000000000  cost =  257  time =  351  [  17,   24,   30, ]
+x[ 66] = 1.000000000000000000  cost =    0  time =   21  [   3, ]
+x[ 69] = 1.000000000000000000  cost =    0  time =   49  [  42, ]
+x[ 79] = 1.000000000000000000  cost =   83  time =  407  [  11,   26, ]
+x[ 80] = 1.000000000000000000  cost =  226  time =  295  [  28,   33, ]
+x[ 81] = 1.000000000000000000  cost =   68  time =  347  [  38,   40, ]
+x[ 83] = 1.000000000000000000  cost =  218  time =  448  [  37,   41, ]
+x[ 84] = 1.000000000000000000  cost =   27  time =  195  [  46,   49, ]
+x[ 86] = 1.000000000000000000  cost =    0  time =  152  [   2, ]
+x[ 87] = 1.000000000000000000  cost =   22  time =  405  [  13,   23, ]
+x[ 98] = 1.000000000000000000  cost =  341  time =  466  [  20,   31,   34, ]
+  27 columns where used, expected   27
