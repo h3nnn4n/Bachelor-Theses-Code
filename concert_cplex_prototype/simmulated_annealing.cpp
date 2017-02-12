@@ -81,7 +81,7 @@ _journey simmulatedAnnealing ( _csp *csp, _subproblem_info *sp, double *objValue
         exit(0);
     }
 
-    *objValue = energy;
+    *objValue = energy; // FIXME this looks wrong
     if ( solution.time > csp->time_limit ) { *objValue = 1; }
     return solution;
 }

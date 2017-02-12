@@ -77,3 +77,23 @@ void validateJourney ( _subproblem_info *sp, _journey &journey) {
         exit(0);
     }
 }
+
+float calculateJourneyReducedCost ( _subproblem_info *sp, _journey &journey) {
+    double reducedCost = 0;
+
+    reducedCost += sp->cost_mat[sp->N][journey.covered[0]];
+    reducedCost -= sp->duals[journey.covered[0]];
+    reducedCost -= sp->mi;
+
+    for (int i = 0; i < (int)journey.covered.size(); ++i) {
+        if ( i < (int)journey.covered.size() - 1) {
+            int source = journey.covered[i    ];
+            int dest   = journey.covered[i + 1];
+
+            reducedCost += sp->cost_mat[source][dest];
+            reducedCost -= sp->duals[dest];
+        }
+    }
+
+    return reducedCost;
+}

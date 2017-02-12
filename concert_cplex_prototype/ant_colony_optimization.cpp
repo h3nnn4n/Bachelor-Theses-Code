@@ -338,7 +338,7 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
                 std::vector<int> covered;
                 covered.push_back(graph.size() - 2);
                 for (int i = 0; i < (int)candidate.covered.size() - 1; ++i) { covered.push_back(candidate.covered[i]); }
-                if ( sp->usedJourneys[covered] == 0 ) {
+                if ( sp->usedJourneys.count(covered) == 0 ) {
                     bestUnique = candidate;
                 }
             }
