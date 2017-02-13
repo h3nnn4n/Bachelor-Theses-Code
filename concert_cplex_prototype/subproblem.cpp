@@ -90,8 +90,14 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     bool runGreedyHeur            = false;
     bool runSimmulatedAnnealing   = false;
     bool runAntColonyOptimization = false;
-    bool runTabuSearch            = true;
+    bool runTabuSearch            = false;
     bool runExact                 = true;
+
+    //runGreedyHeurLp          = true;
+    //runGreedyHeur            = true;
+    //runSimmulatedAnnealing   = true;
+    //runAntColonyOptimization = true;
+    //runTabuSearch            = true;
 
     double objValue               = 0;
 
