@@ -14,6 +14,8 @@ flags = [
     '-I.'
     #'-I/opt/ibm/ILOG/CPLEX_Studio1263/cplex/include',
     #'-L/opt/ibm/ILOG/CPLEX_Studio1263/cplex/include'
+    '-L/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/lib',
+    '-I/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/src'
 ]
 
 compilation_database_folder = ''
