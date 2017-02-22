@@ -23,6 +23,10 @@
 
 // Builds a full feasible solution to the master problem using a simple random/greddy heuristic
 void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
+    //std::vector<_journey> journeys;
+
+    //journeys.resize(csp->n_journeys);
+
     // Inits the journey vector
     for (int i = 0; i < csp->n_journeys; ++i) {
         _journey j;
