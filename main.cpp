@@ -61,10 +61,26 @@ int main(int argc, char *argv[]) {
 
     // SCIP STUFF
 
-    //SCIP* scip;
+    SCIP* scip;
     //// MODEL SETUP
 
-    ////SCIP_VAR* var_journeys[nnodes];
+    SCIP_VAR*  vars[subproblemInfo.journeys.size()];
+    SCIP_CONS* cons[csp.N];
+
+    char name[SCIP_MAXSTRLEN];
+    SCIP_CALL( SCIPcreateProbBasic(scip, "CSP") );
+
+    // Adds the variables
+    for (int i = 0; i < (int)subproblemInfo.journeys.size(); ++i) {
+        SCIP_CALL( SCIPcreateVarBasic(scip, &vars[i], name, 0.0, 1.0, subproblemInfo.journeys[i].cost, SCIP_VARTYPE_BINARY) );
+
+        SCIP_CALL( SCIPaddVar(scip, vars[i]) );
+    }
+
+    //for (int i = 0; i < csp.N; ++i) {
+        //SCIP_CALL( SCIPcreateConsBasicLinear(scip, &cons[i], name, 1, &vars, &minusone, 0.0, 1.0) );
+    //}
+
 
     ////END
 
@@ -81,9 +97,9 @@ int main(int argc, char *argv[]) {
     //SCIPinfoMessage(scip, NULL, "\nSolving...\n");
     //SCIP_CALL( SCIPsolve(scip) );
 
-    //SCIP_CALL( SCIPfreeTransform(scip) );
+    SCIP_CALL( SCIPfreeTransform(scip) );
 
-    //SCIP_CALL( SCIPfree(&scip) );
+    SCIP_CALL( SCIPfree(&scip) );
 
     return 0;
 }
