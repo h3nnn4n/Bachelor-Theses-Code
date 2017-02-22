@@ -5,6 +5,13 @@
 #include "types.h"
 #include "utils.h"
 
+#include "scip/scip.h"
+#include "scip/scipdefplugins.h"
+
+
+SCIP_RETCODE runSPP(void) {
+   return SCIP_OKAY;
+}
 
 int main(int argc, char *argv[]) {
     char input_name [256];
@@ -40,6 +47,17 @@ int main(int argc, char *argv[]) {
 
     print_journeys(subproblemInfo.journeys);
     printf("\n");
+
+    SCIP_RETCODE retcode;
+
+    retcode = runSPP();
+
+    /* evaluate return code of the SCIP process */
+    if( retcode != SCIP_OKAY ) {
+        /* write error back trace */
+        SCIPprintError(retcode);
+        return -1;
+    }
 
     return 0;
 }

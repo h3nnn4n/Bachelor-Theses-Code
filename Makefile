@@ -1,7 +1,11 @@
 CC=g++
 override CFLAGS+=-DIL_STD -c -Wall -Og -g --std=c++11 -Wno-ignored-attributes -Wno-deprecated-declarations
-override CFLAGSL+=-lm
-override LDFLAGS+=-lm
+override CFLAGSL+=-lm -I/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/src
+override LDFLAGS+=-L/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/lib -lscip.linux.x86_64.gnu.opt \
+                  -lobjscip.linux.x86_64.gnu.opt -llpispx.linux.x86_64.gnu.opt -lnlpi.cppad.linux.x86_64.gnu.opt \
+		  -O3 -fomit-frame-pointer -mtune=native    -lsoplex.linux.x86_64.gnu.opt \
+		  -lm -m64  -lz -lzimpl.linux.x86_64.gnu.opt  -lgmp -lreadline -lncurses -Wl,-rpath,/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/lib
+
 
 SOURCES=                          \
     main.cpp                      \
