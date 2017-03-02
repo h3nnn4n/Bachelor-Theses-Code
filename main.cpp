@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include <time.h>
+
 #include "random.h"
 #include "reader.h"
 #include "types.h"
@@ -31,10 +33,11 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
     printf("Starting\n");
 
     srand(666);
+    //srand(time(NULL));
 
     std::vector<_journey> t_journeys;
 
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 1; ++i) {
         build_heur_sol ( &csp, t_journeys );
         for (auto journ : t_journeys)
             subproblemInfo.journeys.push_back(journ);
@@ -46,7 +49,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
         }
     }
 
-    print_journeys(subproblemInfo.journeys);
+    //print_journeys(subproblemInfo.journeys);
 
     printf("\n");
 
@@ -77,17 +80,24 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
         printf("problem has %d rows\n", csp.N);
         for (int i = 0; i < csp.N; ++i) {
-            dualVariables[i] = SCIPgetDualsolLinear(reducedMasterProblem, cons[i]);
+            //dualVariables[i] = SCIPgetDualsolLinear(reducedMasterProblem, cons[i]);
             //printf("%4d %2.2f\n", i, dualVariables[i]);
             printf("%4d %2.2f\n", i, SCIPgetDualsolLinear(reducedMasterProblem, cons[i]));
+            //SCIP_Real dual = SCIPgetDualsolLinear(reducedMasterProblem, cons[i]);
         }
         puts("END");
 
     } while ( cont < 1 );
 
-    if ( SCIPgetNSols(reducedMasterProblem) > 0) {
-        SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), NULL, FALSE) );
-    }
+   if ( SCIPgetNSols(reducedMasterProblem) > 0) {
+        //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), NULL, FALSE) );
+        //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIP( reducedMasterProblem ), NULL, FALSE) );
+        puts(".........");
+        FILE *fptr = fopen("ya.txt", "wt");
+        SCIPprintDualSol(reducedMasterProblem, fptr, TRUE);
+        SCIPprintDualSol(reducedMasterProblem, NULL, TRUE);
+        fclose(fptr);
+   }
 
     SCIP_CALL( SCIPfreeTransform(reducedMasterProblem) );
 

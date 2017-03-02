@@ -11,6 +11,13 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
     char name[SCIP_MAXSTRLEN];
     SCIP_CALL( SCIPcreate(reducedMasterProblem) );
     SCIP_CALL( SCIPincludeDefaultPlugins(*reducedMasterProblem) );
+
+    SCIP_CALL( SCIPsetBoolParam(*reducedMasterProblem, "lp/presolving", FALSE) );
+
+    SCIP_CALL( SCIPsetSeparating(*reducedMasterProblem, SCIP_PARAMSETTING_OFF, true) );   //disable cuts
+    SCIP_CALL( SCIPsetHeuristics(*reducedMasterProblem, SCIP_PARAMSETTING_OFF, true) );   //disable heuristics
+    SCIP_CALL( SCIPsetPresolving(*reducedMasterProblem, SCIP_PARAMSETTING_OFF, true) );   //disable presolving
+
     SCIP_CALL( SCIPcreateProbBasic(*reducedMasterProblem, "CSP") );
 
     //Adds the variables
