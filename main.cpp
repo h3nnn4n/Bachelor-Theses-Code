@@ -70,12 +70,17 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
     for (int i = 0; i < csp.N; ++i) {
         int non_zeros = 0;
         std::vector<SCIP_Real> lhs;
+        std::vector<SCIP_VAR*>  _vars;
 
         for (int j = 0; j < (int)subproblemInfo.journeys.size(); ++j) {
             bool isZero = false;
             for (int k = 0; k < (int)subproblemInfo.journeys[j].covered.size(); ++k) {
                 if ( subproblemInfo.journeys[j].covered[k] == i ) {
-                    lhs.push_back(1);
+                    //lhs.push_back(subproblemInfo.journeys[j].covered[k]);
+                    lhs.push_back( 1 );
+
+                    //_vars.push_back(vars[subproblemInfo.journeys[j].covered[k]]);
+                    _vars.push_back(vars[j]);
                     non_zeros ++;
                     break;
                 }
@@ -86,9 +91,17 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
             }
         }
 
+        //SCIP_VAR* vars_[non_zeros];
+
         sprintf(name, "c_%d", i);
 
-        SCIP_CALL( SCIPcreateConsBasicLinear(scip, &cons[i], name, non_zeros, vars, &lhs[0], 1.0, 1.0) );
+        //for (int j = 0; j < (int)lhs.size(); ++j) {
+            //printf("%d ", (int)lhs[j]);
+        //}
+
+        //printf("\n");
+
+        SCIP_CALL( SCIPcreateConsBasicLinear(scip, &cons[i], name, non_zeros, &_vars[0], &lhs[0], 1.0, 1.0) );
         SCIP_CALL( SCIPaddCons(scip, cons[i]) );
     }
 
