@@ -11,6 +11,7 @@ SOURCES=           \
     main.cpp       \
     reader.cpp     \
     utils.cpp      \
+    model.cpp      \
     random.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)

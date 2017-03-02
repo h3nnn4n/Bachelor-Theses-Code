@@ -4,6 +4,7 @@
 #include "random.h"
 #include "reader.h"
 #include "types.h"
+#include "model.h"
 #include "utils.h"
 
 #include "scip/scip.h"
@@ -48,73 +49,22 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
     print_journeys(subproblemInfo.journeys);
 
     printf("\n");
-    SCIP* scip;
-    //// MODEL SETUP
 
     SCIP_VAR*  vars[subproblemInfo.journeys.size()];
     SCIP_CONS* cons[csp.N];
 
-    char name[SCIP_MAXSTRLEN];
-    SCIP_CALL( SCIPcreate(&scip) );
-    SCIP_CALL( SCIPincludeDefaultPlugins(scip) );
-    SCIP_CALL( SCIPcreateProbBasic(scip, "CSP") );
+    SCIP* reducedMasterProblem;
 
-    //Adds the variables
-    for (int i = 0; i < (int)subproblemInfo.journeys.size(); ++i) {
-        sprintf(name, "x_%d", i);
-        SCIP_CALL( SCIPcreateVarBasic(scip, &vars[i], name, 0.0, 1.0, subproblemInfo.journeys[i].cost, SCIP_VARTYPE_BINARY) );
+    buildModel(csp, subproblemInfo, &reducedMasterProblem, vars, cons);
 
-        SCIP_CALL( SCIPaddVar(scip, vars[i]) );
-    }
+    SCIP_CALL( SCIPpresolve(reducedMasterProblem) );
 
-    for (int i = 0; i < csp.N; ++i) {
-        int non_zeros = 0;
-        std::vector<SCIP_Real> lhs;
-        std::vector<SCIP_VAR*>  _vars;
+    SCIPinfoMessage(reducedMasterProblem, NULL, "\nSolving...\n");
+    SCIP_CALL( SCIPsolve(reducedMasterProblem) );
 
-        for (int j = 0; j < (int)subproblemInfo.journeys.size(); ++j) {
-            bool isZero = false;
-            for (int k = 0; k < (int)subproblemInfo.journeys[j].covered.size(); ++k) {
-                if ( subproblemInfo.journeys[j].covered[k] == i ) {
-                    //lhs.push_back(subproblemInfo.journeys[j].covered[k]);
-                    lhs.push_back( 1 );
+    SCIP_CALL( SCIPfreeTransform(reducedMasterProblem) );
 
-                    //_vars.push_back(vars[subproblemInfo.journeys[j].covered[k]]);
-                    _vars.push_back(vars[j]);
-                    non_zeros ++;
-                    break;
-                }
-            }
-
-            if ( isZero ) {
-                lhs.push_back(0);
-            }
-        }
-
-        //SCIP_VAR* vars_[non_zeros];
-
-        sprintf(name, "c_%d", i);
-
-        //for (int j = 0; j < (int)lhs.size(); ++j) {
-            //printf("%d ", (int)lhs[j]);
-        //}
-
-        //printf("\n");
-
-        SCIP_CALL( SCIPcreateConsBasicLinear(scip, &cons[i], name, non_zeros, &_vars[0], &lhs[0], 1.0, 1.0) );
-        SCIP_CALL( SCIPaddCons(scip, cons[i]) );
-    }
-
-    SCIP_CALL( SCIPwriteOrigProblem(scip, "model.lp", NULL, 0) );
-
-    SCIP_CALL( SCIPpresolve(scip) );
-
-    SCIPinfoMessage(scip, NULL, "\nSolving...\n");
-    SCIP_CALL( SCIPsolve(scip) );
-
-    SCIP_CALL( SCIPfreeTransform(scip) );
-
-    SCIP_CALL( SCIPfree(&scip) );
+    SCIP_CALL( SCIPfree(&reducedMasterProblem) );
 
     return SCIP_OKAY;
 }
