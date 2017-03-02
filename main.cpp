@@ -75,10 +75,11 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
         //SCIP_CALL( SCIPgetLPRowsData(reducedMasterProblem, &rows, &nrows) );
         rows = SCIPgetLPRows(reducedMasterProblem);
 
-        printf("problem has %d rows\n", SCIPgetNLPRows(reducedMasterProblem));
-        for (int i = 0; i < SCIPgetNLPRows(reducedMasterProblem); ++i) {
-            dualVariables[i] = SCIProwGetDualsol(rows[i]);
-            printf("%4d %2.2f\n", i, dualVariables[i]);
+        printf("problem has %d rows\n", csp.N);
+        for (int i = 0; i < csp.N; ++i) {
+            dualVariables[i] = SCIPgetDualsolLinear(reducedMasterProblem, cons[i]);
+            //printf("%4d %2.2f\n", i, dualVariables[i]);
+            printf("%4d %2.2f\n", i, SCIPgetDualsolLinear(reducedMasterProblem, cons[i]));
         }
         puts("END");
 

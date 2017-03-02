@@ -54,3 +54,4 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
 
     return SCIP_OKAY;
 }
+
