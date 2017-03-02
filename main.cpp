@@ -51,7 +51,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
     printf("\n");
 
     SCIP_VAR*  vars[subproblemInfo.journeys.size()];
-    SCIP_CONS* cons[csp.N];
+    SCIP_CONS* cons[csp.N + 1];
     SCIP_ROW** rows;
     int nrows;
 

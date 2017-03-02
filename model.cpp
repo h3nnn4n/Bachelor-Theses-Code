@@ -50,6 +50,16 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
         SCIP_CALL( SCIPaddCons(*reducedMasterProblem, cons[i]) );
     }
 
+    sprintf(name, "mi");
+
+    SCIP_Real lhs[(int)subproblemInfo.journeys.size()];
+    for (int i = 0; i < (int)subproblemInfo.journeys.size(); ++i) {
+        lhs[i] = 1.0;
+    }
+
+    SCIP_CALL( SCIPcreateConsBasicLinear(*reducedMasterProblem, &cons[csp.N], name, (int)subproblemInfo.journeys.size(), vars, lhs, csp.n_journeys, csp.n_journeys) );
+    SCIP_CALL( SCIPaddCons(*reducedMasterProblem, cons[csp.N]) );
+
     SCIP_CALL( SCIPwriteOrigProblem(*reducedMasterProblem, "model.lp", NULL, 0) );
 
     return SCIP_OKAY;
