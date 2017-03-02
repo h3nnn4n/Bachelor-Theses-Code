@@ -16,7 +16,7 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
     //Adds the variables
     for (int i = 0; i < (int)subproblemInfo.journeys.size(); ++i) {
         sprintf(name, "x_%d", i);
-        SCIP_CALL( SCIPcreateVarBasic(*reducedMasterProblem, &vars[i], name, 0.0, 1.0, subproblemInfo.journeys[i].cost, SCIP_VARTYPE_BINARY) );
+        SCIP_CALL( SCIPcreateVarBasic(*reducedMasterProblem, &vars[i], name, 0.0, 1.0, subproblemInfo.journeys[i].cost, SCIP_VARTYPE_CONTINUOUS) );
 
         SCIP_CALL( SCIPaddVar(*reducedMasterProblem, vars[i]) );
     }

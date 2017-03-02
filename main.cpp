@@ -34,7 +34,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
     std::vector<_journey> t_journeys;
 
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 50; ++i) {
         build_heur_sol ( &csp, t_journeys );
         for (auto journ : t_journeys)
             subproblemInfo.journeys.push_back(journ);
@@ -52,15 +52,41 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
     SCIP_VAR*  vars[subproblemInfo.journeys.size()];
     SCIP_CONS* cons[csp.N];
+    SCIP_ROW** rows;
+    int nrows;
 
     SCIP* reducedMasterProblem;
 
     buildModel(csp, subproblemInfo, &reducedMasterProblem, vars, cons);
 
-    SCIP_CALL( SCIPpresolve(reducedMasterProblem) );
-
+    //SCIP_CALL( SCIPpresolve(reducedMasterProblem) );
     SCIPinfoMessage(reducedMasterProblem, NULL, "\nSolving...\n");
-    SCIP_CALL( SCIPsolve(reducedMasterProblem) );
+
+    int cont = 0;
+
+    SCIP_Real dualVariables[csp.N];
+
+    do {
+        puts("\nBEGIN");
+        cont ++;
+
+        SCIP_CALL( SCIPsolve(reducedMasterProblem) );
+
+        //SCIP_CALL( SCIPgetLPRowsData(reducedMasterProblem, &rows, &nrows) );
+        rows = SCIPgetLPRows(reducedMasterProblem);
+
+        printf("problem has %d rows\n", SCIPgetNLPRows(reducedMasterProblem));
+        for (int i = 0; i < SCIPgetNLPRows(reducedMasterProblem); ++i) {
+            dualVariables[i] = SCIProwGetDualsol(rows[i]);
+            printf("%4d %2.2f\n", i, dualVariables[i]);
+        }
+        puts("END");
+
+    } while ( cont < 1 );
+
+    if ( SCIPgetNSols(reducedMasterProblem) > 0) {
+        SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), NULL, FALSE) );
+    }
 
     SCIP_CALL( SCIPfreeTransform(reducedMasterProblem) );
 
