@@ -63,8 +63,7 @@ int read_problem(
    int&                  capacity,           /**< capacity in instance */
    vector<int>&          demand,             /**< array of demands of instance */
    vector<vector<int> >& dist                /**< distances between nodes */
-   )
-{
+   ) {
    static const string DIMENSION           = "DIMENSION";
    static const string DEMAND_SECTION      = "DEMAND_SECTION";
    static const string DEPOT_SECTION       = "DEPOT_SECTION";

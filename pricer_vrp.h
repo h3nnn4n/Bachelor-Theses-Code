@@ -16,22 +16,11 @@ class ObjPricerVRP : public ObjPricer {
     public:
 
         ObjPricerVRP(
-                SCIP*                               scip,
-                const char*                         p_name,
-                const int                           p_num_nodes,
-                const int                           p_capacity,
-                const vector< int >&                p_demand,
-                const vector< vector<int> >&        p_distance,
-                const vector< vector<SCIP_VAR*> >&  p_arc_var,
-                const vector< vector<SCIP_CONS*> >& p_arc_con,
-                const vector<SCIP_CONS* >&          p_part_con
-                );
-
-        ObjPricerVRP(
                 SCIP* scip,
                 const char* p_name,
-                _csp *csp,
-                _subproblem_info *subproblemInfo
+                _csp* _csp,
+                _subproblem_info* _subproblemInfo,
+                SCIP_CONS** _cons
                 );
 
         virtual ~ObjPricerVRP();
@@ -85,6 +74,8 @@ class ObjPricerVRP : public ObjPricer {
         vector< vector<SCIP_VAR*> >  _arc_var;
         vector< vector<SCIP_CONS*> > _arc_con;
         vector< SCIP_CONS* >         _part_con;
+
+        SCIP_CONS** cons;
 
         _csp *csp;
         _subproblem_info *subproblemInfo;

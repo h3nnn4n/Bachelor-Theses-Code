@@ -81,7 +81,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
     //SCIP_CALL( SCIPincludePricerXyz( reducedMasterProblem ) );
 
-   ObjPricerVRP* vrp_pricer_ptr = new ObjPricerVRP(reducedMasterProblem, VRP_PRICER_NAME, &csp, &subproblemInfo);
+   ObjPricerVRP* vrp_pricer_ptr = new ObjPricerVRP(reducedMasterProblem, VRP_PRICER_NAME, &csp, &subproblemInfo, cons);
 
    SCIP_CALL( SCIPincludeObjPricer(reducedMasterProblem, vrp_pricer_ptr, true) );
 
