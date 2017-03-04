@@ -18,6 +18,11 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
     SCIP_CALL( SCIPsetHeuristics(*reducedMasterProblem, SCIP_PARAMSETTING_OFF, true) );   //disable heuristics
     SCIP_CALL( SCIPsetPresolving(*reducedMasterProblem, SCIP_PARAMSETTING_OFF, true) );   //disable presolving
 
+    SCIPsetBoolParam(*reducedMasterProblem, "lp/presolving", FALSE);
+
+    SCIPsetIntParam(*reducedMasterProblem, "propagating/maxrounds", 0);
+    SCIPsetIntParam(*reducedMasterProblem, "propagating/maxroundsroot", 0);
+
     SCIP_CALL( SCIPcreateProbBasic(*reducedMasterProblem, "CSP") );
 
     //Adds the variables
@@ -53,7 +58,17 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
 
         sprintf(name, "c_%d", i);
 
-        SCIP_CALL( SCIPcreateConsBasicLinear(*reducedMasterProblem, &cons[i], name, non_zeros, &_vars[0], &lhs[0], 1.0, 1.0) );
+        SCIP_CALL( SCIPcreateConsLinear(*reducedMasterProblem, &cons[i], name, non_zeros, &_vars[0], &lhs[0], 1.0, 1.0,
+                   true,                   /* initial */
+                   false,                  /* separate */
+                   true,                   /* enforce */
+                   true,                   /* check */
+                   true,                   /* propagate */
+                   false,                  /* local */
+                   false,                  /* modifiable */
+                   false,                  /* dynamic */
+                   false,                  /* removable */
+                   false) );               /* stickingatnode */
         SCIP_CALL( SCIPaddCons(*reducedMasterProblem, cons[i]) );
     }
 
@@ -64,7 +79,17 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
         lhs[i] = 1.0;
     }
 
-    SCIP_CALL( SCIPcreateConsBasicLinear(*reducedMasterProblem, &cons[csp.N], name, (int)subproblemInfo.journeys.size(), vars, lhs, csp.n_journeys, csp.n_journeys) );
+    SCIP_CALL( SCIPcreateConsLinear(*reducedMasterProblem, &cons[csp.N], name, (int)subproblemInfo.journeys.size(), vars, lhs, csp.n_journeys, csp.n_journeys,
+               true,                   /* initial */
+               false,                  /* separate */
+               true,                   /* enforce */
+               true,                   /* check */
+               true,                   /* propagate */
+               false,                  /* local */
+               false,                  /* modifiable */
+               false,                  /* dynamic */
+               false,                  /* removable */
+               false) );               /* stickingatnode */
     SCIP_CALL( SCIPaddCons(*reducedMasterProblem, cons[csp.N]) );
 
     SCIP_CALL( SCIPwriteOrigProblem(*reducedMasterProblem, "model.lp", NULL, 0) );

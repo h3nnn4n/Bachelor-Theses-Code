@@ -12,6 +12,12 @@ SOURCES=           \
     reader.cpp     \
     utils.cpp      \
     model.cpp      \
+    pricer_vrp.cpp \
+    greedy_heur.cpp \
+    tabu_search.cpp \
+    simmulated_annealing.cpp \
+    ant_colony_optimization.cpp \
+    meta_heuristics_utils.cpp \
     random.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)

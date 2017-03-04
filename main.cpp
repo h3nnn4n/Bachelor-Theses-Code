@@ -12,6 +12,10 @@
 #include "scip/scip.h"
 #include "scip/scipdefplugins.h"
 
+//#include "pricer_csp.h"
+#include "pricer_vrp.h"
+
+static const char* VRP_PRICER_NAME = "VRP_Pricer";
 
 SCIP_RETCODE runSPP (int argc, char *argv[]) {
     char input_name [256];
@@ -55,8 +59,8 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
     SCIP_VAR*  vars[subproblemInfo.journeys.size()];
     SCIP_CONS* cons[csp.N + 1];
-    SCIP_ROW** rows;
-    int nrows;
+    //SCIP_ROW** rows;
+    //int nrows;
 
     SCIP* reducedMasterProblem;
 
@@ -67,7 +71,23 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
     int cont = 0;
 
-    SCIP_Real dualVariables[csp.N];
+    //SCIP_Real dualVariables[csp.N];
+
+    /* include VRP pricer */
+    //ObjPricerVRP* vrp_pricer_ptr = new ObjPricerVRP(scip, VRP_PRICER_NAME, num_nodes, capacity, demand, dist,
+        //arc_var, arc_con, part_con);
+
+    //SCIP_CALL( SCIPincludeObjPricer(scip, vrp_pricer_ptr, true) );
+
+    //SCIP_CALL( SCIPincludePricerXyz( reducedMasterProblem ) );
+
+   ObjPricerVRP* vrp_pricer_ptr = new ObjPricerVRP(reducedMasterProblem, VRP_PRICER_NAME, &csp, &subproblemInfo);
+
+   SCIP_CALL( SCIPincludeObjPricer(reducedMasterProblem, vrp_pricer_ptr, true) );
+
+   SCIP_CALL( SCIPactivatePricer(reducedMasterProblem, SCIPfindPricer(reducedMasterProblem, VRP_PRICER_NAME)) );
+
+   //SCIP_CALL( SCIPwriteOrigProblem(scip, "vrp_init.lp", "lp", FALSE) );
 
     do {
         puts("\nBEGIN");
@@ -76,27 +96,27 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
         SCIP_CALL( SCIPsolve(reducedMasterProblem) );
 
         //SCIP_CALL( SCIPgetLPRowsData(reducedMasterProblem, &rows, &nrows) );
-        rows = SCIPgetLPRows(reducedMasterProblem);
+        //rows = SCIPgetLPRows(reducedMasterProblem);
 
-        printf("problem has %d rows\n", csp.N);
-        for (int i = 0; i < csp.N; ++i) {
+        //printf("problem has %d rows\n", csp.N);
+        //for (int i = 0; i < csp.N; ++i) {
             //dualVariables[i] = SCIPgetDualsolLinear(reducedMasterProblem, cons[i]);
             //printf("%4d %2.2f\n", i, dualVariables[i]);
-            printf("%4d %2.2f\n", i, SCIPgetDualsolLinear(reducedMasterProblem, cons[i]));
+            //printf("%4d %2.2f\n", i, SCIPgetDualsolLinear(reducedMasterProblem, cons[i]));
             //SCIP_Real dual = SCIPgetDualsolLinear(reducedMasterProblem, cons[i]);
-        }
-        puts("END");
+        //}
+        //puts("END");
 
     } while ( cont < 1 );
 
    if ( SCIPgetNSols(reducedMasterProblem) > 0) {
         //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), NULL, FALSE) );
         //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIP( reducedMasterProblem ), NULL, FALSE) );
-        puts(".........");
-        FILE *fptr = fopen("ya.txt", "wt");
-        SCIPprintDualSol(reducedMasterProblem, fptr, TRUE);
-        SCIPprintDualSol(reducedMasterProblem, NULL, TRUE);
-        fclose(fptr);
+        //puts(".........");
+        //FILE *fptr = fopen("ya.txt", "wt");
+        //SCIPprintDualSol(reducedMasterProblem, fptr, TRUE);
+        //SCIPprintDualSol(reducedMasterProblem, NULL, TRUE);
+        //fclose(fptr);
    }
 
     SCIP_CALL( SCIPfreeTransform(reducedMasterProblem) );
