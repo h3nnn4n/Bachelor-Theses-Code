@@ -6,12 +6,8 @@
 #include <vector>
 #include <map>
 
-//#include <ilcplex/ilocplex.h>
-
 void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) ;
-//void update_subproblem_duals ( _subproblem_info *sp, _csp *csp, IloNumArray duals ) ;
 
-//_journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *subproblemInfo, double *reduced_cost) ;
-_journey subproblem(std::vector<double> duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) ;
+_journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) ;
 
 #endif /* SUBPROBLEM_H */

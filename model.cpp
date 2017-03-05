@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include <cstring>
+
 #include "types.h"
 #include "utils.h"
 
@@ -27,8 +29,17 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
 
     //Adds the variables
     for (int i = 0; i < (int)subproblemInfo.journeys.size(); ++i) {
-        sprintf(name, "x_%d", i);
-        SCIP_CALL( SCIPcreateVarBasic(*reducedMasterProblem, &vars[i], name, 0.0, 1.0, subproblemInfo.journeys[i].cost, SCIP_VARTYPE_CONTINUOUS) );
+        char tmp_name[255];
+        char var_name[255];
+        (void) SCIPsnprintf(var_name, 255, "journey_");
+        for (std::vector<int>::const_iterator it = subproblemInfo.journeys[i].covered.begin(); it != subproblemInfo.journeys[i].covered.end(); ++it) {
+            strncpy(tmp_name, var_name, 255);
+            (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
+        }
+        SCIPinfoMessage(*reducedMasterProblem, NULL, "new variable <%s>\n", var_name);
+
+        SCIP_CALL( SCIPcreateVarBasic(*reducedMasterProblem, &vars[i], var_name, 0.0, SCIPinfinity(*reducedMasterProblem),
+                    subproblemInfo.journeys[i].cost, SCIP_VARTYPE_CONTINUOUS) );
 
         SCIP_CALL( SCIPaddVar(*reducedMasterProblem, vars[i]) );
     }
@@ -65,7 +76,7 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
                    true,                   /* check */
                    true,                   /* propagate */
                    false,                  /* local */
-                   false,                  /* modifiable */
+                   true,                   /* modifiable */
                    false,                  /* dynamic */
                    false,                  /* removable */
                    false) );               /* stickingatnode */
@@ -86,7 +97,7 @@ SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** red
                true,                   /* check */
                true,                   /* propagate */
                false,                  /* local */
-               false,                  /* modifiable */
+               true,                   /* modifiable */
                false,                  /* dynamic */
                false,                  /* removable */
                false) );               /* stickingatnode */

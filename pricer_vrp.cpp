@@ -20,7 +20,8 @@
  */
 
 #include "pricer_vrp.h"
-//#include "pqueue.h"
+
+#include "subproblem.h"
 
 #include <iostream>
 #include <map>
@@ -88,23 +89,22 @@ SCIP_DECL_PRICERINIT(ObjPricerVRP::scip_init) {
 SCIP_RETCODE ObjPricerVRP::pricing( SCIP* scip, bool isfarkas) const {
     for (int i = 0; i < csp->N; ++i) {
         subproblemInfo->duals[i] = SCIPgetDualsolLinear(scip, cons[i]);
-        //printf("%5.2f\n", subproblemInfo->duals[i]);
-        //SCIPgetDualsolLinear(scip, cons[i]);
     }
 
-    //subproblemInfo->duals[csp->N] = SCIPgetDualsolLinear(scip, cons[csp->N]);
+    subproblemInfo->mi = SCIPgetDualsolLinear(scip, cons[csp->N]);
 
-    //list<int> tour;
-    //SCIP_Real reduced_cost = find_shortest_tour(red_length, tour);
+    double reduced_cost;
 
-    ////[> add tour variable <]
-    //if ( SCIPisNegative(scip, reduced_cost) ) {
-        //return add_tour_variable(scip, tour);
-    //}
+    _journey journey = subproblem(csp, subproblemInfo, &reduced_cost);
 
 //#ifdef SCIP_OUTPUT
     SCIP_CALL( SCIPwriteTransProblem(scip, "vrp.lp", "lp", FALSE) );
 //#endif
+
+    if ( reduced_cost < 0.0 ) {
+        subproblemInfo->usedJourneys[journey.covered] = true;
+        return add_journey_variable(scip, journey);
+    }
 
     return SCIP_OKAY;
 }
@@ -122,9 +122,9 @@ SCIP_RETCODE ObjPricerVRP::pricing( SCIP* scip, bool isfarkas) const {
  *  - SCIP_SUCCESS    : at least one improving variable was found, or it is ensured that no such variable exists
  *  - SCIP_DIDNOTRUN  : the pricing process was aborted by the pricer, there is no guarantee that the current LP solution is optimal
  */
-SCIP_DECL_PRICERREDCOST(ObjPricerVRP::scip_redcost)
-{
-    SCIPdebugMessage("call scip_redcost ...\n");
+SCIP_DECL_PRICERREDCOST(ObjPricerVRP::scip_redcost) {
+    //SCIPdebugMessage("call scip_redcost ...\n");
+    SCIPinfoMessage(scip, NULL, "call scip_redcost ...\n");
 
     /* set result pointer, see above */
     *result = SCIP_SUCCESS;
@@ -132,10 +132,11 @@ SCIP_DECL_PRICERREDCOST(ObjPricerVRP::scip_redcost)
     /* call pricing routine */
     SCIP_CALL( pricing(scip, false) );
 
-    //for (int i = 1; i < csp->N; ++i)
-        //SCIPinfoMessage(scip, NULL, "%3d: %6.2f ", i, SCIPgetDualsolLinear(scip, cons[i]));
-
-    //puts("");
+    //for (int i = 1; i < csp->N; ++i) {
+        //SCIPinfoMessage(scip, NULL, "dual_%3d: %6.2f\n", i, SCIPgetDualsolLinear(scip, cons[i]));
+    //}
+    //SCIPinfoMessage(scip, NULL, "mi_  %3d: %6.2f\n", csp->N, SCIPgetDualsolLinear(scip, cons[csp->N]));
+    //puts("exiting scip_redcost\n");
 
     return SCIP_OKAY;
 } /*lint !e715*/
@@ -148,9 +149,9 @@ SCIP_DECL_PRICERREDCOST(ObjPricerVRP::scip_redcost)
  *  - find the shortest admissible tour with respect to these lengths
  *  - if this tour has negative reduced cost, add it to the LP
  */
-SCIP_DECL_PRICERFARKAS(ObjPricerVRP::scip_farkas)
-{
-    SCIPdebugMessage("call scip_farkas ...\n");
+SCIP_DECL_PRICERFARKAS(ObjPricerVRP::scip_farkas) {
+    //SCIPdebugMessage("call scip_farkas ...\n");
+    SCIPinfoMessage(scip, NULL, "call scip_farkas ...\n");
 
     /* call pricing routine */
     SCIP_CALL( pricing(scip, true) );
@@ -158,23 +159,17 @@ SCIP_DECL_PRICERFARKAS(ObjPricerVRP::scip_farkas)
     return SCIP_OKAY;
 } /*lint !e715*/
 
-
 /** add tour variable to problem */
-SCIP_RETCODE ObjPricerVRP::add_tour_variable(
-        SCIP*                 scip,               /**< SCIP data structure */
-        const list<int>&      tour                /**< list of nodes in tour */
-        ) const
-{
+SCIP_RETCODE ObjPricerVRP::add_journey_variable( SCIP* scip, const _journey journey) const {
     /* create meaningful variable name */
     char tmp_name[255];
     char var_name[255];
-    (void) SCIPsnprintf(var_name, 255, "T");
-    for (list<int>::const_iterator it = tour.begin(); it != tour.end(); ++it)  /*lint !e1702*/
-    {
+    (void) SCIPsnprintf(var_name, 255, "journey_");
+    for (std::vector<int>::const_iterator it = journey.covered.begin(); it != journey.covered.end(); ++it) {
         strncpy(tmp_name, var_name, 255);
         (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
     }
-    SCIPdebugMessage("new variable <%s>\n", var_name);
+    SCIPinfoMessage(scip, NULL, "new variable <%s>\n", var_name);
 
     /* create the new variable: Use upper bound of infinity such that we do not have to care about
      * the reduced costs of the variable in the pricing. The upper bound of 1 is implicitly satisfied
@@ -188,32 +183,20 @@ SCIP_RETCODE ObjPricerVRP::add_tour_variable(
                 SCIP_VARTYPE_CONTINUOUS, // variable type
                 false, false, NULL, NULL, NULL, NULL, NULL) );
 
-    /* add new variable to the list of variables to price into LP (score: leave 1 here) */
+    //[> add new variable to the list of variables to price into LP (score: leave 1 here) <]
     SCIP_CALL( SCIPaddPricedVar(scip, var, 1.0) );
 
-    /* add coefficient into the set partition constraints */
-    for (list<int>::const_iterator it = tour.begin(); it != tour.end(); ++it) /*lint !e1702*/
-    {
-        assert( 0 <= *it && *it < num_nodes() );
-        SCIP_CALL( SCIPaddCoefLinear(scip, part_con(*it), var, 1.0) );
+    //[> add coefficient into the set partition constraints <]
+    for (std::vector<int>::const_iterator it = journey.covered.begin(); it != journey.covered.end(); ++it) {
+        assert( 0 <= *it && *it < csp->N );
+        SCIP_CALL( SCIPaddCoefLinear(scip, cons[*it], var, 1.0) );
     }
-
-    /* add coefficient into arc routing constraints */
-    int last = 0;
-    for (list<int>::const_iterator it = tour.begin(); it != tour.end(); ++it) /*lint !e1702*/
-    {
-        assert( 0 <= *it && *it < num_nodes() );
-        SCIP_CALL( SCIPaddCoefLinear(scip, arc_con(last, *it), var, 1.0) );
-        last = *it;
-    }
-    SCIP_CALL( SCIPaddCoefLinear(scip, arc_con(last, 0), var, 1.0 ) );
 
     /* cleanup */
     SCIP_CALL( SCIPreleaseVar(scip, &var) );
 
     return SCIP_OKAY;
 }
-
 
 /** Computes a shortest admissible tour with respect to the given lengths. The function must return
  *  the computed tour via the parameter tour and the length (w.r.t. given lengths) of this tour as
@@ -275,9 +258,9 @@ SCIP_RETCODE ObjPricerVRP::add_tour_variable(
  *  priority queues cannot be used, since it currently does not support removal of elements that are
  *  not at the top.
  */
-SCIP_Real ObjPricerVRP::find_shortest_tour( const vector< vector<SCIP_Real> >& length, list<int>& tour) const {
-    return 0;
-}
+//SCIP_Real ObjPricerVRP::find_shortest_tour( const vector< vector<SCIP_Real> >& length, list<int>& tour) const {
+    //return 0;
+//}
 
 //tour.clear();
 

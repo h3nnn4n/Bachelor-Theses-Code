@@ -85,13 +85,13 @@ void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
     }
 }
 
-_journey subproblem(std::vector<double> duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) {
+_journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     bool runGreedyHeurLp          = false;
-    bool runGreedyHeur            = false;
-    bool runSimmulatedAnnealing   = false;
-    bool runAntColonyOptimization = false;
+    bool runGreedyHeur            = true;
+    bool runSimmulatedAnnealing   = true;
+    bool runAntColonyOptimization = true;
     bool runTabuSearch            = true;
-    bool runExact                 = true;
+    bool runExact                 = false;
 
     double objValue               = 0;
 

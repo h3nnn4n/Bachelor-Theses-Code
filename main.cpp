@@ -90,11 +90,11 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
    //SCIP_CALL( SCIPwriteOrigProblem(scip, "vrp_init.lp", "lp", FALSE) );
 
-    do {
-        puts("\nBEGIN");
-        cont ++;
+    //do {
+        //puts("\nBEGIN");
+        //cont ++;
 
-        SCIP_CALL( SCIPsolve(reducedMasterProblem) );
+    SCIP_CALL( SCIPsolve(reducedMasterProblem) );
 
         //SCIP_CALL( SCIPgetLPRowsData(reducedMasterProblem, &rows, &nrows) );
         //rows = SCIPgetLPRows(reducedMasterProblem);
@@ -108,7 +108,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
         //}
         //puts("END");
 
-    } while ( cont < 1 );
+    //} while ( cont < 1 );
 
    if ( SCIPgetNSols(reducedMasterProblem) > 0) {
         //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), NULL, FALSE) );

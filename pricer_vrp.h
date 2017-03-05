@@ -28,42 +28,8 @@ class ObjPricerVRP : public ObjPricer {
         virtual SCIP_DECL_PRICERREDCOST(scip_redcost);
         virtual SCIP_DECL_PRICERFARKAS(scip_farkas);
 
-        SCIP_RETCODE pricing( SCIP*              scip, bool               isfarkas) const;
-        SCIP_RETCODE add_tour_variable( SCIP*              scip, const list<int>&   tour) const;
-        double find_shortest_tour( const vector< vector<double> >& length, list<int>&         tour) const;
-
-    protected:
-        inline int num_nodes() const {
-            return _num_nodes;
-        }
-
-        inline int capacity() const {
-            return _capacity;
-        }
-
-        inline int demand( const int i) const {
-            return _demand[i];
-        }
-
-        inline double distance( const int i, const int j) const {
-            return ( i > j ? _distance[i][j] : _distance[j][i] );
-        }
-
-        inline SCIP_VAR* arc_var( const int i, const int j) const {
-            return ( i > j ? _arc_var[i][j] : _arc_var[j][i] );
-        }
-
-        inline SCIP_CONS* arc_con( const int i, const int j) const {
-            return ( i > j ? _arc_con[i][j] : _arc_con[j][i] );
-        }
-
-        inline SCIP_CONS* part_con( const int i) const {
-            return _part_con[i];
-        }
-
-        inline bool have_edge( const int i, const int j) const {
-            return ( SCIPvarGetUbLocal( arc_var(i, j) ) > 0.5 );
-        }
+        SCIP_RETCODE pricing( SCIP* scip, bool isfarkas) const;
+        SCIP_RETCODE add_journey_variable( SCIP* scip, const _journey journey) const;
 
     private:
         int                    _num_nodes;
