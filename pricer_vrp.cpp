@@ -85,111 +85,29 @@ SCIP_DECL_PRICERINIT(ObjPricerVRP::scip_init) {
  *
  *  @todo compute shortest length restricted tour w.r.t. duals
  */
-SCIP_RETCODE ObjPricerVRP::pricing(
-        SCIP*                 scip,               /**< SCIP data structure */
-        bool                  isfarkas            /**< whether we perform Farkas pricing */
-        ) const {
-    /* allocate array for reduced costs */
-    vector< vector<SCIP_Real> > red_length(num_nodes());  /*lint !e732 !e747*/
-    for (int i = 0; i < num_nodes(); ++i)
-        red_length[i].resize(i, 0.0); /*lint !e732 !e747*/
-
-    /* compute reduced-cost arc lengths store only lower triangualar matrix, i.e., red_length[i][j] only for i > j */
-    if ( isfarkas )
-    {
-        for (int i = 0; i < num_nodes(); ++i)
-        {
-            assert( i == 0 || part_con(i) != 0 );
-            for (int j = 0; j < i; ++j)
-            {
-                SCIP_Real r = 0.0;
-                assert( arc_con(i,j) != 0 );
-
-                r -= SCIPgetDualfarkasLinear(scip, arc_con(i,j));
-                if ( j != 0 )
-                    r -= 0.5 * SCIPgetDualfarkasLinear(scip, part_con(j));
-                if ( i != 0 )
-                    r -= 0.5 * SCIPgetDualfarkasLinear(scip, part_con(i));
-                red_length[i][j] = r;  /*lint !e732 !e747*/
-            }
-        }
-    }
-    else
-    {
-        for (int i = 0; i < num_nodes(); ++i)
-        {
-            assert( i == 0 || part_con(i) != 0 );
-            for (int j = 0; j < i; ++j)
-            {
-                SCIP_Real r = 0.0;
-                assert( arc_con(i,j) != 0 );
-
-                r -= SCIPgetDualsolLinear(scip, arc_con(i,j));
-                if ( j != 0 )
-                    r -= 0.5 * SCIPgetDualsolLinear(scip, part_con(j));
-                if ( i != 0 )
-                    r -= 0.5 * SCIPgetDualsolLinear(scip, part_con(i));
-                red_length[i][j] = r; /*lint !e732 !e747*/
-            }
-        }
+SCIP_RETCODE ObjPricerVRP::pricing( SCIP* scip, bool isfarkas) const {
+    for (int i = 0; i < csp->N; ++i) {
+        subproblemInfo->duals[i] = SCIPgetDualsolLinear(scip, cons[i]);
+        //printf("%5.2f\n", subproblemInfo->duals[i]);
+        //SCIPgetDualsolLinear(scip, cons[i]);
     }
 
-#ifdef SCIP_OUTPUT
-    if ( isfarkas )
-    {
-        SCIPinfoMessage(scip, NULL, "dual ray solution:\n");
-        for (int i = 0; i < num_nodes(); ++i)
-        {
-            for (int j = 0; j < i; ++j)
-                SCIPinfoMessage(scip, NULL, "arc_%d_%d:  %g\n", i, j, SCIPgetDualfarkasLinear(scip, arc_con(i,j)));
-        }
+    //subproblemInfo->duals[csp->N] = SCIPgetDualsolLinear(scip, cons[csp->N]);
 
-        for (int i = 1; i < num_nodes(); ++i)
-            SCIPinfoMessage(scip, NULL, "part_%d:  %g\n", i, SCIPgetDualfarkasLinear(scip, part_con(i)));
+    //list<int> tour;
+    //SCIP_Real reduced_cost = find_shortest_tour(red_length, tour);
 
-        for (int i = 0; i < num_nodes(); ++i)
-        {
-            for (int j = 0; j < i; ++j)
-                SCIPinfoMessage(scip, NULL, "length_%d_%d:  %g\n", i, j, red_length[i][j]);
-        }
-    }
-    else
-    {
-        SCIPinfoMessage(scip, NULL, "dual solution:\n");
-        for (int i = 0; i < num_nodes(); ++i)
-        {
-            for (int j = 0; j < i; ++j)
-                SCIPinfoMessage(scip, NULL, "arc_%d_%d:  %g\n", i, j, SCIPgetDualsolLinear(scip, arc_con(i,j)));
-        }
+    ////[> add tour variable <]
+    //if ( SCIPisNegative(scip, reduced_cost) ) {
+        //return add_tour_variable(scip, tour);
+    //}
 
-        for (int i = 1; i < num_nodes(); ++i)
-            SCIPinfoMessage(scip, NULL, "part_%d:  %g\n", i, SCIPgetDualsolLinear(scip, part_con(i)));
-
-        for (int i = 0; i < num_nodes(); ++i)
-        {
-            for (int j = 0; j < i; ++j)
-                SCIPinfoMessage(scip, NULL, "length_%d_%d:  %g\n", i, j, red_length[i][j]);
-        }
-    }
-#endif
-
-    /* compute shortest length restricted tour w.r.t. reduced-cost arc length */
-    list<int> tour;
-    SCIP_Real reduced_cost = find_shortest_tour(red_length, tour);
-
-    /* add tour variable */
-    if ( SCIPisNegative(scip, reduced_cost) )
-    {
-        return add_tour_variable(scip, tour);
-    }
-
-#ifdef SCIP_OUTPUT
+//#ifdef SCIP_OUTPUT
     SCIP_CALL( SCIPwriteTransProblem(scip, "vrp.lp", "lp", FALSE) );
-#endif
+//#endif
 
     return SCIP_OKAY;
 }
-
 
 
 /** Pricing of additional variables if LP is feasible.
@@ -212,9 +130,12 @@ SCIP_DECL_PRICERREDCOST(ObjPricerVRP::scip_redcost)
     *result = SCIP_SUCCESS;
 
     /* call pricing routine */
-    //SCIP_CALL( pricing(scip, false) );
-    for (int i = 1; i < csp->N; ++i)
-        SCIPinfoMessage(scip, NULL, "dual_%d:  %g\n", i, SCIPgetDualsolLinear(scip, cons[i]));
+    SCIP_CALL( pricing(scip, false) );
+
+    //for (int i = 1; i < csp->N; ++i)
+        //SCIPinfoMessage(scip, NULL, "%3d: %6.2f ", i, SCIPgetDualsolLinear(scip, cons[i]));
+
+    //puts("");
 
     return SCIP_OKAY;
 } /*lint !e715*/

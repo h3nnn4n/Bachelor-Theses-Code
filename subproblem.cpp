@@ -85,7 +85,7 @@ void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
     }
 }
 
-_journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) {
+_journey subproblem(std::vector<double> duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) {
     bool runGreedyHeurLp          = false;
     bool runGreedyHeur            = false;
     bool runSimmulatedAnnealing   = false;
@@ -198,23 +198,23 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     //End of TabuSearch
 
     // Exact solution
-    if ( runExact ) {
-        journey = subproblemExactSolve(csp, sp, &objValue) ;
-        //printf("exact solution is : %4.3f\n", objValue);
+    //if ( runExact ) {
+        //journey = subproblemExactSolve(csp, sp, &objValue) ;
+        ////printf("exact solution is : %4.3f\n", objValue);
 
-        if ( objValue < 0 ) {
-            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("exact solution is good\n");
-            } else {
-                printf("exact solution not unique\n");
-            }
-        } else {
-            printf("exact solution is bad\n");
-        }
+        //if ( objValue < 0 ) {
+            //if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                //printf("exact solution is good\n");
+            //} else {
+                //printf("exact solution not unique\n");
+            //}
+        //} else {
+            //printf("exact solution is bad\n");
+        //}
 
-        *reduced_cost = objValue;
-        return journey;
-    }
+        //*reduced_cost = objValue;
+        //return journey;
+    //}
     //End of Exact solution
 
     *reduced_cost = 1; // This is enough to signal the master problem that no good journey was found

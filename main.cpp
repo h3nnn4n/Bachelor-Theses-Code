@@ -8,6 +8,7 @@
 #include "types.h"
 #include "model.h"
 #include "utils.h"
+#include "subproblem.h"
 
 #include "scip/scip.h"
 #include "scip/scipdefplugins.h"
@@ -30,8 +31,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
     if ( argc == 3 ) {
         csp.n_journeys = atoi(argv[2]);
     } else {
-        fprintf(stderr, "Assuming the number of journeys is equal to the number of tasks!\n");
-        csp.n_journeys = csp.N;
+        fprintf(stderr, "Assuming the number of journeys is equal to the number of tasks!\n"); csp.n_journeys = csp.N;
     }
 
     printf("Starting\n");
@@ -41,7 +41,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
 
     std::vector<_journey> t_journeys;
 
-    for (int i = 0; i < 1; ++i) {
+    for (int i = 0; i < 2; ++i) {
         build_heur_sol ( &csp, t_journeys );
         for (auto journ : t_journeys)
             subproblemInfo.journeys.push_back(journ);
@@ -54,8 +54,9 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
     }
 
     //print_journeys(subproblemInfo.journeys);
-
     printf("\n");
+
+    init_subproblem_info(&subproblemInfo, &csp);
 
     SCIP_VAR*  vars[subproblemInfo.journeys.size()];
     SCIP_CONS* cons[csp.N + 1];

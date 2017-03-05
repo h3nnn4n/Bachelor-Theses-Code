@@ -13,6 +13,7 @@ SOURCES=           \
     utils.cpp      \
     model.cpp      \
     pricer_vrp.cpp \
+    subproblem.cpp \
     greedy_heur.cpp \
     tabu_search.cpp \
     simmulated_annealing.cpp \
