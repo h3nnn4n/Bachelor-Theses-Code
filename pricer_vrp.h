@@ -41,10 +41,10 @@ class ObjPricerVRP : public ObjPricer {
         vector< vector<SCIP_CONS*> > _arc_con;
         vector< SCIP_CONS* >         _part_con;
 
-        SCIP_CONS** cons;
-
         _csp *csp;
         _subproblem_info *subproblemInfo;
+
+        SCIP_CONS** cons;
 };
 
 #endif

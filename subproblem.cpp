@@ -198,23 +198,25 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     //End of TabuSearch
 
     // Exact solution
-    //if ( runExact ) {
+    if ( runExact ) {
         //journey = subproblemExactSolve(csp, sp, &objValue) ;
-        ////printf("exact solution is : %4.3f\n", objValue);
+        //printf("exact solution is : %4.3f\n", objValue);
 
-        //if ( objValue < 0 ) {
-            //if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                //printf("exact solution is good\n");
-            //} else {
-                //printf("exact solution not unique\n");
-            //}
-        //} else {
-            //printf("exact solution is bad\n");
-        //}
+        objValue = 1;  // FIXME need to write the exact solver using SCIP/CPLEX (which one?)
 
-        //*reduced_cost = objValue;
-        //return journey;
-    //}
+        if ( objValue < 0 ) {
+            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                printf("exact solution is good\n");
+            } else {
+                printf("exact solution not unique\n");
+            }
+        } else {
+            printf("exact solution is bad\n");
+        }
+
+        *reduced_cost = objValue;
+        return journey;
+    }
     //End of Exact solution
 
     *reduced_cost = 1; // This is enough to signal the master problem that no good journey was found

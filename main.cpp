@@ -70,7 +70,7 @@ SCIP_RETCODE runSPP (int argc, char *argv[]) {
     //SCIP_CALL( SCIPpresolve(reducedMasterProblem) );
     SCIPinfoMessage(reducedMasterProblem, NULL, "\nSolving...\n");
 
-    int cont = 0;
+    //int cont = 0;
 
     //SCIP_Real dualVariables[csp.N];
 
