@@ -45,8 +45,8 @@ int main (int argc, char **argv) {
 
         printf("Starting\n");
 
-        //srand(time(NULL));
-        srand(666);
+        srand(time(NULL));
+        //srand(666);
 
         ////Prints the graph (it indexes from zero)
         //for (int i = 0; i < (int)csp.graph.size(); ++i) {
@@ -58,10 +58,17 @@ int main (int argc, char **argv) {
         //}
 
         // generation for the first set of columns
-        build_heur_sol ( &csp, subproblemInfo.journeys );
+        std::vector<_journey> t_journeys;
+        for (int i = 0; i < 5; ++i) {
+            build_heur_sol ( &csp, t_journeys );
+            for (auto journ : t_journeys)
+                subproblemInfo.journeys.push_back(journ);
 
-        for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
-            subproblemInfo.usedJourneys[subproblemInfo.journeys[i].covered] = true;
+            t_journeys.clear();
+
+            for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
+                subproblemInfo.usedJourneys[subproblemInfo.journeys[i].covered] = true;
+            }
         }
 
         //journeys.push_back(all_powerful_journey(&t));
@@ -193,7 +200,7 @@ int main (int argc, char **argv) {
 
             update_subproblem_duals( &subproblemInfo, &csp, duals);
             //_journey new_journey;
-            _journey new_journey = subproblem(duals, &csp, &subproblemInfo, &reduced_cost);
+            _journey new_journey = subproblem(&csp, &subproblemInfo, &reduced_cost);
             //_journey new_journey = subproblemExactSolve(duals, &csp, &subproblemInfo, &reduced_cost);
             validateJourney(&subproblemInfo, new_journey);
             //_journey new_journey = subproblem(duals, &t, journeys, &reduced_cost, usedJourneys);

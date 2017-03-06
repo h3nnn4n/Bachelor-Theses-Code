@@ -85,7 +85,7 @@ void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
     }
 }
 
-_journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) {
+_journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     bool runGreedyHeurLp          = false;
     bool runGreedyHeur            = false;
     bool runSimmulatedAnnealing   = false;
@@ -93,11 +93,11 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     bool runTabuSearch            = false;
     bool runExact                 = true;
 
-    //runGreedyHeurLp          = true;
-    //runGreedyHeur            = true;
-    //runSimmulatedAnnealing   = true;
-    //runAntColonyOptimization = true;
-    //runTabuSearch            = true;
+    runGreedyHeurLp          = true;
+    runGreedyHeur            = true;
+    runSimmulatedAnnealing   = true;
+    runAntColonyOptimization = true;
+    runTabuSearch            = true;
 
     double objValue               = 0;
 

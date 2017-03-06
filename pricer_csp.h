@@ -1,5 +1,5 @@
-#ifndef __SCIP_PRICER_VRP_H__
-#define __SCIP_PRICER_VRP_H__
+#ifndef __SCIP_PRICER_CSP_H__
+#define __SCIP_PRICER_CSP_H__
 
 #include "objscip/objscip.h"
 #include "scip/pub_var.h"
@@ -12,10 +12,10 @@
 using namespace std;
 using namespace scip;
 
-class ObjPricerVRP : public ObjPricer {
+class ObjPricerCSP : public ObjPricer {
     public:
 
-        ObjPricerVRP(
+        ObjPricerCSP(
                 SCIP* scip,
                 const char* p_name,
                 _csp* _csp,
@@ -23,7 +23,7 @@ class ObjPricerVRP : public ObjPricer {
                 SCIP_CONS** _cons
                 );
 
-        virtual ~ObjPricerVRP();
+        virtual ~ObjPricerCSP();
         virtual SCIP_DECL_PRICERINIT(scip_init);
         virtual SCIP_DECL_PRICERREDCOST(scip_redcost);
         virtual SCIP_DECL_PRICERFARKAS(scip_farkas);

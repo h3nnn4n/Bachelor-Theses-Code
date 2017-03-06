@@ -1,7 +1,12 @@
 CC=g++
 override CFLAGS+=-DIL_STD -c -Wall -Og -g --std=c++11 -I/opt/ibm/ILOG/CPLEX_Studio1263/concert/include -I/opt/ibm/ILOG/CPLEX_Studio1263/cplex/include -Wno-ignored-attributes -Wno-deprecated-declarations -I/opt/ibm/ILOG/CPLEX_Studio1263/opl/include/
-override CFLAGSL+=-lcplex -lilocplex -lconcert -lcplex -lm -lpthread -lgmp -lz
-override LDFLAGS+=-DIL_STD -L/opt/ibm/ILOG/CPLEX_Studio1263/cplex/lib/x86-64_linux/static_pic/ -L/opt/ibm/ILOG/CPLEX_Studio1263/concert/lib/x86-64_linux/static_pic/ -lilocplex -lconcert -lcplex -lm -lpthread -lgmp -lz
+override CFLAGSL+=-lcplex -lilocplex -lconcert -lcplex -lm -lpthread -lgmp -lz -I/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/src
+override LDFLAGS+=-DIL_STD -L/opt/ibm/ILOG/CPLEX_Studio1263/cplex/lib/x86-64_linux/static_pic/ \
+		  -L/opt/ibm/ILOG/CPLEX_Studio1263/concert/lib/x86-64_linux/static_pic/ -lilocplex -lconcert -lcplex -lm -lpthread -lgmp -lz \
+		  -L/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/lib -lscip.linux.x86_64.gnu.opt \
+                  -lobjscip.linux.x86_64.gnu.opt -llpispx.linux.x86_64.gnu.opt -lnlpi.cppad.linux.x86_64.gnu.opt \
+                  -fomit-frame-pointer -mtune=native -lsoplex.linux.x86_64.gnu.opt \
+                  -lzimpl.linux.x86_64.gnu.opt -lreadline -lncurses -Wl,-rpath,/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/lib
 
 SOURCES=                          \
     concert.cpp                   \
@@ -16,6 +21,7 @@ SOURCES=                          \
     meta_heuristics_utils.cpp     \
     ant_colony_optimization.cpp   \
     exact_subproblem.cpp	  \
+    pricer_csp.cpp 		  \
     simmulated_annealing.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
