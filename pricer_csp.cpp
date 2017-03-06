@@ -112,7 +112,7 @@ SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey jour
         strncpy(tmp_name, var_name, 255);
         (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
     }
-    SCIPinfoMessage(scip, NULL, "new variable <%s> %g\n", var_name, journey.cost);
+    SCIPinfoMessage(scip, NULL, "new variable <%s> %d\n", var_name, journey.cost);
 
     /* create the new variable: Use upper bound of infinity such that we do not have to care about
      * the reduced costs of the variable in the pricing. The upper bound of 1 is implicitly satisfied
@@ -122,7 +122,7 @@ SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey jour
     SCIP_CALL( SCIPcreateVar(scip, &var, var_name,
                 0.0,                     // lower bound
                 SCIPinfinity(scip),      // upper bound
-                0.0,                     // objective
+                journey.cost,            // objective
                 SCIP_VARTYPE_CONTINUOUS, // variable type
                 false, false, NULL, NULL, NULL, NULL, NULL) );
 
