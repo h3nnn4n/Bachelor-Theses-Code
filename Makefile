@@ -14,7 +14,8 @@ SOURCES=                          \
     printer_to_graphviz.cpp       \
     backtrack.cpp utils.cpp       \
     random.cpp                    \
-    model.cpp                     \
+    model_cplex.cpp               \
+    model_scip.cpp                \
     subproblem.cpp                \
     tabu_search.cpp               \
     greedy_heur.cpp               \

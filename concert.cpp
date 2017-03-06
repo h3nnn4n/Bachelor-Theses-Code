@@ -11,8 +11,10 @@
 #include "backtrack.h"
 #include "utils.h"
 #include "random.h"
-#include "model.h"
+#include "model_cplex.h"
+#include "model_scip.h"
 #include "subproblem.h"
+#include "model_scip.h"
 #include "exact_subproblem.h"
 
 #include <ilcplex/ilocplex.h>
@@ -45,17 +47,8 @@ int main (int argc, char **argv) {
 
         printf("Starting\n");
 
-        srand(time(NULL));
-        //srand(666);
-
-        ////Prints the graph (it indexes from zero)
-        //for (int i = 0; i < (int)csp.graph.size(); ++i) {
-            //printf("%3d -> ", i);
-            //for (int j = 0; j < (int)csp.graph[i].size(); ++j) {
-                //printf("(%3d, %4d) ", csp.graph[i][j].dest, csp.graph[i][j].cost);
-            //}
-            //printf("\n");
-        //}
+        //srand(time(NULL));
+        srand(666);
 
         // generation for the first set of columns
         std::vector<_journey> t_journeys;
@@ -71,16 +64,8 @@ int main (int argc, char **argv) {
             }
         }
 
-        //journeys.push_back(all_powerful_journey(&t));
-
-        //for (int i = 0; i < 5; ++i) {
-            //journeys.push_back(random_journey(&t));
-        //}
-
         print_journeys(subproblemInfo.journeys);
         printf("\n");
-
-        //exit(0);
 
         init_subproblem_info( &subproblemInfo, &csp );
 
@@ -93,80 +78,12 @@ int main (int argc, char **argv) {
         // begins model construction
         IloNumVarArray var(env);
         IloRangeArray con(env);
-
-        //populate_model(model, var, con, &t, journeys, &t) ;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // Obective is to minimize
         IloObjective obj = IloMinimize(env);
 
-        // Adds one constraint for each task
-        for (int i = 0; i < csp.N; ++i) {
-            char n[256];
-            sprintf(n, "c%d", i);
-            con.add(IloRange(env, 1.0, 1.0, n));
-        }
-        //printf("Added constraint\n");
-
-        // Adds one variable for each existing journey
-        for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
-            var.add(IloNumVar(env, 0.0, 1.0, ILOFLOAT));
-
-            char n[256];
-            sprintf(n, "x%d", i);
-            var[i].setName(n);
-        }
-        //printf("Added vars\n");
-
-        // Populates the 0-1 matrix
-        for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
-            obj.setLinearCoef(var[i], subproblemInfo.journeys[i].cost);
-
-            for (int j = 0; j < (int)subproblemInfo.journeys[i].covered.size(); ++j) {
-                //printf("%d %d\n", i, journeys[i].covered[j]);
-                con[subproblemInfo.journeys[i].covered[j]].setLinearCoef(var[i], 1.0);
-            }
-        }
-        //printf("Populated the matrix\n");
-
-        // Configures the contrainf to the number of journeys that can be used
-        con.add(IloRange(env, (float)csp.n_journeys, (float)csp.n_journeys, "c_nj"));
-        for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
-            con[csp.N].setLinearCoef(var[i], 1.0);
-        }
-        //printf("Master constraint\n");
-
-        model.add(obj);
-        model.add(con);
-        model.add(var);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        buildModelCplex(model, var, con, obj, subproblemInfo.journeys, &csp, &subproblemInfo) ;
 
         IloCplex cplex(model);
-        cplex.exportModel("lpex0.lp");
-
-        //cplex.setOut(env.getNullStream());
-        // Optimize the problem and obtain solution for the first run.
-        //if ( !cplex.solve() ) {
-            //env.error() << "Failed to optimize LP" << endl;
-            //throw(-1);
-        //}
-
-        //{
-        //IloNumArray vals(env);
-        //env.out() << "Solution status = " << cplex.getStatus() << endl;
-        //env.out() << "Solution value  = " << cplex.getObjValue() << endl;
-        //cplex.getValues(vals, var);
-        //env.out() << "Values        = " << vals << endl;
-        //cplex.getSlacks(vals, con);
-        //env.out() << "Slacks        = " << vals << endl;
-        //cplex.getDuals(vals, con);
-        //env.out() << "Duals         = " << vals << endl;
-        //cplex.getReducedCosts(vals, var);
-        //env.out() << "Reduced Costs = " << vals << endl;
-        //cout << "\n\n";
-        //}
+        //cplex.exportModel("lpex0.lp");
 
         double reduced_cost;
 
@@ -181,17 +98,7 @@ int main (int argc, char **argv) {
                 throw(-1);
             }
 
-            //IloNumArray vals(env);
             env.out() << "RMP status = " << cplex.getStatus() << " " << " value  = " << cplex.getObjValue() << endl;
-            //cplex.getValues(vals, var);
-            //env.out() << "Values        = " << vals << endl;
-            //cplex.getSlacks(vals, con);
-            //env.out() << "Slacks        = " << vals << endl;
-            //cplex.getDuals(vals, con);
-            //env.out() << "Duals         = " << vals << endl;
-            //cplex.getReducedCosts(vals, var);
-            //env.out() << "Reduced Costs = " << vals << endl;
-            //cout << "\n\n";
 
             // Solves the subproblem
             IloNumArray red_cost(env);
@@ -201,9 +108,7 @@ int main (int argc, char **argv) {
             update_subproblem_duals( &subproblemInfo, &csp, duals);
             //_journey new_journey;
             _journey new_journey = subproblem(&csp, &subproblemInfo, &reduced_cost);
-            //_journey new_journey = subproblemExactSolve(duals, &csp, &subproblemInfo, &reduced_cost);
             validateJourney(&subproblemInfo, new_journey);
-            //_journey new_journey = subproblem(duals, &t, journeys, &reduced_cost, usedJourneys);
 
             subproblemInfo.journeys.push_back(new_journey);
             subproblemInfo.usedJourneys[new_journey.covered] = true;
@@ -224,12 +129,6 @@ int main (int argc, char **argv) {
 
             var.add( IloNumVar(col + obj(new_journey.cost), 0.0, 1.0, ILOFLOAT));
             model.add(var);
-
-            //char name[256];
-            //sprintf(name, "rmp_%04d.lp", cont);
-            //cplex.exportModel(name);
-
-            //if ( cont > 2 ) break;
 
             printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
         } while ( reduced_cost < 0 );

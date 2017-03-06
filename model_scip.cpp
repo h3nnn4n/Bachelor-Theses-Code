@@ -6,10 +6,12 @@
 #include "types.h"
 #include "utils.h"
 
+#include "model_scip.h"
+
 #include "scip/scip.h"
 #include "scip/scipdefplugins.h"
 
-SCIP_RETCODE buildModel (_csp &csp, _subproblem_info &subproblemInfo, SCIP** reducedMasterProblem, SCIP_VAR** vars, SCIP_CONS** cons) {
+SCIP_RETCODE buildModelScip (_csp &csp, _subproblem_info &subproblemInfo, SCIP** reducedMasterProblem, SCIP_VAR** vars, SCIP_CONS** cons) {
     char name[SCIP_MAXSTRLEN];
     SCIP_CALL( SCIPcreate(reducedMasterProblem) );
     SCIP_CALL( SCIPincludeDefaultPlugins(*reducedMasterProblem) );
