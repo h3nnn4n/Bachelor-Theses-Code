@@ -13,6 +13,7 @@
 #include "random.h"
 #include "model.h"
 #include "subproblem.h"
+#include "exact_subproblem.h"
 
 #include <ilcplex/ilocplex.h>
 
@@ -193,6 +194,7 @@ int main (int argc, char **argv) {
             update_subproblem_duals( &subproblemInfo, &csp, duals);
             //_journey new_journey;
             _journey new_journey = subproblem(duals, &csp, &subproblemInfo, &reduced_cost);
+            //_journey new_journey = subproblemExactSolve(duals, &csp, &subproblemInfo, &reduced_cost);
             validateJourney(&subproblemInfo, new_journey);
             //_journey new_journey = subproblem(duals, &t, journeys, &reduced_cost, usedJourneys);
 

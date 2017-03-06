@@ -5,7 +5,10 @@
 #include <map>
 
 #include "types.h"
+#include "utils.h"
 #include "greedy_heur.h"
+#include "tabu_search.h"
+#include "exact_subproblem.h"
 #include "simmulated_annealing.h"
 #include "ant_colony_optimization.h"
 
@@ -83,134 +86,27 @@ void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
 }
 
 _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *reduced_cost) {
-    IloEnv         env         ;
-    IloModel       model(env  );
-    IloCplex       cplex(model);
-    cplex.setOut(env.getNullStream());
+    bool runGreedyHeurLp          = false;
+    bool runGreedyHeur            = false;
+    bool runSimmulatedAnnealing   = false;
+    bool runAntColonyOptimization = false;
+    bool runTabuSearch            = false;
+    bool runExact                 = true;
 
-    // Adds the variables for the edges
-    // Makes a (N+2) x (N+2) matrix
-    IloArray<IloNumVarArray> y(env, csp->N+2);
-    for (int i = 0; i < csp->N+2; ++i) {
-        y[i] = IloNumVarArray(env, csp->N+2, 0, 1);
-    }
+    //runGreedyHeurLp          = true;
+    //runGreedyHeur            = true;
+    //runSimmulatedAnnealing   = true;
+    //runAntColonyOptimization = true;
+    //runTabuSearch            = true;
 
-    // Set the variable names. This is mostly usefull
-    // for debugging the model and reading the lp output
-    for (int i = 0; i < csp->N+2; ++i) {
-        for (int j = 0; j < csp->N+2; ++j) {
-            char n[256];
-            sprintf(n, "y_%d,%d", i, j);
-            y[i][j].setName(n);
-        }
-        model.add(y[i]);
-    }
-    //printf("Added y_(i,j) vars\n");
+    double objValue               = 0;
 
-    // Adds the vars for the vertex
-    IloNumVarArray v = IloNumVarArray(env, csp->N+2, 0, 1, ILOINT);
-    for (int i = 0; i < csp->N; ++i) {
-        char n[256];
-        sprintf(n, "v_%d", i);
-        v[i].setName(n);
-    }
-    model.add(v);
-    //printf("Added v_a vars\n");
-
-    { //Sets the objective function
-        IloNumExpr obj(env);
-        for (int i = 0; i < csp->N+2; ++i) {
-            for (int j = 0; j < csp->N+2; ++j) {
-                obj += sp->cost_mat[i][j] * y[i][j];
-            }
-        }
-
-        for (int i = 0; i < csp->N; ++i) {
-            obj -= duals[i] * v[i];
-        }
-
-        obj -= duals[csp->N]; // Mi
-        model.add(IloMinimize(env, obj));
-        obj.end();
-    }
-
-    // Source and Sink contraints
-    { IloNumExpr expr(env); // Source
-        for (int i = 0; i < csp->N; ++i) {
-            expr += sp->adj_mat[i][csp->N+1] * y[i][csp->N+1];
-        }
-        model.add(expr == 1);
-        expr.end();
-    } {
-        IloNumExpr expr(env); // Sink
-        for (int i = 0; i < csp->N; ++i) {
-            expr += sp->adj_mat[csp->N][i] * y[csp->N][i];
-        }
-        model.add(expr == 1);
-        expr.end();
-    }
-    //printf("Added Sink and Source constraints\n");
-
-    // Flow conservation contraints
-    for (int j = 0; j < csp->N; ++j) {
-        {
-            IloNumExpr expr(env);
-            for (int i = 0; i < csp->N+2; ++i) {
-                expr += sp->adj_mat[i][j] * y[i][j];
-            }
-            model.add(expr == v[j]);
-            expr.end();
-        } {
-            IloNumExpr expr(env);
-            for (int k = 0; k < csp->N+2; ++k) {
-                expr += sp->adj_mat[j][k] * y[j][k];
-            }
-            model.add(expr == v[j]);
-            expr.end();
-        }
-    }
-    //printf("Added flow conservation constraints\n");
-
-    { // Time limite contraint
-        IloNumExpr expr(env);
-        for (int j = 0; j < csp->N+2; ++j) {
-            for (int i = 0; i < csp->N+2; ++i) {
-                expr += sp->time_mat[i][j] * y[i][j];
-            }
-        }
-        model.add(expr <= csp->time_limit);
-        expr.end();
-    }
-    //printf("Added time limit contraint\n");
-
-    // // Beginning of the HEURISTIC section
-
-    // Copies the model to solve the linear relaxixation
-    IloModel model_final(env);
-    IloCplex cplex_final(model_final);
-    model_final.add(model);
-    model_final.add(IloConversion(env, v, ILOFLOAT));
-
-    for (int i = 0; i < csp->N+2; ++i) {
-        model_final.add(IloConversion(env, y[i], ILOFLOAT));
-    }
-
-    cplex_final.setOut(env.getNullStream());
-    if ( !cplex_final.solve() ) {
-        env.error() << "Failed to optimize Relaxed subproblem" << endl;
-        throw(-1);
-    }
-
-    // Extracts the values
-    IloNumArray vals(env);
-    env.out() << "Solution status = " << cplex_final.getStatus() << endl;
-    env.out() << "Solution value  = " << cplex_final.getObjValue() << endl;
+    _journey journey;
+    init_journey(journey);
 
     // greedyLpHeur
-    if ( 0 ) {
-        double objValue = 0;
-
-        _journey journey = greedyLpHeur ( csp, sp, y, env, cplex_final, &objValue );
+    if ( runGreedyHeurLp ) {
+        //journey = greedyLpHeur ( csp, sp, y, env, cplex_final, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
@@ -229,10 +125,8 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     //End of greedyLpHeur
 
     // greedyHeur
-    if ( 0 ) {
-        double objValue = 0;
-
-        _journey journey = greedyHillClimbingHeur ( csp, sp, &objValue );
+    if ( runGreedyHeur ) {
+        journey = greedyHillClimbingHeur ( csp, sp, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
@@ -251,10 +145,8 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     //End of greedyHeur
 
     // Simmulated Annealing
-    if ( 0 ) {
-        double objValue = 0;
-
-        _journey journey = simmulatedAnnealing ( csp, sp, &objValue );
+    if ( runSimmulatedAnnealing ) {
+        journey = simmulatedAnnealing ( csp, sp, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
@@ -273,10 +165,8 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
     //End of Simmulated Annealing
 
     // Ant Colony Optimization
-    if ( 0 ) {
-        double objValue = 0;
-
-        _journey journey = antColonyOptmization ( csp, sp, &objValue );
+    if ( runAntColonyOptimization ) {
+        journey = antColonyOptmization ( csp, sp, &objValue );
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
@@ -292,67 +182,48 @@ _journey subproblem(IloNumArray duals, _csp *csp, _subproblem_info *sp, double *
             //Do Nothing
         }
     }
-    //End of Ant Colony Optimization
 
-    if ( !cplex.solve() ) {
-        env.error() << "Failed to optimize SubProblem" << endl;
-        throw(-1);
-    }
+    // TabuSearch
+    if ( runTabuSearch ) {
+        journey = tabuSearch ( csp, sp, &objValue );
 
-    // Reads the solution from the model and stores in a struct to return to the master problem
-    _journey journey;
-
-    journey.time = 0;
-    journey.cost = 0;
-
-    //IloNumArray vals(env);
-    //env.out() << "Solution status = " << cplex.getStatus() << endl;
-    //env.out() << "Solution value  = " << cplex.getObjValue() << endl;
-    double x = cplex.getObjValue();
-    *reduced_cost = x;
-    for (int i = 0; i < csp->N+2; ++i) {
-        cplex.getValues(vals, y[i]);
-        //env.out() << "y["<<i<<"]      = " << vals << endl;
-        for (int j = 0; j < csp->N+2; ++j) {
-            if ( vals[j] > 0.5 ) {
-                printf("y[%2d, %2d] = %2.8f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], sp->cost_mat[i][j], sp->time_mat[i][j]);
-                journey.cost += sp->cost_mat[i][j];
-                journey.time += sp->time_mat[i][j];
+        if ( objValue < 0 ) {
+            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                printf("tabuSearch solution is good\n");
+                *reduced_cost = objValue;
+                return journey;
+            } else {
+                printf("tabuSearch solution not unique\n");
             }
+        } else {
+            printf("tabuSearch solution is bad\n");
+            //exit(0);
+            //Do Nothing
         }
     }
+    //End of TabuSearch
 
-    // This reads the covered vertexes
-    cplex.getValues(vals, v);
-    //env.out() << "v         = " << vals << endl;
-    for (int i = 0; i < csp->N; ++i) {
-        if ( vals[i] > 0.5 ) {
-            journey.covered.push_back(i);
-            printf("v[%2d] = %2.4f\n", i, vals[i]);
-        }
-    }
+    // Exact solution
+    if ( runExact ) {
+        journey = subproblemExactSolve(csp, sp, &objValue) ;
+        //printf("exact solution is : %4.3f\n", objValue);
 
-    // Rountine to ensure that the time_limit constraints arent violated due to numerical precision errors
-    if ( journey.time > csp->time_limit ) {
-        printf("Journey too long!\n");
-        printf("-------------------\n");
-        for (int i = 0; i < csp->N+2; ++i) {
-            cplex.getValues(vals, y[i]);
-            //env.out() << "y["<<i<<"]      = " << vals << endl;
-            for (int j = 0; j < csp->N+2; ++j) {
-                if ( vals[j] > 10e-4 ) {
-                    printf("y[%2d, %2d] = %2.18f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], sp->cost_mat[i][j], sp->time_mat[i][j]);
-                    journey.cost += sp->cost_mat[i][j];
-                    journey.time += sp->time_mat[i][j];
-                }
+        if ( objValue < 0 ) {
+            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                printf("exact solution is good\n");
+            } else {
+                printf("exact solution not unique\n");
             }
+        } else {
+            printf("exact solution is bad\n");
         }
+
+        *reduced_cost = objValue;
+        return journey;
     }
+    //End of Exact solution
 
-    assert ( journey.time <= csp->time_limit && "Journey too long!");
-
-    //cplex.exportModel("subp.lp");
-    //exit(0);
-
+    *reduced_cost = 1; // This is enough to signal the master problem that no good journey was found
+    // This code should be actually unreachable, since the exact solved always will return before
     return journey;
 }

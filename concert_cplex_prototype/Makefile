@@ -5,16 +5,18 @@ override LDFLAGS+=-DIL_STD -L/opt/ibm/ILOG/CPLEX_Studio1263/cplex/lib/x86-64_lin
 
 SOURCES=                          \
     concert.cpp                   \
-	reader.cpp                    \
-	printer_to_graphviz.cpp       \
-	backtrack.cpp utils.cpp       \
-	random.cpp                    \
-	model.cpp                     \
-	subproblem.cpp                \
-	greedy_heur.cpp               \
-	meta_heuristics_utils.cpp     \
-	ant_colony_optimization.cpp   \
-	simmulated_annealing.cpp
+    reader.cpp                    \
+    printer_to_graphviz.cpp       \
+    backtrack.cpp utils.cpp       \
+    random.cpp                    \
+    model.cpp                     \
+    subproblem.cpp                \
+    tabu_search.cpp               \
+    greedy_heur.cpp               \
+    meta_heuristics_utils.cpp     \
+    ant_colony_optimization.cpp   \
+    exact_subproblem.cpp	  \
+    simmulated_annealing.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=magic
