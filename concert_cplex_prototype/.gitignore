@@ -1,9 +1,0 @@
-*.lp
-*.txt
-*.o
-magic
-soplex-2.2.1/bin/
-soplex-2.2.1/lib/
-soplex-2.2.1/obj/
-__pycache__
-log
