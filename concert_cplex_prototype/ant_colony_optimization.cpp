@@ -353,7 +353,7 @@ _journey antColonyOptmization ( _csp *csp, _subproblem_info *sp, double *objValu
 
     bestUnique.covered.erase(bestUnique.covered.end() - 1);
     *objValue = getEffectiveCost (graph, bestUnique);
-    if(1){printf("cost = %4d time = %4d covered [", bestUnique.cost, bestUnique.time); for (int i = 0; i < (int)bestUnique.covered.size(); ++i) { printf("%4d, ", bestUnique.covered[i]); } printf("\b\b]\n");}
+    if(debug_aco){printf("cost = %4d time = %4d covered [", bestUnique.cost, bestUnique.time); for (int i = 0; i < (int)bestUnique.covered.size(); ++i) { printf("%4d, ", bestUnique.covered[i]); } printf("\b\b]\n");}
     return bestUnique;
 
     //best.covered.erase(best.covered.end() - 1);
