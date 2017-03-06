@@ -35,7 +35,12 @@ SCIP_RETCODE runSPP (_csp &csp, _subproblem_info &subproblemInfo) {
     SCIP_CALL( SCIPsolve(reducedMasterProblem) );
 
     if ( SCIPgetNSols(reducedMasterProblem) > 0) {
-        //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), NULL, FALSE) );
+        FILE *fptr = fopen("ya.txt", "wt");
+        SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), fptr, FALSE) );
+        fclose(fptr);
+
+        SCIP_CALL( SCIPwriteTransProblem( reducedMasterProblem, "final.lp", NULL, FALSE));
+
         //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIP( reducedMasterProblem ), NULL, FALSE) );
         //puts(".........");
         //FILE *fptr = fopen("ya.txt", "wt");

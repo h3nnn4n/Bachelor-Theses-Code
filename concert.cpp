@@ -90,6 +90,7 @@ int main (int argc, char **argv) {
 
         int cont = 0;
 
+        goto skip;
         do {
             cont ++;
             // Solves the master problem
@@ -133,6 +134,7 @@ int main (int argc, char **argv) {
 
             printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
         } while ( reduced_cost < 0 );
+skip:
 
         printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
 
@@ -165,6 +167,8 @@ int main (int argc, char **argv) {
         fractional_results = total_columns_used != csp.n_journeys;
 
         printf("%4d columns where used, expected %4d\n", total_columns_used, csp.n_journeys);
+
+        fractional_results = true;
 
         // If there are more selected columns than the specified then we have
         // a fractional solution and we need to do some branch and price

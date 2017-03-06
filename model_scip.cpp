@@ -41,7 +41,7 @@ SCIP_RETCODE buildModelScip (_csp &csp, _subproblem_info &subproblemInfo, SCIP**
         SCIPinfoMessage(*reducedMasterProblem, NULL, "new variable <%s>\n", var_name);
 
         SCIP_CALL( SCIPcreateVarBasic(*reducedMasterProblem, &vars[i], var_name, 0.0, SCIPinfinity(*reducedMasterProblem),
-                    subproblemInfo.journeys[i].cost, SCIP_VARTYPE_CONTINUOUS) );
+                    subproblemInfo.journeys[i].cost, SCIP_VARTYPE_INTEGER) );
 
         SCIP_CALL( SCIPaddVar(*reducedMasterProblem, vars[i]) );
     }

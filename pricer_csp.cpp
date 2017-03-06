@@ -1,6 +1,7 @@
 #include "pricer_csp.h"
 
 #include "subproblem.h"
+#include "utils.h"
 
 #include <iostream>
 #include <map>
@@ -60,6 +61,7 @@ SCIP_RETCODE ObjPricerCSP::pricing( SCIP* scip, bool isfarkas) const {
 
     if ( reduced_cost < 0.0 ) {
         subproblemInfo->usedJourneys[journey.covered] = true;
+        validateJourney(subproblemInfo, journey);
         return add_journey_variable(scip, journey);
     }
 
@@ -70,7 +72,7 @@ SCIP_RETCODE ObjPricerCSP::pricing( SCIP* scip, bool isfarkas) const {
 // Pricing of additional variables if LP is feasible.
 SCIP_DECL_PRICERREDCOST(ObjPricerCSP::scip_redcost) {
     //SCIPdebugMessage("call scip_redcost ...\n");
-    SCIPinfoMessage(scip, NULL, "call scip_redcost ...\n");
+    SCIPinfoMessage(scip, NULL, "\ncall scip_redcost ...\n");
 
     /* set result pointer, see above */
     *result = SCIP_SUCCESS;
@@ -110,7 +112,7 @@ SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey jour
         strncpy(tmp_name, var_name, 255);
         (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
     }
-    SCIPinfoMessage(scip, NULL, "new variable <%s>\n", var_name);
+    SCIPinfoMessage(scip, NULL, "new variable <%s> %g\n", var_name, journey.cost);
 
     /* create the new variable: Use upper bound of infinity such that we do not have to care about
      * the reduced costs of the variable in the pricing. The upper bound of 1 is implicitly satisfied
