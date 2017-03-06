@@ -1,8 +1,0 @@
-*.swp
-*.o
-core
-*.lp
-*.txt
-*.o
-magic
-__pycache__

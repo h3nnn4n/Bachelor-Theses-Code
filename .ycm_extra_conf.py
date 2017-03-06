@@ -30,6 +30,8 @@ flags = [
     '-isystem', '/usr/local/include/eigen3',
     '-I', 'include',
     '-I.',
+    '-L/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/lib',
+    '-I/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/src',
     '-I/opt/ibm/ILOG/CPLEX_Studio1263/cplex/include',
     '-L/opt/ibm/ILOG/CPLEX_Studio1263/cplex/include'
 ]

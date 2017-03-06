@@ -31,6 +31,7 @@ void init_journey( _journey &journey) {
     journey.covered.clear();
 }
 
+#if 0
 static int getIndexForEdge( _csp &csp, int a, int b) {
     for (int i = 0; i < (int) csp.graph[a].size(); ++i) {
         if ( csp.graph[a][i].dest == b ) {
@@ -39,6 +40,7 @@ static int getIndexForEdge( _csp &csp, int a, int b) {
     }
     return -1;
 }
+#endif
 
 void validateJourney ( _subproblem_info *sp, _journey &journey) {
     if ( journey.covered.size() == 0 ) {
