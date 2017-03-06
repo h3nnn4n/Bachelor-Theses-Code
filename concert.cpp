@@ -16,6 +16,7 @@
 #include "subproblem.h"
 #include "model_scip.h"
 #include "exact_subproblem.h"
+#include "branch_and_price.h"
 
 #include <ilcplex/ilocplex.h>
 
@@ -147,6 +148,7 @@ int main (int argc, char **argv) {
         env.out() << "Master Problem Status = " << cplex.getStatus() <<  " value  = " << cplex.getObjValue() << endl;
         cplex.getValues(vals, var);
 
+        bool fractional_results = false;
         int total_columns_used = 0;
         for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
             if ( vals[i] ) {
@@ -160,37 +162,22 @@ int main (int argc, char **argv) {
             }
         }
 
-        //IloModel model_final(env);
-        //model_final.add(model);
-        //model_final.add(IloConversion(env, var, ILOINT));
-
-        //IloCplex       cplex_final(model_final);
-
-        //cplex_final.setOut(env.getNullStream());
-        //// Optimize the problem with the final set of columns
-        //if ( !cplex_final.solve() ) {
-            //env.error() << "Failed to optimize LP" << endl;
-            //throw(-1);
-        //}
-
-        //IloNumArray vals(env);
-        //env.out() << "Master Problem Status = " << cplex_final.getStatus() <<  " value  = " << cplex_final.getObjValue() << endl;
-        //cplex_final.getValues(vals, var);
-
-        //int total_columns_used = 0;
-        //for (int i = 0; i < (int) journeys.size(); ++i) {
-            //if ( vals[i] ) {
-                //total_columns_used++;
-                //printf("x[%3d] = %2.18f ", i, vals[i]);
-                //printf(" cost = %4d  time = %4d  [", journeys[i].cost, journeys[i].time);
-                //for (int j = 0; j < (int)journeys[i].covered.size(); ++j) {
-                    //printf("%4d, ", journeys[i].covered[j]);
-                //}
-                //printf("\b\b]\n");
-            //}
-        //}
+        fractional_results = total_columns_used != csp.n_journeys;
 
         printf("%4d columns where used, expected %4d\n", total_columns_used, csp.n_journeys);
+
+        // If there are more selected columns than the specified then we have
+        // a fractional solution and we need to do some branch and price
+        if ( fractional_results ) {
+            SCIP_RETCODE retcode;
+
+            retcode = runSPP(csp, subproblemInfo);
+
+            if(retcode != SCIP_OKAY) {
+                SCIPprintError(retcode);
+                return EXIT_FAILURE;
+            }
+        }
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;
@@ -201,5 +188,5 @@ int main (int argc, char **argv) {
 
     env.end();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

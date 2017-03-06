@@ -14,6 +14,7 @@ SOURCES=                          \
     printer_to_graphviz.cpp       \
     backtrack.cpp utils.cpp       \
     random.cpp                    \
+    branch_and_price.cpp          \
     model_cplex.cpp               \
     model_scip.cpp                \
     subproblem.cpp                \
