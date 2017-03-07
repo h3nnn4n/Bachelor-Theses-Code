@@ -10,6 +10,8 @@ void perf_data_init ( _perf_data *perf ) {
 
     perf->initial_heur_time               = 0;
     perf->total_time                      = 0;
+    perf->cplex_time                      = 0;
+    perf->scip_time                       = 0;
 }
 
 void perf_data_init_algo_data ( _algo_perf_data *p ) {
@@ -30,5 +32,7 @@ _perf_data* get_reference () {
 
 void perf_data_show ( _perf_data *p ) {
     printf("Time spent generating initial solution: %16.8f\n", p->initial_heur_time);
-    printf("Total time spend: %16.8f\n", p->total_time);
+    printf("Total time spent: %16.8f\n", p->total_time);
+    printf("Total time spent on cplex: %16.8f\n", p->cplex_time);
+    printf("Total time spent on scip: %16.8f\n", p->scip_time);
 }

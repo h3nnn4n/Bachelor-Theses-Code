@@ -33,6 +33,11 @@ int main (int argc, char **argv) {
     try {
         struct timespec total_time_t1;
         struct timespec total_time_t2;
+        struct timespec cplex_time_t1;
+        struct timespec cplex_time_t2;
+        struct timespec scip_time_t1;
+        struct timespec scip_time_t2;
+
         timekeeper_tic(&total_time_t1);
 
         char input_name [256];
@@ -109,6 +114,7 @@ int main (int argc, char **argv) {
         perf_data_show(&perf_data);
         //exit(0);
 
+        timekeeper_tic(&cplex_time_t1);
         IloModel model(env);
 
         // begins model construction
@@ -184,6 +190,9 @@ int main (int argc, char **argv) {
         IloNumArray vals(env);
         env.out() << "Master Problem Status = " << cplex.getStatus() <<  " value  = " << cplex.getObjValue() << endl;
         cplex.getValues(vals, var);
+        timekeeper_tic(&cplex_time_t2);
+
+        perf_data.cplex_time = time_diff_double(cplex_time_t1, cplex_time_t2);
 
         bool fractional_results = false;
         int total_columns_used = 0;
@@ -207,6 +216,7 @@ int main (int argc, char **argv) {
 
         // If there are more selected columns than the specified then we have
         // a fractional solution and we need to do some branch and price
+        timekeeper_tic(&scip_time_t1);
         if ( fractional_results ) {
             SCIP_RETCODE retcode;
 
@@ -219,7 +229,10 @@ int main (int argc, char **argv) {
             }
         }
 
+        timekeeper_tic(&scip_time_t2);
         timekeeper_tic(&total_time_t2);
+
+        perf_data.scip_time = time_diff_double(scip_time_t1, scip_time_t2);
 
         perf_data.total_time = time_diff_double( total_time_t1, total_time_t2 );
 

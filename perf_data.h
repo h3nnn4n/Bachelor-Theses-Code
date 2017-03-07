@@ -21,7 +21,10 @@ typedef struct {
     _algo_perf_data tabu;
 
     double initial_heur_time;
+
     double total_time;
+    double cplex_time;
+    double scip_time;
 } _perf_data;
 
 extern _perf_data perf_data;
