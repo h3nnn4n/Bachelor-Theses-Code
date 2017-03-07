@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
+#include <time.h>
+#include <unistd.h>
 
 #include <map>
 #include <vector>
@@ -17,14 +19,22 @@
 #include "model_scip.h"
 #include "exact_subproblem.h"
 #include "branch_and_price.h"
+#include "perf_data.h"
+#include "time_keeper.h"
 
 #include <ilcplex/ilocplex.h>
+
+_perf_data perf_data;
 
 ILOSTLBEGIN
 
 int main (int argc, char **argv) {
     IloEnv   env;
     try {
+        struct timespec total_time_t1;
+        struct timespec total_time_t2;
+        timekeeper_tic(&total_time_t1);
+
         char input_name [256];
         char output_name[256];
 
@@ -39,6 +49,8 @@ int main (int argc, char **argv) {
         _csp csp = file_reader(input_name);
         _subproblem_info subproblemInfo;
 
+        perf_data_init(&perf_data);
+
         if ( argc == 3 ) {
             csp.n_journeys = atoi(argv[2]);
         } else {
@@ -52,6 +64,11 @@ int main (int argc, char **argv) {
         srand(666);
 
         // generation for the first set of columns
+        struct timespec init_heur_t1;
+        struct timespec init_heur_t2;
+
+        timekeeper_tic(&init_heur_t1);
+
         bool found_feasible_sol = false;
         std::vector<_journey> t_journeys;
         for (int i = 0; i < 2; ++i) {
@@ -74,9 +91,6 @@ int main (int argc, char **argv) {
             //exit(-1);
         }
 
-        print_journeys(subproblemInfo.journeys);
-        printf("\n");
-
         init_subproblem_info( &subproblemInfo, &csp );
 
         if ( !subproblemInfo.using_all_powerful_journey) {
@@ -84,6 +98,16 @@ int main (int argc, char **argv) {
                 validateJourney(&subproblemInfo, subproblemInfo.journeys[i]);
             }
         }
+
+        timekeeper_tic(&init_heur_t2);
+
+        perf_data.initial_heur_time = time_diff_double( init_heur_t1, init_heur_t2 );
+
+        print_journeys(subproblemInfo.journeys);
+        printf("\n");
+
+        perf_data_show(&perf_data);
+        //exit(0);
 
         IloModel model(env);
 
@@ -194,6 +218,12 @@ int main (int argc, char **argv) {
             } else {
             }
         }
+
+        timekeeper_tic(&total_time_t2);
+
+        perf_data.total_time = time_diff_double( total_time_t1, total_time_t2 );
+
+        perf_data_show(&perf_data);
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;

@@ -18,6 +18,8 @@ SOURCES=                          \
     model_cplex.cpp               \
     model_scip.cpp                \
     subproblem.cpp                \
+    perf_data.cpp                 \
+    time_keeper.cpp               \
     tabu_search.cpp               \
     greedy_heur.cpp               \
     meta_heuristics_utils.cpp     \
