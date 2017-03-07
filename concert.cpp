@@ -55,14 +55,14 @@ int main (int argc, char **argv) {
         std::vector<_journey> t_journeys;
         for (int i = 0; i < 5; ++i) {
             build_heur_sol ( &csp, t_journeys );
-            for (auto journ : t_journeys)
-                subproblemInfo.journeys.push_back(journ);
+            for (auto journ : t_journeys) {
+                if ( subproblemInfo.usedJourneys.count(journ.covered) == 0 ) {
+                    subproblemInfo.journeys.push_back(journ);
+                    subproblemInfo.usedJourneys[journ.covered] = true;
+                }
+            }
 
             t_journeys.clear();
-
-            for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
-                subproblemInfo.usedJourneys[subproblemInfo.journeys[i].covered] = true;
-            }
         }
 
         print_journeys(subproblemInfo.journeys);
@@ -180,6 +180,7 @@ skip:
             if(retcode != SCIP_OKAY) {
                 SCIPprintError(retcode);
                 return EXIT_FAILURE;
+            } else {
             }
         }
     }
