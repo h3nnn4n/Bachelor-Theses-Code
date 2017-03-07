@@ -52,12 +52,26 @@ int main (int argc, char **argv) {
         srand(666);
 
         // generation for the first set of columns
+        bool found_feasible_sol = false;
         std::vector<_journey> t_journeys;
         for (int i = 0; i < 2; ++i) {
-            build_heur_sol ( &csp, t_journeys );
+            if ( build_heur_sol ( &csp, t_journeys ) ) {
+                found_feasible_sol = true;
+            }
             update_used_journeys_with_vector(subproblemInfo, t_journeys);
 
             t_journeys.clear();
+        }
+
+        if ( !found_feasible_sol ) {
+            fprintf(stderr, "Could not find a feasible solution\n");
+            fprintf(stderr, "Using a infeasible journey that covers everything\n");
+
+            _journey journey = all_powerful_journey(&csp);
+            subproblemInfo.using_all_powerful_journey = true;
+            update_used_journeys(subproblemInfo, journey);
+
+            //exit(-1);
         }
 
         print_journeys(subproblemInfo.journeys);
@@ -65,8 +79,10 @@ int main (int argc, char **argv) {
 
         init_subproblem_info( &subproblemInfo, &csp );
 
-        for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
-            validateJourney(&subproblemInfo, subproblemInfo.journeys[i]);
+        if ( !subproblemInfo.using_all_powerful_journey) {
+            for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
+                validateJourney(&subproblemInfo, subproblemInfo.journeys[i]);
+            }
         }
 
         IloModel model(env);

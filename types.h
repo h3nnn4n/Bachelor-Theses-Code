@@ -42,6 +42,8 @@ typedef struct {
 
     std::vector<_journey> journeys;
     std::map<std::vector<int>, bool> usedJourneys;
+
+    bool using_all_powerful_journey;
 } _subproblem_info;
 
 #endif /* TYPES_H */

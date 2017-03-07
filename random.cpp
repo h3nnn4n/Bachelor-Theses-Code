@@ -22,7 +22,7 @@
 //journey.covered.push_back(10);
 
 // Builds a full feasible solution to the master problem using a simple random/greddy heuristic
-void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
+bool build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
     // Inits the journey vector
     for (int i = 0; i < csp->n_journeys; ++i) {
         _journey j;
@@ -68,7 +68,7 @@ void build_heur_sol ( _csp *csp, std::vector<_journey> &journeys ) {
         // This part selects the rest randomly
         for (int i = (int)csp->start_nodes.size(); i < csp->n_journeys ; ++i) {
             bool try_again = true;
-            do { // Loops until an empty espace is found
+            do { // Loops until an empty space is found
                 int x = ( (int)csp->start_nodes.size() + rand() ) % csp->N;
                 if ( !used[x] ) {
                     try_again = false;
@@ -232,13 +232,87 @@ outtahere:;
 
         if ( --abort == 0 ) {
             fprintf(stderr, "Max tries exceed. Aborting\n");
-            exit(-1);
-            //break;
+            return false;
         }
 
     } while ( !solution_found );
 
     fprintf(stderr, "Found a feasible solution after %d tries \n", tries - abort);
+    return true;
+}
+
+// Another heuristic to build a feasible solution to the master problem
+bool build_heur_sol2 (_csp *csp, std::vector<_journey> &journeys) {
+    // Inits the journey vector
+    for (int i = 0; i < csp->n_journeys; ++i) {
+        _journey j;
+        j.cost = 0;
+        j.time = 0;
+        journeys.push_back(j);
+    }
+
+    int tries = 100000;
+    int abort = tries; // Number of tries before aborting
+
+    // Runs until a solution is found or the maximum ammount of tries is exceded
+    bool solution_found = false;
+    do {
+        //printf("\n NEW STEP\n");
+        int uncovered_nodes = csp->N;
+        // Resets the journey vector
+        for (int i = 0; i < csp->n_journeys; ++i) {
+            journeys[i].cost = 0;
+            journeys[i].time = 0;
+            journeys[i].covered.clear();
+        }
+
+        std::vector<bool> used; // Creates a vector to map what is already covered during the first phase
+        std::vector<bool> covered; // Creates a vector to map what is already covered and what is not
+        used.resize(csp->N);
+        covered.resize(csp->N);
+        for (int i = 0; i < (int)used.size(); ++i) {
+            used[i] = false;
+            covered[i] = false;
+        }
+
+        // One iteration for each needed journey
+        for (int i = (int)csp->start_nodes.size(); i < csp->n_journeys ; ++i) {
+            bool try_again = true;
+            do { // Loops until an empty space is found
+                int x = ( (int)csp->start_nodes.size() + rand() ) % csp->N;
+                if ( !used[x] ) {
+                    uncovered_nodes--;
+                    try_again = false;
+                    used[x] = true;
+                    covered[x] = true;
+                    //printf("%2d = ", x);
+
+                    // Found a new empty space
+                }
+            } while ( try_again );
+            //printf("%2d\n", i);
+        }
+
+
+        // Checks if everything was covered
+        solution_found = true;
+        //for (int i = 0; i < (int)covered.size(); ++i) {
+            //if ( !covered[i] ) {
+                //solution_found = false;
+                ////printf("%2d is not covered\n", i);
+                //break;
+            //}
+        //}
+
+        if ( --abort == 0 ) {
+            fprintf(stderr, "Max tries exceed. Aborting\n");
+            return false;
+            //break;
+        }
+
+    } while ( !solution_found );
+
+    return true;
 }
 
 // Builds a journey that covers everything

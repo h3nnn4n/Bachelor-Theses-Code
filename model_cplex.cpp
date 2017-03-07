@@ -35,7 +35,12 @@ void  buildModelCplex (IloModel model, IloNumVarArray var, IloRangeArray con, Il
     //printf("Populated the matrix\n");
 
     // Configures the contrainf to the number of journeys that can be used
-    con.add(IloRange(env, (float)csp->n_journeys, (float)csp->n_journeys, "c_nj"));
+    if ( subproblemInfo->using_all_powerful_journey ) {
+        con.add(IloRange(env, 0.0, (float)csp->n_journeys, "c_nj"));
+    } else {
+        con.add(IloRange(env, (float)csp->n_journeys, (float)csp->n_journeys, "c_nj"));
+    }
+
     for (int i = 0; i < (int) subproblemInfo->journeys.size(); ++i) {
         con[csp->N].setLinearCoef(var[i], 1.0);
     }
