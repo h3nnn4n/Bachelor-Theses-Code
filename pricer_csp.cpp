@@ -126,7 +126,7 @@ SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey jour
     /* create meaningful variable name */
     char tmp_name[255];
     char var_name[255];
-    (void) SCIPsnprintf(var_name, 255, "journey_nigga_");
+    (void) SCIPsnprintf(var_name, 255, "journey_scip_");
     for (std::vector<int>::const_iterator it = journey.covered.begin(); it != journey.covered.end(); ++it) {
         strncpy(tmp_name, var_name, 255);
         (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
