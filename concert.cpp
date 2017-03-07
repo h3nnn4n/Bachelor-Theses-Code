@@ -163,7 +163,7 @@ int main (int argc, char **argv) {
 
         printf("%4d columns where used, expected %4d\n", total_columns_used, csp.n_journeys);
 
-        fractional_results = true;
+        //fractional_results = true;
 
         // If there are more selected columns than the specified then we have
         // a fractional solution and we need to do some branch and price
