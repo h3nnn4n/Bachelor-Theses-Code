@@ -115,6 +115,8 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
                 return journey;
             } else {
                 printf("greedyLpHeuristic solution not unique\n");
+                *reduced_cost = 1;
+                return journey;
             }
         } else {
             printf("greedyLpHeuristic solution is bad\n");
@@ -135,6 +137,8 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
                 return journey;
             } else {
                 printf("greedyHillClimbingHeur solution not unique\n");
+                *reduced_cost = 1;
+                return journey;
             }
         } else {
             printf("greedyHillClimbingHeur solution is bad\n");
@@ -155,6 +159,8 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
                 return journey;
             } else {
                 printf("simmulatedAnnealing solution not unique\n");
+                *reduced_cost = 1;
+                return journey;
             }
         } else {
             printf("simmulatedAnnealing solution is bad\n");
@@ -175,6 +181,8 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
                 return journey;
             } else {
                 printf("antColonyOptmization solution not unique\n");
+                *reduced_cost = 1;
+                return journey;
             }
         } else {
             printf("antColonyOptmization solution is bad\n");
@@ -194,6 +202,8 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
                 return journey;
             } else {
                 printf("tabuSearch solution not unique\n");
+                *reduced_cost = 1;
+                return journey;
             }
         } else {
             printf("tabuSearch solution is bad\n");
@@ -213,6 +223,8 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
                 printf("exact solution is good\n");
             } else {
                 printf("exact solution not unique\n");
+                *reduced_cost = 1;
+                return journey;
             }
         } else {
             printf("exact solution is bad\n");
