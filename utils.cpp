@@ -31,6 +31,22 @@ void init_journey( _journey &journey) {
     journey.covered.clear();
 }
 
+void update_used_journeys_with_vector(_subproblem_info &subproblemInfo, std::vector<_journey> &journeys) {
+    for (auto journey : journeys) {
+        update_used_journeys(subproblemInfo, journey);
+    }
+}
+
+bool update_used_journeys(_subproblem_info &subproblemInfo, _journey journey) {
+    if ( subproblemInfo.usedJourneys.count(journey.covered) == 0 ) {
+        subproblemInfo.journeys.push_back(journey);
+        subproblemInfo.usedJourneys[journey.covered] = true;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 #if 0
 static int getIndexForEdge( _csp &csp, int a, int b) {
     for (int i = 0; i < (int) csp.graph[a].size(); ++i) {

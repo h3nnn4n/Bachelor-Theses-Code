@@ -47,6 +47,7 @@ SCIP_DECL_PRICERINIT(ObjPricerCSP::scip_init) {
 
 // The pricing function
 SCIP_RETCODE ObjPricerCSP::pricing( SCIP* scip, bool isfarkas) const {
+    // Update the dual information using scip
     for (int i = 0; i < csp->N; ++i) {
         subproblemInfo->duals[i] = SCIPgetDualsolLinear(scip, cons[i]);
     }
@@ -60,9 +61,10 @@ SCIP_RETCODE ObjPricerCSP::pricing( SCIP* scip, bool isfarkas) const {
     //SCIP_CALL( SCIPwriteTransProblem(scip, "csp.lp", "lp", FALSE) );
 
     if ( reduced_cost < 0.0 ) {
-        subproblemInfo->usedJourneys[journey.covered] = true;
         validateJourney(subproblemInfo, journey);
-        return add_journey_variable(scip, journey);
+        if ( update_used_journeys(*subproblemInfo, journey) ) {
+            return add_journey_variable(scip, journey);
+        }
     }
 
     return SCIP_OKAY;
