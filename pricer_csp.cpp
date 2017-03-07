@@ -149,11 +149,11 @@ SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey jour
     SCIP_CALL( SCIPaddPricedVar(scip, var, 1.0) );
 
     // Adds the contraint that fixes the number of journeys
-    SCIP_CALL( SCIPaddCoefLinear(scip, cons[csp->N], var, 2.0) );
+    SCIP_CALL( SCIPaddCoefLinear(scip, cons[csp->N], var, 1.0) );
 
     /* add coefficient into the set partition constraints */
     for (int i = 0; i < (int)journey.covered.size(); ++i) {
-        SCIP_CALL( SCIPaddCoefLinear(scip, cons[journey.covered[i]], var, 2.0) );
+        SCIP_CALL( SCIPaddCoefLinear(scip, cons[journey.covered[i]], var, 1.0) );
     }
 
     //printf("             00000000                   %d\n", csp->N);
