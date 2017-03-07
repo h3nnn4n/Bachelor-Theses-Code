@@ -26,6 +26,8 @@ SCIP_RETCODE runSPP (_csp &csp, _subproblem_info &subproblemInfo) {
 
     SCIPinfoMessage(reducedMasterProblem, NULL, "\nSolving...\n");
 
+    SCIP_CALL( SCIPwriteOrigProblem( reducedMasterProblem, "first.lp", NULL, FALSE));
+
     ObjPricerCSP* csp_pricer_ptr = new ObjPricerCSP(reducedMasterProblem, CSP_PRICER_NAME, &csp, &subproblemInfo, cons);
 
     SCIP_CALL( SCIPincludeObjPricer(reducedMasterProblem, csp_pricer_ptr, true) );
@@ -39,6 +41,7 @@ SCIP_RETCODE runSPP (_csp &csp, _subproblem_info &subproblemInfo) {
         SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIPgetBestSol( reducedMasterProblem ), fptr, FALSE) );
         fclose(fptr);
 
+        //SCIP_CALL( SCIPwriteTransProblem( reducedMasterProblem, "final.lp", NULL, FALSE));
         SCIP_CALL( SCIPwriteTransProblem( reducedMasterProblem, "final.lp", NULL, FALSE));
 
         //SCIP_CALL( SCIPprintSol( reducedMasterProblem, SCIP( reducedMasterProblem ), NULL, FALSE) );
@@ -48,6 +51,8 @@ SCIP_RETCODE runSPP (_csp &csp, _subproblem_info &subproblemInfo) {
         //SCIPprintDualSol(reducedMasterProblem, NULL, TRUE);
         //fclose(fptr);
     }
+
+    //SCIP_CALL ( SCIPprintStatistics( reducedMasterProblem, NULL ) );
 
     SCIP_CALL( SCIPfreeTransform(reducedMasterProblem) );
 

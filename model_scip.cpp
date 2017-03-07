@@ -76,7 +76,7 @@ SCIP_RETCODE buildModelScip (_csp &csp, _subproblem_info &subproblemInfo, SCIP**
                    false,                  /* separate */
                    true,                   /* enforce */
                    true,                   /* check */
-                   true,                   /* propagate */
+                   false,                   /* propagate */
                    false,                  /* local */
                    true,                   /* modifiable */
                    false,                  /* dynamic */
@@ -92,12 +92,19 @@ SCIP_RETCODE buildModelScip (_csp &csp, _subproblem_info &subproblemInfo, SCIP**
         lhs[i] = 1.0;
     }
 
-    SCIP_CALL( SCIPcreateConsLinear(*reducedMasterProblem, &cons[csp.N], name, (int)subproblemInfo.journeys.size(), vars, lhs, csp.n_journeys, csp.n_journeys,
+    SCIP_CALL( SCIPcreateConsLinear(*reducedMasterProblem, // Model
+               &cons[csp.N], // Contraint
+               name, // Name
+               (int)subproblemInfo.journeys.size(), // nvars
+               vars,                   /* vars */
+               lhs,                    /* vals */
+               csp.n_journeys,         /* lhs */
+               csp.n_journeys,         /* rhs */
                true,                   /* initial */
                false,                  /* separate */
                true,                   /* enforce */
                true,                   /* check */
-               true,                   /* propagate */
+               false,                   /* propagate */
                false,                  /* local */
                true,                   /* modifiable */
                false,                  /* dynamic */

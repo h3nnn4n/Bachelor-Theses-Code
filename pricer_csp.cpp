@@ -37,7 +37,7 @@ ObjPricerCSP::~ObjPricerCSP()
  *  problem.
  */
 SCIP_DECL_PRICERINIT(ObjPricerCSP::scip_init) {
-    for (int i = 0; i < csp->N; ++i){
+    for (int i = 0; i <= csp->N; ++i){
         SCIP_CALL( SCIPgetTransformedCons(scip, cons[i], &cons[i]) );
     }
 
@@ -48,11 +48,26 @@ SCIP_DECL_PRICERINIT(ObjPricerCSP::scip_init) {
 // The pricing function
 SCIP_RETCODE ObjPricerCSP::pricing( SCIP* scip, bool isfarkas) const {
     // Update the dual information using scip
-    for (int i = 0; i < csp->N; ++i) {
-        subproblemInfo->duals[i] = SCIPgetDualsolLinear(scip, cons[i]);
-    }
+    if ( isfarkas ) {
+        // FIXME
+        // TODO
+        // Is this correct
+        for (int i = 0; i < csp->N; ++i) {
+            subproblemInfo->duals[i] = SCIPgetDualfarkasLinear(scip, cons[i]) * 1.0;
+            printf("%6.2f ", subproblemInfo->duals[i]);
+        }
+        printf("\n");
 
-    subproblemInfo->mi = SCIPgetDualsolLinear(scip, cons[csp->N]);
+        subproblemInfo->mi = SCIPgetDualfarkasLinear(scip, cons[csp->N]);
+    } else {
+        for (int i = 0; i < csp->N; ++i) {
+            subproblemInfo->duals[i] = SCIPgetDualsolLinear(scip, cons[i]) * 1.0;
+            printf("%6.2f ", subproblemInfo->duals[i]);
+        }
+        printf("\n");
+
+        subproblemInfo->mi = SCIPgetDualsolLinear(scip, cons[csp->N]);
+    }
 
     double reduced_cost;
 
@@ -98,18 +113,20 @@ SCIP_DECL_PRICERFARKAS(ObjPricerCSP::scip_farkas) {
     //SCIPdebugMessage("call scip_farkas ...\n");
     SCIPinfoMessage(scip, NULL, "call scip_farkas ...\n");
 
-    /* call pricing routine */
+    //exit(1);
+
+    //[> call pricing routine <]
     SCIP_CALL( pricing(scip, true) );
 
     return SCIP_OKAY;
-} /*lint !e715*/
+}
 
-/** add tour variable to problem */
+/* add tour variable to problem */
 SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey journey) const {
     /* create meaningful variable name */
     char tmp_name[255];
     char var_name[255];
-    (void) SCIPsnprintf(var_name, 255, "journey_");
+    (void) SCIPsnprintf(var_name, 255, "journey_nigga_");
     for (std::vector<int>::const_iterator it = journey.covered.begin(); it != journey.covered.end(); ++it) {
         strncpy(tmp_name, var_name, 255);
         (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
@@ -125,17 +142,21 @@ SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey jour
                 0.0,                     // lower bound
                 SCIPinfinity(scip),      // upper bound
                 journey.cost,            // objective
-                SCIP_VARTYPE_CONTINUOUS, // variable type
+                SCIP_VARTYPE_INTEGER,    // variable type
                 false, false, NULL, NULL, NULL, NULL, NULL) );
 
     /* add new variable to the list of variables to price into LP (score: leave 1 here) */
     SCIP_CALL( SCIPaddPricedVar(scip, var, 1.0) );
 
+    // Adds the contraint that fixes the number of journeys
+    SCIP_CALL( SCIPaddCoefLinear(scip, cons[csp->N], var, 2.0) );
+
     /* add coefficient into the set partition constraints */
-    for (std::vector<int>::const_iterator it = journey.covered.begin(); it != journey.covered.end(); ++it) {
-        assert( 0 <= *it && *it < csp->N );
-        SCIP_CALL( SCIPaddCoefLinear(scip, cons[*it], var, 1.0) );
+    for (int i = 0; i < (int)journey.covered.size(); ++i) {
+        SCIP_CALL( SCIPaddCoefLinear(scip, cons[journey.covered[i]], var, 2.0) );
     }
+
+    //printf("             00000000                   %d\n", csp->N);
 
     /* cleanup */
     SCIP_CALL( SCIPreleaseVar(scip, &var) );

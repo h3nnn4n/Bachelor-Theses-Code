@@ -53,14 +53,9 @@ int main (int argc, char **argv) {
 
         // generation for the first set of columns
         std::vector<_journey> t_journeys;
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 2; ++i) {
             build_heur_sol ( &csp, t_journeys );
-            for (auto journ : t_journeys) {
-                if ( subproblemInfo.usedJourneys.count(journ.covered) == 0 ) {
-                    subproblemInfo.journeys.push_back(journ);
-                    subproblemInfo.usedJourneys[journ.covered] = true;
-                }
-            }
+            update_used_journeys_with_vector(subproblemInfo, t_journeys);
 
             t_journeys.clear();
         }
@@ -90,7 +85,7 @@ int main (int argc, char **argv) {
 
         int cont = 0;
 
-        goto skip;
+        //goto skip;
         do {
             cont ++;
             // Solves the master problem
@@ -134,7 +129,7 @@ int main (int argc, char **argv) {
 
             printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
         } while ( reduced_cost < 0 );
-skip:
+//skip:
 
         printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
 
