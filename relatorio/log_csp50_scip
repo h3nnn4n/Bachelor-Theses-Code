@@ -1,0 +1,852 @@
+Starting
+INIT SUBPROBLEM INFO
+   0 	   169    399: 0 9 
+   1 	   300    449: 1 17 
+   2 	   274    405: 2 15 
+   3 	   287    434: 3 11 
+   4 	     0    231: 4 
+   5 	   309    477: 5 24 
+   6 	   307    463: 6 19 
+   7 	     0    220: 7 
+   8 	   427    473: 8 22 
+   9 	    26    460: 10 21 
+  10 	   209    423: 12 23 
+  11 	   192    423: 13 30 
+  12 	   205    480: 14 32 
+  13 	   181    298: 16 26 
+  14 	   249    307: 18 28 
+  15 	   412    466: 20 34 
+  16 	     0    115: 25 
+  17 	   409    472: 27 35 
+  18 	     0    112: 29 
+  19 	   707    424: 31 39 
+  20 	   182    366: 36 43 
+  21 	   268    408: 37 44 
+  22 	   199    410: 38 45 
+  23 	    21    333: 40 49 
+  24 	     0    229: 41 
+  25 	   545    437: 33 42 
+  26 	     0     29: 46 
+  27 	     0    203: 47 
+  28 	     0    188: 48 
+  29 	   155    430: 1 12 
+  30 	   245    474: 2 13 
+  31 	   109    324: 5 16 
+  32 	   170    320: 6 17 
+  33 	   342    386: 8 19 
+  34 	     0    174: 14 
+  35 	   137    288: 15 22 
+  36 	   265    374: 23 34 
+  37 	   160    211: 24 30 
+  38 	     0     59: 27 
+  39 	   340    457: 29 38 
+  40 	   220    330: 20 31 
+  41 	    86    306: 26 32 
+  42 	   228    395: 35 43 
+  43 	   280    430: 36 46 
+  44 	   218    448: 37 41 
+  45 	   132    277: 39 45 
+  46 	     0    127: 44 
+
+Time spent generating initial solution:       0.00110704
+Total time spent:       0.00000000
+Total time spent on cplex:       0.00000000
+Total time spent on scip:       0.00000000
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  361  time =  395  Covered [   8,   15,   24, ]
+ Iterations    1 reduced cost = -1551.00
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =    0  time =  129  Covered [   6, ]
+ Iterations    2 reduced cost = -299.00
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  152  time =  283  Covered [  16,   22, ]
+ Iterations    3 reduced cost = -241.00
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  181  time =  398  Covered [  23,   33, ]
+ Iterations    4 reduced cost = -548.00
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  217  time =  289  Covered [  31,   34,   37, ]
+ Iterations    5 reduced cost = -1111.00
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =    0  time =  108  Covered [  38, ]
+ Iterations    6 reduced cost = -340.00
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  208  time =  346  Covered [  18,   24,   30, ]
+ Iterations    7 reduced cost = -541.00
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  373  time =  473  Covered [   8,   15,   22, ]
+ Iterations    8 reduced cost = -211.33
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  267  time =  344  Covered [  30,   34,   37, ]
+ Iterations    9 reduced cost = -199.50
+
+RMP status = Optimal  value  = 4384
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  241  time =  471  Covered [   7,   16,   24, ]
+ Iterations   10 reduced cost = -257.00
+
+RMP status = Optimal  value  = 4273.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  267  time =  399  Covered [  28,   34,   37, ]
+ Iterations   11 reduced cost = -312.50
+
+RMP status = Optimal  value  = 4012
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  178  time =  381  Covered [   3,   10, ]
+ Iterations   12 reduced cost = -395.50
+
+RMP status = Optimal  value  = 4012
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  203  time =  356  Covered [   8,   14, ]
+ Iterations   13 reduced cost = -33.00
+
+RMP status = Optimal  value  = 3979
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  294  time =  405  Covered [  35,   42, ]
+ Iterations   14 reduced cost = -663.00
+
+RMP status = Optimal  value  = 3571
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  130  time =  438  Covered [   5,   14, ]
+ Iterations   15 reduced cost = -298.50
+
+RMP status = Optimal  value  = 3534
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =  161  Covered [  19, ]
+ Iterations   16 reduced cost = -887.00
+
+RMP status = Optimal  value  = 3428
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  182  time =  383  Covered [  39,   48, ]
+ Iterations   17 reduced cost = -91.00
+
+RMP status = Optimal  value  = 3341
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =   22  time =  405  Covered [  13,   23, ]
+ Iterations   18 reduced cost = -371.00
+
+RMP status = Optimal  value  = 3341
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =   61  time =  311  Covered [   8,   11, ]
+ Iterations   19 reduced cost = -310.00
+
+RMP status = Optimal  value  = 3341
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  288  time =  347  Covered [   3,   12, ]
+ Iterations   20 reduced cost = -263.00
+
+RMP status = Optimal  value  = 3341
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =  191  Covered [  20, ]
+ Iterations   21 reduced cost = -620.00
+
+RMP status = Optimal  value  = 3341
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  206  time =  277  Covered [  17,   27, ]
+ Iterations   22 reduced cost = -88.00
+
+RMP status = Optimal  value  = 3341
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =   21  Covered [   3, ]
+ Iterations   23 reduced cost = -476.00
+
+RMP status = Optimal  value  = 3215
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  175  time =  365  Covered [  12,   25, ]
+ Iterations   24 reduced cost = -113.00
+
+RMP status = Optimal  value  = 3215
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  190  time =  272  Covered [  18,   27, ]
+ Iterations   25 reduced cost = -129.00
+
+RMP status = Optimal  value  = 3162.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =   49  Covered [  42, ]
+ Iterations   26 reduced cost = -540.50
+
+RMP status = Optimal  value  = 3162.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =  154  time =  319  Covered [   6,   16, ]
+ Iterations   27 reduced cost = -42.50
+
+RMP status = Optimal  value  = 3123
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is good
+simmulatedAnnealing solution is good
+New Column cost =    0  time =  143  Covered [   0, ]
+ Iterations   28 reduced cost = -169.00
+
+RMP status = Optimal  value  = 3123
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  308  time =  351  Covered [  26,   34, ]
+ Iterations   29 reduced cost = -55.50
+
+RMP status = Optimal  value  = 3123
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =   91  time =  318  Covered [   7,   16, ]
+ Iterations   30 reduced cost = -138.50
+
+RMP status = Optimal  value  = 3024
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =    0  time =   80  Covered [  33, ]
+ Iterations   31 reduced cost = -205.00
+
+RMP status = Optimal  value  = 3024
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  151  time =  430  Covered [  29,   35, ]
+ Iterations   32 reduced cost = -143.00
+
+RMP status = Optimal  value  = 2881
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  167  time =  338  Covered [  31,   35, ]
+ Iterations   33 reduced cost = -7.00
+
+RMP status = Optimal  value  = 2881
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =   68  time =  347  Covered [  38,   40, ]
+ Iterations   34 reduced cost = -293.00
+
+RMP status = Optimal  value  = 2881
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  285  time =  365  Covered [  31,   34,   38, ]
+ Iterations   35 reduced cost = -239.00
+
+RMP status = Optimal  value  = 2881
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  267  time =  472  Covered [   6,   17,   24, ]
+ Iterations   36 reduced cost = -26.00
+
+RMP status = Optimal  value  = 2881
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =   83  time =  407  Covered [  11,   26, ]
+ Iterations   37 reduced cost = -231.00
+
+RMP status = Optimal  value  = 2881
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =  152  Covered [   2, ]
+ Iterations   38 reduced cost = -404.00
+
+RMP status = Optimal  value  = 2820
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =   58  time =  314  Covered [  16,   21, ]
+ Iterations   39 reduced cost = -0.50
+
+RMP status = Optimal  value  = 2820
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =   70  Covered [  28, ]
+ Iterations   40 reduced cost = -422.00
+
+RMP status = Optimal  value  = 2820
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =   27  time =  195  Covered [  46,   49, ]
+ Iterations   41 reduced cost = -289.00
+
+RMP status = Optimal  value  = 2645
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =  136  Covered [  45, ]
+ Iterations   42 reduced cost = -468.00
+
+RMP status = Optimal  value  = 2645
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =   77  time =  373  Covered [   4,   18, ]
+ Iterations   43 reduced cost = -113.00
+
+RMP status = Optimal  value  = 2619
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =  152  Covered [  22, ]
+ Iterations   44 reduced cost = -419.00
+
+RMP status = Optimal  value  = 2619
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  261  time =  477  Covered [  15,   22,   32, ]
+ Iterations   45 reduced cost = -114.00
+
+RMP status = Optimal  value  = 2591.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is good
+New Column cost =  148  time =  433  Covered [   6,   14, ]
+ Iterations   46 reduced cost = -98.50
+
+RMP status = Optimal  value  = 2591.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is good
+New Column cost =  131  time =  477  Covered [   0,   10, ]
+ Iterations   47 reduced cost = -47.00
+
+RMP status = Optimal  value  = 2591.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution not unique
+Solution status = Optimal
+Solution value  = -158
+y[22, 33] = 1.00000000, cost = 193.0000, time = 258.0000
+y[33, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 22] = 1.00000000, cost = 0.0000, time = 152.0000
+v[22] = 1.0000
+v[33] = 1.0000
+exact solution is good
+New Column cost =  193  time =  410  Covered [  22,   33, ]
+ Iterations   48 reduced cost = -158.00
+
+RMP status = Optimal  value  = 2591.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  121  time =  327  Covered [   5,   15, ]
+ Iterations   49 reduced cost = -84.50
+
+RMP status = Optimal  value  = 2533
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is good
+New Column cost =  226  time =  295  Covered [  28,   33, ]
+ Iterations   50 reduced cost = -125.00
+
+RMP status = Optimal  value  = 2494
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =   37  Covered [  43, ]
+ Iterations   51 reduced cost = -281.00
+
+RMP status = Optimal  value  = 2494
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = -87
+y[ 9, 20] = 1.00000000, cost = 82.0000, time = 252.0000
+y[20, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  9] = 1.00000000, cost = 0.0000, time = 169.0000
+v[ 9] = 1.0000
+v[20] = 1.0000
+exact solution is good
+New Column cost =   82  time =  421  Covered [   9,   20, ]
+ Iterations   52 reduced cost = -87.00
+
+RMP status = Optimal  value  = 2480.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+New Column cost =    0  time =   54  Covered [  30, ]
+ Iterations   53 reduced cost = -357.00
+
+RMP status = Optimal  value  = 2463.5
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = -80
+y[17, 24] = 1.00000000, cost = 97.0000, time = 152.0000
+y[24, 30] = 1.00000000, cost = 160.0000, time = 150.0000
+y[30, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 17] = 1.00000000, cost = 0.0000, time = 49.0000
+v[17] = 1.0000
+v[24] = 1.0000
+v[30] = 1.0000
+exact solution is good
+New Column cost =  257  time =  351  Covered [  17,   24,   30, ]
+ Iterations   54 reduced cost = -80.00
+
+RMP status = Optimal  value  = 2420
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is good
+New Column cost =  197  time =  381  Covered [  29,   34,   37, ]
+ Iterations   55 reduced cost = -70.00
+
+RMP status = Optimal  value  = 2416
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = -34
+y[25, 32] = 1.00000000, cost = 104.0000, time = 193.0000
+y[32, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 25] = 1.00000000, cost = 0.0000, time = 115.0000
+v[25] = 1.0000
+v[32] = 1.0000
+exact solution is good
+New Column cost =  104  time =  308  Covered [  25,   32, ]
+ Iterations   56 reduced cost = -34.00
+
+RMP status = Optimal  value  = 2399
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = -21
+y[19, 31] = 1.00000000, cost = 286.0000, time = 185.0000
+y[31, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 19] = 1.00000000, cost = 0.0000, time = 161.0000
+v[19] = 1.0000
+v[31] = 1.0000
+exact solution is good
+New Column cost =  286  time =  346  Covered [  19,   31, ]
+ Iterations   57 reduced cost = -21.00
+
+RMP status = Optimal  value  = 2399
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = -14
+y[12, 22] = 1.00000000, cost = 128.0000, time = 249.0000
+y[22, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 12] = 1.00000000, cost = 0.0000, time = 120.0000
+v[12] = 1.0000
+v[22] = 1.0000
+exact solution is good
+New Column cost =  128  time =  369  Covered [  12,   22, ]
+ Iterations   58 reduced cost = -14.00
+
+RMP status = Optimal  value  = 2399
+SUBPROBLEM UPDATE DUALS
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = 0
+y[ 0, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  0] = 1.00000000, cost = 0.0000, time = 143.0000
+v[ 0] = 1.0000
+exact solution is bad
+New Column cost =    0  time =  143  Covered [   0, ]
+ Iterations   59 reduced cost =  0.00
+
+RMP has cost =  0.00, stopping
+Master Problem Status = Optimal value  = 2399
+x[  6] = 0.500000000000000000  cost =  307  time =  463  [   6,   19, ]
+x[  9] = 1.000000000000000000  cost =   26  time =  460  [  10,   21, ]
+x[ 16] = 0.500000000000000000  cost =    0  time =  115  [  25, ]
+x[ 20] = 1.000000000000000000  cost =  182  time =  366  [  36,   43, ]
+x[ 24] = 1.000000000000000000  cost =    0  time =  229  [  41, ]
+x[ 27] = 1.000000000000000000  cost =    0  time =  203  [  47, ]
+x[ 28] = 1.000000000000000000  cost =    0  time =  188  [  48, ]
+x[ 29] = 1.000000000000000000  cost =  155  time =  430  [   1,   12, ]
+x[ 38] = 1.000000000000000000  cost =    0  time =   59  [  27, ]
+x[ 41] = 0.500000000000000000  cost =   86  time =  306  [  26,   32, ]
+x[ 45] = 1.000000000000000000  cost =  132  time =  277  [  39,   45, ]
+x[ 46] = 1.000000000000000000  cost =    0  time =  127  [  44, ]
+x[ 54] = 0.500000000000000000  cost =  373  time =  473  [   8,   15,   22, ]
+x[ 61] = 0.500000000000000000  cost =  130  time =  438  [   5,   14, ]
+x[ 62] = 0.500000000000000000  cost =    0  time =  161  [  19, ]
+x[ 64] = 1.000000000000000000  cost =   22  time =  405  [  13,   23, ]
+x[ 65] = 0.500000000000000000  cost =   61  time =  311  [   8,   11, ]
+x[ 69] = 1.000000000000000000  cost =    0  time =   21  [   3, ]
+x[ 72] = 1.000000000000000000  cost =    0  time =   49  [  42, ]
+x[ 74] = 1.000000000000000000  cost =    0  time =  143  [   0, ]
+x[ 76] = 1.000000000000000000  cost =   91  time =  318  [   7,   16, ]
+x[ 79] = 1.000000000000000000  cost =  167  time =  338  [  31,   35, ]
+x[ 80] = 1.000000000000000000  cost =   68  time =  347  [  38,   40, ]
+x[ 83] = 0.500000000000000000  cost =   83  time =  407  [  11,   26, ]
+x[ 84] = 1.000000000000000000  cost =    0  time =  152  [   2, ]
+x[ 86] = 0.500000000000000000  cost =    0  time =   70  [  28, ]
+x[ 87] = 1.000000000000000000  cost =   27  time =  195  [  46,   49, ]
+x[ 89] = 1.000000000000000000  cost =   77  time =  373  [   4,   18, ]
+x[ 92] = 0.500000000000000000  cost =  148  time =  433  [   6,   14, ]
+x[ 94] = 0.500000000000000000  cost =  193  time =  410  [  22,   33, ]
+x[ 95] = 0.500000000000000000  cost =  121  time =  327  [   5,   15, ]
+x[ 96] = 0.500000000000000000  cost =  226  time =  295  [  28,   33, ]
+x[ 98] = 1.000000000000000000  cost =   82  time =  421  [   9,   20, ]
+x[100] = 1.000000000000000000  cost =  257  time =  351  [  17,   24,   30, ]
+x[101] = 1.000000000000000000  cost =  197  time =  381  [  29,   34,   37, ]
+x[102] = 0.500000000000000000  cost =  104  time =  308  [  25,   32, ]
+  36 columns where used, expected   29
+new variable <journey__0_9>
+new variable <journey__1_17>
+new variable <journey__2_15>
+new variable <journey__3_11>
+new variable <journey__4>
+new variable <journey__5_24>
+new variable <journey__6_19>
+new variable <journey__7>
+new variable <journey__8_22>
+new variable <journey__10_21>
+new variable <journey__12_23>
+new variable <journey__13_30>
+new variable <journey__14_32>
+new variable <journey__16_26>
+new variable <journey__18_28>
+new variable <journey__20_34>
+new variable <journey__25>
+new variable <journey__27_35>
+new variable <journey__29>
+new variable <journey__31_39>
+new variable <journey__36_43>
+new variable <journey__37_44>
+new variable <journey__38_45>
+new variable <journey__40_49>
+new variable <journey__41>
+new variable <journey__33_42>
+new variable <journey__46>
+new variable <journey__47>
+new variable <journey__48>
+new variable <journey__1_12>
+new variable <journey__2_13>
+new variable <journey__5_16>
+new variable <journey__6_17>
+new variable <journey__8_19>
+new variable <journey__14>
+new variable <journey__15_22>
+new variable <journey__23_34>
+new variable <journey__24_30>
+new variable <journey__27>
+new variable <journey__29_38>
+new variable <journey__20_31>
+new variable <journey__26_32>
+new variable <journey__35_43>
+new variable <journey__36_46>
+new variable <journey__37_41>
+new variable <journey__39_45>
+new variable <journey__44>
+new variable <journey__8_15_24>
+new variable <journey__6>
+new variable <journey__16_22>
+new variable <journey__23_33>
+new variable <journey__31_34_37>
+new variable <journey__38>
+new variable <journey__18_24_30>
+new variable <journey__8_15_22>
+new variable <journey__30_34_37>
+new variable <journey__7_16_24>
+new variable <journey__28_34_37>
+new variable <journey__3_10>
+new variable <journey__8_14>
+new variable <journey__35_42>
+new variable <journey__5_14>
+new variable <journey__19>
+new variable <journey__39_48>
+new variable <journey__13_23>
+new variable <journey__8_11>
+new variable <journey__3_12>
+new variable <journey__20>
+new variable <journey__17_27>
+new variable <journey__3>
+new variable <journey__12_25>
+new variable <journey__18_27>
+new variable <journey__42>
+new variable <journey__6_16>
+new variable <journey__0>
+new variable <journey__26_34>
+new variable <journey__7_16>
+new variable <journey__33>
+new variable <journey__29_35>
+new variable <journey__31_35>
+new variable <journey__38_40>
+new variable <journey__31_34_38>
+new variable <journey__6_17_24>
+new variable <journey__11_26>
+new variable <journey__2>
+new variable <journey__16_21>
+new variable <journey__28>
+new variable <journey__46_49>
+new variable <journey__45>
+new variable <journey__4_18>
+new variable <journey__22>
+new variable <journey__15_22_32>
+new variable <journey__6_14>
+new variable <journey__0_10>
+new variable <journey__22_33>
+new variable <journey__5_15>
+new variable <journey__28_33>
+new variable <journey__43>
+new variable <journey__9_20>
+new variable <journey__30>
+new variable <journey__17_24_30>
+new variable <journey__29_34_37>
+new variable <journey__25_32>
+new variable <journey__19_31>
+new variable <journey__12_22>
+new variable <journey__0>
+
+Solving...
+presolving:
+presolving (0 rounds: 0 fast, 0 medium, 0 exhaustive):
+ 0 deleted vars, 0 deleted constraints, 0 added constraints, 0 tightened bounds, 0 added holes, 0 changed sides, 0 changed coefficients
+ 0 implications, 0 cliques
+presolved problem has 106 variables (0 bin, 106 int, 0 impl, 0 cont) and 51 constraints
+     51 constraints of type <linear>
+Presolving Time: 0.00
+
+
+call scip_redcost ...
+307.00 462.00 307.00 307.00 307.00 289.00 307.00 271.00 267.00 115.00 131.00 101.00  -0.00 202.00 148.00 139.00 127.00 145.00  77.00 307.00 274.00 202.00 274.00 127.00 122.00 307.00 289.00 307.00 307.00 237.00 297.00 253.00 104.00 226.00  90.00 221.00 455.00 177.00 249.00 182.00 126.00 307.00 307.00  34.00 307.00 257.00 132.00 307.00 307.00 202.00 
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+new variable <journey_scip__1> 0
+ time | node  | left  |LP iter|LP it/n| mem |mdpt |frac |vars |cons |cols |rows |cuts |confs|strbr|  dualbound   | primalbound  |  gap   
+  0.0s|     1 |     0 |    69 |     - | 506k|   0 |  14 | 107 |  51 | 107 |  51 |   0 |   0 |   0 |      --      |      --      |    Inf 
+
+call scip_redcost ...
+307.00 307.00 307.00 307.00 307.00 289.00 307.00 271.00 267.00 115.00 131.00 101.00 155.00 202.00 148.00 139.00 127.00 170.00  77.00 307.00 274.00 202.00 274.00 127.00  97.00 307.00 289.00 307.00 307.00 237.00 297.00 253.00 104.00 226.00  90.00 221.00 455.00 177.00 249.00 182.00 126.00 307.00 307.00  34.00 307.00 257.00 132.00 307.00 307.00 202.00 
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution is good
+new variable <journey_scip__36> 0
+
+call scip_redcost ...
+307.00 307.00 307.00 307.00 307.00 289.00 307.00 271.00 267.00 115.00 131.00 101.00 155.00 202.00 148.00 139.00 127.00 170.00  77.00 307.00 274.00 202.00 274.00 127.00  97.00 307.00 289.00 307.00 307.00 237.00 297.00 253.00 104.00 226.00 238.00 221.00 307.00  29.00 101.00 132.00 274.00 307.00 307.00 182.00 307.00 307.00 280.00 307.00 307.00  54.00 
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = -117
+y[20, 31] = 1.00000000, cost = 220.0000, time = 139.0000
+y[31, 34] = 1.00000000, cost = 121.0000, time = 136.0000
+y[34, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 20] = 1.00000000, cost = 0.0000, time = 191.0000
+v[20] = 1.0000
+v[31] = 1.0000
+v[34] = 1.0000
+exact solution is good
+new variable <journey_scip__20_31_34> 341
+
+call scip_redcost ...
+307.00 307.00 307.00 307.00 307.00 289.00 307.00 271.00 267.00 148.00 131.00 101.00 155.00 202.00 148.00 139.00 127.00 170.00  77.00 307.00 241.00 202.00 274.00 127.00  97.00 307.00 289.00 307.00 307.00 270.00 297.00 286.00 104.00 226.00 121.00 188.00 307.00 113.00 185.00 132.00 190.00 307.00 307.00 182.00 307.00 307.00 280.00 307.00 307.00  54.00 
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = -4
+y[29, 34] = 1.00000000, cost = 101.0000, time = 141.0000
+y[34, 38] = 1.00000000, cost = 164.0000, time = 204.0000
+y[38, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50, 29] = 1.00000000, cost = 0.0000, time = 112.0000
+v[29] = 1.0000
+v[34] = 1.0000
+v[38] = 1.0000
+exact solution is good
+new variable <journey_scip__29_34_38> 265
+
+call scip_redcost ...
+307.00 307.00 307.00 307.00 307.00 289.00 307.00 271.00 267.00 148.00 131.00 101.00 155.00 202.00 148.00 139.00 127.00 170.00  77.00 307.00 241.00 202.00 274.00 127.00  97.00 307.00 289.00 307.00 307.00 270.00 297.00 286.00 104.00 226.00 121.00 188.00 307.00 113.00 181.00 132.00 194.00 307.00 307.00 182.00 307.00 307.00 280.00 307.00 307.00  54.00 
+greedyLpHeuristic solution is bad
+greedyHillClimbingHeur solution is bad
+simmulatedAnnealing solution is bad
+antColonyOptmization solution not unique
+tabuSearch solution is bad
+Solution status = Optimal
+Solution value  = 0
+y[ 0, 51] = 1.00000000, cost = 0.0000, time = 0.0000
+y[50,  0] = 1.00000000, cost = 0.0000, time = 143.0000
+v[ 0] = 1.0000
+exact solution is bad
+  0.8s|     1 |     0 |    74 |     - | 511k|   0 |  14 | 110 |  51 | 110 |  51 |   0 |   0 |   0 | 2.399000e+03 |      --      |    Inf 
+* 0.8s|     1 |     0 |    74 |     - | 518k|   0 |   0 | 110 |  51 | 110 |  51 |   0 |   0 |   0 | 2.399000e+03 | 2.430000e+03 |   1.29%
+* 0.8s|     1 |     0 |    74 |     - | 520k|   0 |   0 | 110 |  51 | 110 |  51 |   0 |   0 |   0 | 2.399000e+03 | 2.399000e+03 |   0.00%
+  0.8s|     1 |     0 |    74 |     - | 521k|   0 |  14 | 110 |  51 | 110 |  51 |   0 |   0 |   1 | 2.399000e+03 | 2.399000e+03 |   0.00%
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.83
+Solving Nodes      : 1
+Primal Bound       : +2.39900000000000e+03 (2 solutions)
+Dual Bound         : +2.39900000000000e+03
+Gap                : 0.00 %
+Time spent generating initial solution:       0.00110704
+Total time spent:       0.78131803
+Total time spent on cplex:       0.54896964
+Total time spent on scip:       0.23105601
