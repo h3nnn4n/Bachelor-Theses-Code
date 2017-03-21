@@ -1,0 +1,34 @@
+Time spent generating initial solution:       0.00057432
+Total time spent:                            71.13147282
+Total time spent on cplex:                   71.11443658
+Total time spent on scip:                     0.00000008
+
+HillClimbing:
+Total runs:       863 0.0214
+Good runs:        287 0.0057
+Bad runs:         576 0.0157
+Not unique runs:    0 0.0000
+
+Simulated Annealing:
+Total runs:       576 0.7229
+Good runs:        133 0.0394
+Bad runs:         443 0.6835
+Not unique runs:    0 0.0000
+
+Ant Colony Optimization:
+Total runs:       443 1.2435
+Good runs:         99 0.2757
+Bad runs:           3 0.0080
+Not unique runs:  341 0.9598
+
+Tabu Search:
+Total runs:       344 0.1623
+Good runs:        267 0.0577
+Bad runs:          60 0.0915
+Not unique runs:   17 0.0131
+
+Exact:
+Total runs:        77 68.6968
+Good runs:         60 50.0839
+Bad runs:           1 1.9390
+Not unique runs:   16 16.6739
