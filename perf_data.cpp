@@ -39,48 +39,48 @@ _perf_data* get_reference () {
 
 void perf_data_show ( _perf_data *p ) {
     _algo_perf_data *a;
-    printf("Time spent generating initial solution: %16.8f\n", p->initial_heur_time);
-    printf("Total time spent:                       %16.8f\n", p->total_time);
-    printf("Total time spent on cplex:              %16.8f\n", p->cplex_time);
-    printf("Total time spent on scip:               %16.8f\n", p->scip_time);
+    printf("Time spent generating initial solution: %16.8f\n", p->initial_heur_time       ) ;
+    printf("Total time spent:                       %16.8f\n", p->total_time              ) ;
+    printf("Total time spent on cplex:              %16.8f\n", p->cplex_time              ) ;
+    printf("Total time spent on scip:               %16.8f\n", p->scip_time               ) ;
 
-    printf("\n");
-    printf("HillClimbing:\n");
+    printf("\n"                                                                           ) ;
+    printf("HillClimbing:\n"                                                              ) ;
     a = &p->greedyHill;
-    printf("Total runs:      %4d %4.4f\n", a->executions, a->time);
-    printf("Good runs:       %4d %4.4f\n", a->good_executions, a->good_time);
-    printf("Bad runs:        %4d %4.4f\n", a->bad_executions, a->bad_time);
-    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time);
+    printf("Total runs:      %4d %4.4f\n", a->executions           , a->time              ) ;
+    printf("Good runs:       %4d %4.4f\n", a->good_executions      , a->good_time         ) ;
+    printf("Bad runs:        %4d %4.4f\n", a->bad_executions       , a->bad_time          ) ;
+    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time   ) ;
 
-    printf("\n");
-    printf("Simulated Annealing:\n");
+    printf("\n"                                                                           ) ;
+    printf("Simulated Annealing:\n"                                                       ) ;
     a = &p->sa;
-    printf("Total runs:      %4d %4.4f\n", a->executions, a->time);
-    printf("Good runs:       %4d %4.4f\n", a->good_executions, a->good_time);
-    printf("Bad runs:        %4d %4.4f\n", a->bad_executions, a->bad_time);
-    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time);
+    printf("Total runs:      %4d %4.4f\n", a->executions           , a->time              ) ;
+    printf("Good runs:       %4d %4.4f\n", a->good_executions      , a->good_time         ) ;
+    printf("Bad runs:        %4d %4.4f\n", a->bad_executions       , a->bad_time          ) ;
+    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time   ) ;
 
-    printf("\n");
-    printf("Ant Colony Optimization:\n");
+    printf("\n"                                                                           ) ;
+    printf("Ant Colony Optimization:\n"                                                   ) ;
     a = &p->aco;
-    printf("Total runs:      %4d %4.4f\n", a->executions, a->time);
-    printf("Good runs:       %4d %4.4f\n", a->good_executions, a->good_time);
-    printf("Bad runs:        %4d %4.4f\n", a->bad_executions, a->bad_time);
-    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time);
+    printf("Total runs:      %4d %4.4f\n", a->executions           , a->time              ) ;
+    printf("Good runs:       %4d %4.4f\n", a->good_executions      , a->good_time         ) ;
+    printf("Bad runs:        %4d %4.4f\n", a->bad_executions       , a->bad_time          ) ;
+    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time   ) ;
 
-    printf("\n");
-    printf("Tabu Search:\n");
+    printf("\n"                                                                           ) ;
+    printf("Tabu Search:\n"                                                               ) ;
     a = &p->tabu;
-    printf("Total runs:      %4d %4.4f\n", a->executions, a->time);
-    printf("Good runs:       %4d %4.4f\n", a->good_executions, a->good_time);
-    printf("Bad runs:        %4d %4.4f\n", a->bad_executions, a->bad_time);
-    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time);
+    printf("Total runs:      %4d %4.4f\n", a->executions           , a->time              ) ;
+    printf("Good runs:       %4d %4.4f\n", a->good_executions      , a->good_time         ) ;
+    printf("Bad runs:        %4d %4.4f\n", a->bad_executions       , a->bad_time          ) ;
+    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time   ) ;
 
-    printf("\n");
-    printf("Exact:\n");
+    printf("\n"                                                                           ) ;
+    printf("Exact:\n"                                                                     ) ;
     a = &p->exact;
-    printf("Total runs:      %4d %4.4f\n", a->executions, a->time);
-    printf("Good runs:       %4d %4.4f\n", a->good_executions, a->good_time);
-    printf("Bad runs:        %4d %4.4f\n", a->bad_executions, a->bad_time);
-    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time);
+    printf("Total runs:      %4d %4.4f\n", a->executions           , a->time              ) ;
+    printf("Good runs:       %4d %4.4f\n", a->good_executions      , a->good_time         ) ;
+    printf("Bad runs:        %4d %4.4f\n", a->bad_executions       , a->bad_time          ) ;
+    printf("Not unique runs: %4d %4.4f\n", a->not_unique_executions, a->not_unique_time   ) ;
 }
