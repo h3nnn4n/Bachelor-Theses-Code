@@ -26,6 +26,9 @@
 
 ILOSTLBEGIN
 
+bool output_result   = false;
+bool output_progress = false;
+
 int main (int argc, char **argv) {
     IloEnv   env;
     try {
@@ -63,7 +66,7 @@ int main (int argc, char **argv) {
             csp.n_journeys = csp.N;
         }
 
-        printf("Starting\n");
+        if(output_progress)printf("Starting\n");
 
         //srand(time(NULL));
         srand(666);
@@ -89,8 +92,8 @@ int main (int argc, char **argv) {
         }
 
         if ( !found_feasible_sol ) {
-            fprintf(stderr, "Could not find a feasible solution\n");
-            fprintf(stderr, "Using a infeasible journey that covers everything\n");
+            if(output_progress)fprintf(stderr, "Could not find a feasible solution\n");
+            if(output_progress)fprintf(stderr, "Using a infeasible journey that covers everything\n");
 
             _journey journey = all_powerful_journey(&csp);
             subproblemInfo.using_all_powerful_journey = true;
@@ -111,10 +114,10 @@ int main (int argc, char **argv) {
 
         perf_data->initial_heur_time = time_diff_double( init_heur_t1, init_heur_t2 );
 
-        print_journeys(subproblemInfo.journeys);
-        printf("\n");
+        if(output_progress)print_journeys(subproblemInfo.journeys);
+        if(output_progress)printf("\n");
 
-        perf_data_show(perf_data);
+        if(output_progress)perf_data_show(perf_data);
         //exit(0);
 
         timekeeper_tic(&cplex_time_t1);
@@ -144,8 +147,8 @@ int main (int argc, char **argv) {
                 throw(-1);
             }
 
-            env.out() << "RMP status = " << cplex.getStatus() << " " << " value  = " << cplex.getObjValue() << endl;
-
+            if(output_progress)env.out() << "RMP status = " << cplex.getStatus() << " " << " value  = " << cplex.getObjValue() << endl;
+            if(!output_progress) printf("%10.2f\n", cplex.getObjValue());
             // Solves the subproblem
             IloNumArray red_cost(env);
             IloNumArray duals(env);
@@ -161,26 +164,26 @@ int main (int argc, char **argv) {
 
             // Create a new expression to build the new column
             IloNumColumn col = obj(new_journey.cost);
-            printf("New Column cost = %4d  time = %4d  Covered [", new_journey.cost, new_journey.time);
+            if(output_progress)printf("New Column cost = %4d  time = %4d  Covered [", new_journey.cost, new_journey.time);
 
             // Walks throught the new journey and builds the coeffs for the column
             for (int i = 0; i < (int)new_journey.covered.size(); ++i) {
-                printf("%4d, ", new_journey.covered[i]);
+                if(output_progress)printf("%4d, ", new_journey.covered[i]);
                 col += con[new_journey.covered[i]](1.0);
             }
 
-            printf("\b\b]\n");
+            if(output_progress)printf("\b\b]\n");
 
             col += con[csp.N](1.0);
 
             var.add( IloNumVar(col + obj(new_journey.cost), 0.0, 1.0, ILOFLOAT));
             model.add(var);
 
-            printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
+            if(output_progress)printf(" Iterations %4d reduced cost = %5.2f\n\n", cont, reduced_cost);
         } while ( reduced_cost < 0 );
 //skip:
 
-        printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
+        if(output_result)printf("RMP has cost = %5.2f, stopping\n", reduced_cost);
 
 
         cplex.setOut(env.getNullStream());
@@ -191,7 +194,11 @@ int main (int argc, char **argv) {
         }
 
         IloNumArray vals(env);
-        env.out() << "Master Problem Status = " << cplex.getStatus() <<  " value  = " << cplex.getObjValue() << endl;
+        if (output_result) {
+            env.out() << "Master Problem Status = " << cplex.getStatus() <<  " value  = " << cplex.getObjValue() << endl;
+        } else {
+            //printf("%d\n", cplex.getStatus());
+        }
         cplex.getValues(vals, var);
         timekeeper_tic(&cplex_time_t2);
 
@@ -202,18 +209,18 @@ int main (int argc, char **argv) {
         for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
             if ( vals[i] ) {
                 total_columns_used++;
-                printf("x[%3d] = %2.18f ", i, vals[i]);
-                printf(" cost = %4d  time = %4d  [", subproblemInfo.journeys[i].cost, subproblemInfo.journeys[i].time);
+                if(output_result)printf("x[%3d] = %2.18f ", i, vals[i]);
+                if(output_result)printf(" cost = %4d  time = %4d  [", subproblemInfo.journeys[i].cost, subproblemInfo.journeys[i].time);
                 for (int j = 0; j < (int)subproblemInfo.journeys[i].covered.size(); ++j) {
-                    printf("%4d, ", subproblemInfo.journeys[i].covered[j]);
+                    if(output_result)printf("%4d, ", subproblemInfo.journeys[i].covered[j]);
                 }
-                printf("\b\b]\n");
+                if(output_result)printf("\b\b]\n");
             }
         }
 
         fractional_results = total_columns_used != csp.n_journeys;
 
-        printf("%4d columns where used, expected %4d\n", total_columns_used, csp.n_journeys);
+        if(output_result)printf("%4d columns where used, expected %4d\n", total_columns_used, csp.n_journeys);
 
         //fractional_results = true;
 
@@ -221,6 +228,7 @@ int main (int argc, char **argv) {
         // a fractional solution and we need to do some branch and price
         timekeeper_tic(&scip_time_t1);
         if ( fractional_results ) {
+            printf("%4d columns where used, expected %4d, running SCIP\n", total_columns_used, csp.n_journeys);
             SCIP_RETCODE retcode;
 
             retcode = runSPP(csp, subproblemInfo);
@@ -240,6 +248,9 @@ int main (int argc, char **argv) {
         perf_data->total_time = time_diff_double( total_time_t1, total_time_t2 );
 
         perf_data_show(perf_data);
+
+        sprintf(output_name, "%d_%d.log", csp.N, csp.n_journeys);
+        perf_data_save_to_file(perf_data, output_name);
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;

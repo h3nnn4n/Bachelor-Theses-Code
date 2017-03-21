@@ -23,8 +23,10 @@
 
 using namespace std;
 
+bool output_goodbad = false;
+
 void update_subproblem_duals ( _subproblem_info *sp, _csp *csp, IloNumArray duals ) {
-    printf("SUBPROBLEM UPDATE DUALS\n");
+    //printf("SUBPROBLEM UPDATE DUALS\n");
     for (int i = 0; i < csp->N; ++i) {
         sp->duals[i] = duals[i];
     }
@@ -33,7 +35,7 @@ void update_subproblem_duals ( _subproblem_info *sp, _csp *csp, IloNumArray dual
 }
 
 void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
-    printf("INIT SUBPROBLEM INFO\n");
+    //printf("INIT SUBPROBLEM INFO\n");
 
     sp->adj_mat  = (double**) malloc ( sizeof ( double* ) * (csp->N+2) );
     sp->time_mat = (double**) malloc ( sizeof ( double* ) * (csp->N+2) );
@@ -119,14 +121,14 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("greedyLpHeuristic solution is good\n");
+                if(output_goodbad)printf("greedyLpHeuristic solution is good\n");
                 *reduced_cost = objValue;
                 return journey;
             } else {
-                printf("greedyLpHeuristic solution not unique\n");
+                if(output_goodbad)printf("greedyLpHeuristic solution not unique\n");
             }
         } else {
-            printf("greedyLpHeuristic solution is bad\n");
+            if(output_goodbad)printf("greedyLpHeuristic solution is bad\n");
             //exit(0);
             //Do Nothing
         }
@@ -144,20 +146,20 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("greedyHillClimbingHeur solution is good\n");
+                if(output_goodbad)printf("greedyHillClimbingHeur solution is good\n");
                 perf_data->greedyHill.good_executions += 1;
                 perf_data->greedyHill.good_time += time_diff_double(t1, t2);
                 *reduced_cost = objValue;
                 return journey;
             } else {
-                printf("greedyHillClimbingHeur solution not unique\n");
+                if(output_goodbad)printf("greedyHillClimbingHeur solution not unique\n");
                 perf_data->greedyHill.not_unique_executions += 1;
                 perf_data->greedyHill.not_unique_time += time_diff_double(t1, t2);
                 //*reduced_cost = 1;
                 //return journey;
             }
         } else {
-            printf("greedyHillClimbingHeur solution is bad\n");
+            if(output_goodbad)printf("greedyHillClimbingHeur solution is bad\n");
             perf_data->greedyHill.bad_executions += 1;
             perf_data->greedyHill.bad_time += time_diff_double(t1, t2);
             //exit(0);
@@ -177,20 +179,20 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("simmulatedAnnealing solution is good\n");
+                if(output_goodbad)printf("simmulatedAnnealing solution is good\n");
                 perf_data->sa.good_executions += 1;
                 perf_data->sa.good_time += time_diff_double(t1, t2);
                 *reduced_cost = objValue;
                 return journey;
             } else {
-                printf("simmulatedAnnealing solution not unique\n");
+                if(output_goodbad)printf("simmulatedAnnealing solution not unique\n");
                 perf_data->sa.not_unique_executions += 1;
                 perf_data->sa.not_unique_time += time_diff_double(t1, t2);
                 //*reduced_cost = 1;
                 //return journey;
             }
         } else {
-            printf("simmulatedAnnealing solution is bad\n");
+            if(output_goodbad)printf("simmulatedAnnealing solution is bad\n");
             perf_data->sa.bad_executions += 1;
             perf_data->sa.bad_time += time_diff_double(t1, t2);
             //exit(0);
@@ -210,20 +212,20 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("antColonyOptmization solution is good\n");
+                if(output_goodbad)printf("antColonyOptmization solution is good\n");
                 *reduced_cost = objValue;
                 perf_data->aco.good_executions += 1;
                 perf_data->aco.good_time += time_diff_double(t1, t2);
                 return journey;
             } else {
-                printf("antColonyOptmization solution not unique\n");
+                if(output_goodbad)printf("antColonyOptmization solution not unique\n");
                 perf_data->aco.not_unique_executions += 1;
                 perf_data->aco.not_unique_time += time_diff_double(t1, t2);
                 //*reduced_cost = 1;
                 //return journey;
             }
         } else {
-            printf("antColonyOptmization solution is bad\n");
+            if(output_goodbad)printf("antColonyOptmization solution is bad\n");
             perf_data->aco.bad_executions += 1;
             perf_data->aco.bad_time += time_diff_double(t1, t2);
             //exit(0);
@@ -242,20 +244,20 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("tabuSearch solution is good\n");
+                if(output_goodbad)printf("tabuSearch solution is good\n");
                 *reduced_cost = objValue;
                 perf_data->tabu.good_executions += 1;
                 perf_data->tabu.good_time += time_diff_double(t1, t2);
                 return journey;
             } else {
-                printf("tabuSearch solution not unique\n");
+                if(output_goodbad)printf("tabuSearch solution not unique\n");
                 perf_data->tabu.not_unique_executions += 1;
                 perf_data->tabu.not_unique_time += time_diff_double(t1, t2);
                 //*reduced_cost = 1;
                 //return journey;
             }
         } else {
-            printf("tabuSearch solution is bad\n");
+            if(output_goodbad)printf("tabuSearch solution is bad\n");
             perf_data->tabu.bad_executions += 1;
             perf_data->tabu.bad_time += time_diff_double(t1, t2);
             //exit(0);
@@ -275,18 +277,18 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
 
         if ( objValue < 0 ) {
             if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                printf("exact solution is good\n");
+                if(output_goodbad)printf("exact solution is good\n");
                 perf_data->exact.good_executions += 1;
                 perf_data->exact.good_time += time_diff_double(t1, t2);
             } else {
-                printf("exact solution not unique\n");
+                if(output_goodbad)printf("exact solution not unique\n");
                 perf_data->exact.not_unique_executions += 1;
                 perf_data->exact.not_unique_time += time_diff_double(t1, t2);
                 //*reduced_cost = 1;
                 //return journey;
             }
         } else {
-            printf("exact solution is bad\n");
+            if(output_goodbad)printf("exact solution is bad\n");
             perf_data->exact.bad_executions += 1;
             perf_data->exact.bad_time += time_diff_double(t1, t2);
         }

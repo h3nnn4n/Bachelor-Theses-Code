@@ -54,17 +54,17 @@ SCIP_RETCODE ObjPricerCSP::pricing( SCIP* scip, bool isfarkas) const {
         // Is this correct
         for (int i = 0; i < csp->N; ++i) {
             subproblemInfo->duals[i] = SCIPgetDualfarkasLinear(scip, cons[i]) * 1.0;
-            printf("%6.2f ", subproblemInfo->duals[i]);
+            //printf("%6.2f ", subproblemInfo->duals[i]);
         }
-        printf("\n");
+        //printf("\n");
 
         subproblemInfo->mi = SCIPgetDualfarkasLinear(scip, cons[csp->N]);
     } else {
         for (int i = 0; i < csp->N; ++i) {
             subproblemInfo->duals[i] = SCIPgetDualsolLinear(scip, cons[i]) * 1.0;
-            printf("%6.2f ", subproblemInfo->duals[i]);
+            //printf("%6.2f ", subproblemInfo->duals[i]);
         }
-        printf("\n");
+        //printf("\n");
 
         subproblemInfo->mi = SCIPgetDualsolLinear(scip, cons[csp->N]);
     }
@@ -89,7 +89,7 @@ SCIP_RETCODE ObjPricerCSP::pricing( SCIP* scip, bool isfarkas) const {
 // Pricing of additional variables if LP is feasible.
 SCIP_DECL_PRICERREDCOST(ObjPricerCSP::scip_redcost) {
     //SCIPdebugMessage("call scip_redcost ...\n");
-    SCIPinfoMessage(scip, NULL, "\ncall scip_redcost ...\n");
+    //SCIPinfoMessage(scip, NULL, "\ncall scip_redcost ...\n");
 
     /* set result pointer, see above */
     *result = SCIP_SUCCESS;
@@ -111,12 +111,12 @@ SCIP_DECL_PRICERREDCOST(ObjPricerCSP::scip_redcost) {
 // This should never be called
 SCIP_DECL_PRICERFARKAS(ObjPricerCSP::scip_farkas) {
     //SCIPdebugMessage("call scip_farkas ...\n");
-    SCIPinfoMessage(scip, NULL, "call scip_farkas ...\n");
+    //SCIPinfoMessage(scip, NULL, "call scip_farkas ...\n");
 
-    //exit(1);
+    exit(1);
 
     //[> call pricing routine <]
-    SCIP_CALL( pricing(scip, true) );
+    //SCIP_CALL( pricing(scip, true) );
 
     return SCIP_OKAY;
 }
@@ -131,7 +131,7 @@ SCIP_RETCODE ObjPricerCSP::add_journey_variable( SCIP* scip, const _journey jour
         strncpy(tmp_name, var_name, 255);
         (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
     }
-    SCIPinfoMessage(scip, NULL, "new variable <%s> %d\n", var_name, journey.cost);
+    //SCIPinfoMessage(scip, NULL, "new variable <%s> %d\n", var_name, journey.cost);
 
     /* create the new variable: Use upper bound of infinity such that we do not have to care about
      * the reduced costs of the variable in the pricing. The upper bound of 1 is implicitly satisfied

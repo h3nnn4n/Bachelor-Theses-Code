@@ -11,6 +11,8 @@
 
 using namespace std;
 
+bool exact_progrss = false;
+
 _journey subproblemExactSolve(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     IloEnv         env         ;
     IloModel       model(env  );
@@ -124,8 +126,8 @@ _journey subproblemExactSolve(_csp *csp, _subproblem_info *sp, double *reduced_c
     journey.cost = 0;
 
     IloNumArray vals(env);
-    env.out() << "Solution status = " << cplex.getStatus() << endl;
-    env.out() << "Solution value  = " << cplex.getObjValue() << endl;
+    if(exact_progrss)env.out() << "Solution status = " << cplex.getStatus() << endl;
+    if(exact_progrss)env.out() << "Solution value  = " << cplex.getObjValue() << endl;
     double x = cplex.getObjValue();
     *reduced_cost = x;
     for (int i = 0; i < csp->N+2; ++i) {
@@ -133,7 +135,7 @@ _journey subproblemExactSolve(_csp *csp, _subproblem_info *sp, double *reduced_c
         //env.out() << "y["<<i<<"]      = " << vals << endl;
         for (int j = 0; j < csp->N+2; ++j) {
             if ( vals[j] > 0.5 ) {
-                printf("y[%2d, %2d] = %2.8f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], sp->cost_mat[i][j], sp->time_mat[i][j]);
+                if(exact_progrss)printf("y[%2d, %2d] = %2.8f, cost = %2.4f, time = %2.4f\n", i, j, vals[j], sp->cost_mat[i][j], sp->time_mat[i][j]);
                 journey.cost += sp->cost_mat[i][j];
                 journey.time += sp->time_mat[i][j];
             }
@@ -146,7 +148,7 @@ _journey subproblemExactSolve(_csp *csp, _subproblem_info *sp, double *reduced_c
     for (int i = 0; i < csp->N; ++i) {
         if ( vals[i] > 0.5 ) {
             journey.covered.push_back(i);
-            printf("v[%2d] = %2.4f\n", i, vals[i]);
+            if(exact_progrss)printf("v[%2d] = %2.4f\n", i, vals[i]);
         }
     }
 

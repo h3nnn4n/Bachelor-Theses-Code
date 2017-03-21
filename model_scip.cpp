@@ -38,7 +38,7 @@ SCIP_RETCODE buildModelScip (_csp &csp, _subproblem_info &subproblemInfo, SCIP**
             strncpy(tmp_name, var_name, 255);
             (void) SCIPsnprintf(var_name, 255, "%s_%d", tmp_name, *it);
         }
-        SCIPinfoMessage(*reducedMasterProblem, NULL, "new variable <%s>\n", var_name);
+        //SCIPinfoMessage(*reducedMasterProblem, NULL, "new variable <%s>\n", var_name);
 
         SCIP_CALL( SCIPcreateVarBasic(*reducedMasterProblem, &vars[i], var_name, 0.0, SCIPinfinity(*reducedMasterProblem),
                     subproblemInfo.journeys[i].cost, SCIP_VARTYPE_INTEGER) );
@@ -112,7 +112,7 @@ SCIP_RETCODE buildModelScip (_csp &csp, _subproblem_info &subproblemInfo, SCIP**
                false) );               /* stickingatnode */
     SCIP_CALL( SCIPaddCons(*reducedMasterProblem, cons[csp.N]) );
 
-    SCIP_CALL( SCIPwriteOrigProblem(*reducedMasterProblem, "model.lp", NULL, 0) );
+    //SCIP_CALL( SCIPwriteOrigProblem(*reducedMasterProblem, "model.lp", NULL, 0) );
 
     return SCIP_OKAY;
 }
