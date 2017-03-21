@@ -24,8 +24,6 @@
 
 #include <ilcplex/ilocplex.h>
 
-_perf_data perf_data;
-
 ILOSTLBEGIN
 
 int main (int argc, char **argv) {
@@ -54,7 +52,9 @@ int main (int argc, char **argv) {
         _csp csp = file_reader(input_name);
         _subproblem_info subproblemInfo;
 
-        perf_data_init(&perf_data);
+        _perf_data *perf_data = get_perf_pointer();
+
+        perf_data_init(perf_data);
 
         if ( argc == 3 ) {
             csp.n_journeys = atoi(argv[2]);
@@ -76,13 +76,16 @@ int main (int argc, char **argv) {
 
         bool found_feasible_sol = false;
         std::vector<_journey> t_journeys;
-        for (int i = 0; i < 2; ++i) {
-            if ( build_heur_sol ( &csp, t_journeys ) ) {
-                found_feasible_sol = true;
-            }
-            update_used_journeys_with_vector(subproblemInfo, t_journeys);
 
-            t_journeys.clear();
+        if ( csp.N < 100 ) {
+            for (int i = 0; i < 2; ++i) {
+                if ( build_heur_sol ( &csp, t_journeys ) ) {
+                    found_feasible_sol = true;
+                }
+                update_used_journeys_with_vector(subproblemInfo, t_journeys);
+
+                t_journeys.clear();
+            }
         }
 
         if ( !found_feasible_sol ) {
@@ -106,12 +109,12 @@ int main (int argc, char **argv) {
 
         timekeeper_tic(&init_heur_t2);
 
-        perf_data.initial_heur_time = time_diff_double( init_heur_t1, init_heur_t2 );
+        perf_data->initial_heur_time = time_diff_double( init_heur_t1, init_heur_t2 );
 
         print_journeys(subproblemInfo.journeys);
         printf("\n");
 
-        perf_data_show(&perf_data);
+        perf_data_show(perf_data);
         //exit(0);
 
         timekeeper_tic(&cplex_time_t1);
@@ -192,7 +195,7 @@ int main (int argc, char **argv) {
         cplex.getValues(vals, var);
         timekeeper_tic(&cplex_time_t2);
 
-        perf_data.cplex_time = time_diff_double(cplex_time_t1, cplex_time_t2);
+        perf_data->cplex_time = time_diff_double(cplex_time_t1, cplex_time_t2);
 
         bool fractional_results = false;
         int total_columns_used = 0;
@@ -232,11 +235,11 @@ int main (int argc, char **argv) {
         timekeeper_tic(&scip_time_t2);
         timekeeper_tic(&total_time_t2);
 
-        perf_data.scip_time = time_diff_double(scip_time_t1, scip_time_t2);
+        perf_data->scip_time = time_diff_double(scip_time_t1, scip_time_t2);
 
-        perf_data.total_time = time_diff_double( total_time_t1, total_time_t2 );
+        perf_data->total_time = time_diff_double( total_time_t1, total_time_t2 );
 
-        perf_data_show(&perf_data);
+        perf_data_show(perf_data);
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;
