@@ -68,8 +68,8 @@ int main (int argc, char **argv) {
 
         if(output_progress)printf("Starting\n");
 
-        //srand(time(NULL));
-        srand(666);
+        srand(time(NULL));
+        //srand(666);
 
         // generation for the first set of columns
         struct timespec init_heur_t1;
@@ -147,8 +147,8 @@ int main (int argc, char **argv) {
                 throw(-1);
             }
 
-            if(output_progress)env.out() << "RMP status = " << cplex.getStatus() << " " << " value  = " << cplex.getObjValue() << endl;
-            if(!output_progress) printf("%10.2f\n", cplex.getObjValue());
+            if(output_progress) env.out() << "RMP status = " << cplex.getStatus() << " " << " value  = " << cplex.getObjValue() << endl;
+            if(!output_progress) fprintf(stderr, "%10.2f\n", cplex.getObjValue());
             // Solves the subproblem
             IloNumArray red_cost(env);
             IloNumArray duals(env);
@@ -250,7 +250,8 @@ int main (int argc, char **argv) {
         perf_data_show(perf_data);
 
         sprintf(output_name, "%d_%d.log", csp.N, csp.n_journeys);
-        perf_data_save_to_file(perf_data, output_name);
+        //perf_data_save_to_file(perf_data, output_name);
+        perf_data_save_to_file_oneliner(perf_data, output_name);
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;

@@ -37,6 +37,50 @@ _perf_data* get_reference () {
     return &perf_data;
 }
 
+void perf_data_save_to_file_oneliner ( _perf_data *p, char *name ) {
+    FILE *f = fopen(name, "at");
+
+    _algo_perf_data *a;
+    fprintf(f, "%16.8f", p->initial_heur_time       ) ;
+    fprintf(f, "%16.8f", p->total_time              ) ;
+    fprintf(f, "%16.8f", p->cplex_time              ) ;
+    fprintf(f, "%16.8f", p->scip_time               ) ;
+
+    a = &p->greedyHill;
+    fprintf(f, "%8d %8.8f", a->executions           , a->time              ) ;
+    fprintf(f, "%8d %8.8f", a->good_executions      , a->good_time         ) ;
+    fprintf(f, "%8d %8.8f", a->bad_executions       , a->bad_time          ) ;
+    fprintf(f, "%8d %8.8f", a->not_unique_executions, a->not_unique_time   ) ;
+
+    a = &p->sa;
+    fprintf(f, "%8d %8.8f", a->executions           , a->time              ) ;
+    fprintf(f, "%8d %8.8f", a->good_executions      , a->good_time         ) ;
+    fprintf(f, "%8d %8.8f", a->bad_executions       , a->bad_time          ) ;
+    fprintf(f, "%8d %8.8f", a->not_unique_executions, a->not_unique_time   ) ;
+
+    a = &p->aco;
+    fprintf(f, "%8d %8.8f", a->executions           , a->time              ) ;
+    fprintf(f, "%8d %8.8f", a->good_executions      , a->good_time         ) ;
+    fprintf(f, "%8d %8.8f", a->bad_executions       , a->bad_time          ) ;
+    fprintf(f, "%8d %8.8f", a->not_unique_executions, a->not_unique_time   ) ;
+
+    a = &p->tabu;
+    fprintf(f, "%8d %8.8f", a->executions           , a->time              ) ;
+    fprintf(f, "%8d %8.8f", a->good_executions      , a->good_time         ) ;
+    fprintf(f, "%8d %8.8f", a->bad_executions       , a->bad_time          ) ;
+    fprintf(f, "%8d %8.8f", a->not_unique_executions, a->not_unique_time   ) ;
+
+    a = &p->exact;
+    fprintf(f, "%8d %8.8f", a->executions           , a->time              ) ;
+    fprintf(f, "%8d %8.8f", a->good_executions      , a->good_time         ) ;
+    fprintf(f, "%8d %8.8f", a->bad_executions       , a->bad_time          ) ;
+    fprintf(f, "%8d %8.8f", a->not_unique_executions, a->not_unique_time   ) ;
+
+    fprintf(f, "\n");
+
+    fclose(f);
+}
+
 void perf_data_save_to_file ( _perf_data *p, char *name ) {
     FILE *f = fopen(name, "wt");
 

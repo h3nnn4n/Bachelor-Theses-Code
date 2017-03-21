@@ -34,6 +34,7 @@ void perf_data_init ( _perf_data *perf );
 void perf_data_init_algo_data ( _algo_perf_data *p ) ;
 void perf_data_show ( _perf_data *p ) ;
 void perf_data_save_to_file ( _perf_data *p, char *name ) ;
+void perf_data_save_to_file_oneliner ( _perf_data *p, char *name ) ;
 _perf_data* get_perf_pointer();
 
 #endif /* PERF_DATA_H */
