@@ -9,7 +9,7 @@ override LDFLAGS+=-DIL_STD -L/opt/ibm/ILOG/CPLEX_Studio1263/cplex/lib/x86-64_lin
                   -lzimpl.linux.x86_64.gnu.opt -lreadline -lncurses -Wl,-rpath,/home/h3nnn4n/scipoptsuite-3.2.1/scip-3.2.1/lib
 
 SOURCES=                          \
-    concert.cpp                   \
+    main.cpp                      \
     reader.cpp                    \
     printer_to_graphviz.cpp       \
     backtrack.cpp utils.cpp       \
@@ -24,8 +24,8 @@ SOURCES=                          \
     greedy_heur.cpp               \
     meta_heuristics_utils.cpp     \
     ant_colony_optimization.cpp   \
-    exact_subproblem.cpp	  \
-    pricer_csp.cpp 		  \
+    exact_subproblem.cpp	      \
+    pricer_csp.cpp 	    		  \
     simmulated_annealing.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
