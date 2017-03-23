@@ -6,6 +6,7 @@
 
 #include "pricer_csp.h"
 
+#pragma GCC diagnostic ignored "-Wunused-variable"
 static const char* CSP_PRICER_NAME = "CSP_Pricer";
 
 SCIP_RETCODE runSPP (_csp &csp, _subproblem_info &subproblemInfo) ;
