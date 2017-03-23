@@ -171,6 +171,21 @@ _journey subproblemExactSolve(_csp *csp, _subproblem_info *sp, double *reduced_c
 
     assert ( journey.time <= csp->time_limit && "Journey too long!");
 
+    //cplex.end();
+
+    for (int i = 0; i < csp->N+2; ++i) {
+        y[i].end();
+        v[i].end();
+    }
+
+    y.end();
+    v.end();
+
+    vals.end();
+
+    //model.end();
+    env.end();
+
     //cplex.exportModel("subp.lp");
     //exit(0);
 
