@@ -69,6 +69,7 @@ int main (int argc, char **argv) {
         if(output_progress)printf("Starting\n");
 
         srand(time(NULL));
+        srand48(time(NULL));
         //srand(666);
 
         // generation for the first set of columns
