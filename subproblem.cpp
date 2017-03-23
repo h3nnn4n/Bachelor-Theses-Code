@@ -135,6 +135,39 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     }
     //End of greedyLpHeur
 
+    // TabuSearch
+    if ( runTabuSearch ) {
+        timekeeper_tic(&t1);
+        journey = tabuSearch ( csp, sp, &objValue );
+        timekeeper_tic(&t2);
+
+        perf_data->tabu.executions += 1;
+        perf_data->tabu.time += time_diff_double(t1, t2);
+
+        if ( objValue < 0 ) {
+            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                if(output_goodbad)printf("tabuSearch solution is good\n");
+                *reduced_cost = objValue;
+                perf_data->tabu.good_executions += 1;
+                perf_data->tabu.good_time += time_diff_double(t1, t2);
+                return journey;
+            } else {
+                if(output_goodbad)printf("tabuSearch solution not unique\n");
+                perf_data->tabu.not_unique_executions += 1;
+                perf_data->tabu.not_unique_time += time_diff_double(t1, t2);
+                //*reduced_cost = 1;
+                //return journey;
+            }
+        } else {
+            if(output_goodbad)printf("tabuSearch solution is bad\n");
+            perf_data->tabu.bad_executions += 1;
+            perf_data->tabu.bad_time += time_diff_double(t1, t2);
+            //exit(0);
+            //Do Nothing
+        }
+    }
+    //End of TabuSearch
+
     // greedyHeur
     if ( runGreedyHeur ) {
         timekeeper_tic(&t1);
@@ -232,39 +265,6 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
             //Do Nothing
         }
     }
-
-    // TabuSearch
-    if ( runTabuSearch ) {
-        timekeeper_tic(&t1);
-        journey = tabuSearch ( csp, sp, &objValue );
-        timekeeper_tic(&t2);
-
-        perf_data->tabu.executions += 1;
-        perf_data->tabu.time += time_diff_double(t1, t2);
-
-        if ( objValue < 0 ) {
-            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                if(output_goodbad)printf("tabuSearch solution is good\n");
-                *reduced_cost = objValue;
-                perf_data->tabu.good_executions += 1;
-                perf_data->tabu.good_time += time_diff_double(t1, t2);
-                return journey;
-            } else {
-                if(output_goodbad)printf("tabuSearch solution not unique\n");
-                perf_data->tabu.not_unique_executions += 1;
-                perf_data->tabu.not_unique_time += time_diff_double(t1, t2);
-                //*reduced_cost = 1;
-                //return journey;
-            }
-        } else {
-            if(output_goodbad)printf("tabuSearch solution is bad\n");
-            perf_data->tabu.bad_executions += 1;
-            perf_data->tabu.bad_time += time_diff_double(t1, t2);
-            //exit(0);
-            //Do Nothing
-        }
-    }
-    //End of TabuSearch
 
     // Exact solution
     if ( runExact ) {
