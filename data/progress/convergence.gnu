@@ -40,10 +40,11 @@ set xlabel 'Tempo (s)'
 set ylabel 'Custo'
 
 #set xrange [0:1]
-#set yrange [0:1300000]
+set yrange [0:1300000]
 
 plot 'sa/sa_prog'          u (column(0)*1.201):($1) t 'SA'    w l ls 1, \
      'tabu/tabu_prog'      u (column(0)*0.107):($1) t 'Tabu'  w l ls 2, \
      'aco/aco_prog'        u (column(0)*2.422):($1) t 'ACO'   w l ls 4, \
      'hc/hc_prog'          u (column(0)*0.301):($1) t 'HC'    w l ls 5, \
-     'exact/exact_prog'    u (column(0)*2.523):($1) t 'Exact' w l ls 3
+     'exact/exact_prog'    u (column(0)*2.523):($1) t 'Exact' w l ls 3, \
+     'all/all_prog'        u (column(0)*0.159):($1) t 'Todos' w l ls 6
