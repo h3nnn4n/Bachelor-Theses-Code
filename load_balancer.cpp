@@ -28,23 +28,29 @@ void lb_ctrl_set_usable( std::vector<bool> &usable){
             lb_controller.used[i] = 1;
         }
     }
+    //fprintf(stderr, "Starting lb\n");
 }
 
 int lb_ctrl_get_fit(int i) {
     _perf_data* perf = get_perf_pointer();
+    int a = 0;
 
     switch (i) {
         case 0:
-            return perf->greedyHill.good_executions;
+            a = perf->greedyHill.good_executions;
+            return a == 0 ? 1 : a;
             break;
         case 1:
-            return perf->aco.good_executions;
+            a = perf->aco.good_executions;
+            return a == 0 ? 1 : a;
             break;
         case 2:
-            return perf->sa.good_executions;
+            a = perf->sa.good_executions;
+            return a == 0 ? 1 : a;
             break;
         case 3:
-            return perf->tabu.good_executions;
+            a = perf->tabu.good_executions;
+            return a == 0 ? 1 : a;
             break;
         default:
             fprintf(stderr, "Code shouldnt get here. Aborting!\n Maybe N_METHODS has the wrong value?\n");
@@ -69,10 +75,13 @@ int lb_ctrl_get_next() {
 
     while ( 1 ) {
         a += (double)lb_ctrl_get_fit(i) / total;
+        //fprintf(stderr, "a = %4.2f p = %4.2f i = %2d\n", a, p, i);
 
         if ( a >= p ) {
+            lb_controller.used[i] = 1;
             return i;
         } else if ( i >= N_METHODS ) {
+            lb_controller.used[i - 2] = 1;
             return i - 1;
         }
 
