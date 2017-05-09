@@ -18,6 +18,7 @@ SOURCES=                          \
     model_cplex.cpp               \
     model_scip.cpp                \
     subproblem.cpp                \
+    load_balancer.cpp             \
     perf_data.cpp                 \
     time_keeper.cpp               \
     tabu_search.cpp               \

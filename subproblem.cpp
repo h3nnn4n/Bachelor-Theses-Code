@@ -12,6 +12,7 @@
 #include "time_keeper.h"
 #include "greedy_heur.h"
 #include "tabu_search.h"
+#include "load_balancer.h"
 #include "exact_subproblem.h"
 #include "simmulated_annealing.h"
 #include "ant_colony_optimization.h"
@@ -92,18 +93,53 @@ void init_subproblem_info ( _subproblem_info *sp, _csp *csp ) {
 }
 
 _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
-    bool runGreedyHeurLp          = false;
+    //bool runGreedyHeurLp          = false;
     bool runGreedyHeur            = false;
     bool runSimmulatedAnnealing   = false;
     bool runAntColonyOptimization = false;
     bool runTabuSearch            = false;
     bool runExact                 = true;
 
-    //runGreedyHeurLp          = true;
-    runGreedyHeur            = true;
-    runSimmulatedAnnealing   = true;
+    //runGreedyHeur            = true;
+    //runSimmulatedAnnealing   = true;
     runAntColonyOptimization = true;
-    runTabuSearch            = true;
+    //runTabuSearch            = true;
+
+    std::vector<bool> usable;
+
+    int nruns = 0;
+
+    if ( runGreedyHeur ) {
+        usable.push_back(true);
+        nruns ++;
+    } else {
+        usable.push_back(false);
+    }
+
+    if ( runSimmulatedAnnealing ) {
+        usable.push_back(true);
+        nruns ++;
+    } else {
+        usable.push_back(false);
+    }
+
+    if ( runAntColonyOptimization ) {
+        usable.push_back(true);
+        nruns ++;
+    } else {
+        usable.push_back(false);
+    }
+
+    if ( runTabuSearch ) {
+        usable.push_back(true);
+        nruns ++;
+    } else {
+        usable.push_back(false);
+    }
+
+    lb_ctrl_init();
+    lb_ctrl_reset_used();
+    lb_ctrl_set_usable(usable);
 
     double objValue               = 0;
 
@@ -115,156 +151,155 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     struct timespec t1;
     struct timespec t2;
 
-    // greedyLpHeur
-    if ( runGreedyHeurLp ) {
-        //journey = greedyLpHeur ( csp, sp, y, env, cplex_final, &objValue );
+    for (int i = 0; i < nruns; ++i) {
+        int choice = lb_ctrl_get_next();
+        switch (choice) {
+            case 0:
+                // greedyHeur
+                {
+                    timekeeper_tic(&t1);
+                    journey = greedyHillClimbingHeur ( csp, sp, &objValue );
+                    timekeeper_tic(&t2);
 
-        if ( objValue < 0 ) {
-            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                if(output_goodbad)printf("greedyLpHeuristic solution is good\n");
-                *reduced_cost = objValue;
-                return journey;
-            } else {
-                if(output_goodbad)printf("greedyLpHeuristic solution not unique\n");
-            }
-        } else {
-            if(output_goodbad)printf("greedyLpHeuristic solution is bad\n");
-            //exit(0);
-            //Do Nothing
+                    perf_data->greedyHill.executions += 1;
+                    perf_data->greedyHill.time += time_diff_double(t1, t2);
+
+                    if ( objValue < 0 ) {
+                        if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                            if(output_goodbad)printf("greedyHillClimbingHeur solution is good\n");
+                            perf_data->greedyHill.good_executions += 1;
+                            perf_data->greedyHill.good_time += time_diff_double(t1, t2);
+                            *reduced_cost = objValue;
+                            return journey;
+                        } else {
+                            if(output_goodbad)printf("greedyHillClimbingHeur solution not unique\n");
+                            perf_data->greedyHill.not_unique_executions += 1;
+                            perf_data->greedyHill.not_unique_time += time_diff_double(t1, t2);
+                            //*reduced_cost = 1;
+                            //return journey;
+                        }
+                    } else {
+                        if(output_goodbad)printf("greedyHillClimbingHeur solution is bad\n");
+                        perf_data->greedyHill.bad_executions += 1;
+                        perf_data->greedyHill.bad_time += time_diff_double(t1, t2);
+                        //exit(0);
+                        //Do Nothing
+                    }
+                }
+                //End of greedyHeur
+                break;
+
+            case 1:
+                // Simmulated Annealing
+                {
+                    timekeeper_tic(&t1);
+                    journey = simmulatedAnnealing ( csp, sp, &objValue );
+                    timekeeper_tic(&t2);
+
+                    perf_data->sa.executions += 1;
+                    perf_data->sa.time += time_diff_double(t1, t2);
+
+                    if ( objValue < 0 ) {
+                        if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                            if(output_goodbad)printf("simmulatedAnnealing solution is good\n");
+                            perf_data->sa.good_executions += 1;
+                            perf_data->sa.good_time += time_diff_double(t1, t2);
+                            *reduced_cost = objValue;
+                            return journey;
+                        } else {
+                            if(output_goodbad)printf("simmulatedAnnealing solution not unique\n");
+                            perf_data->sa.not_unique_executions += 1;
+                            perf_data->sa.not_unique_time += time_diff_double(t1, t2);
+                            //*reduced_cost = 1;
+                            //return journey;
+                        }
+                    } else {
+                        if(output_goodbad)printf("simmulatedAnnealing solution is bad\n");
+                        perf_data->sa.bad_executions += 1;
+                        perf_data->sa.bad_time += time_diff_double(t1, t2);
+                        //exit(0);
+                        //Do Nothing
+                    }
+                }
+                //End of Simmulated Annealing
+                break;
+
+            case 2:
+                // Ant Colony Optimization
+                {
+                    timekeeper_tic(&t1);
+                    journey = antColonyOptmization ( csp, sp, &objValue );
+                    timekeeper_tic(&t2);
+
+                    perf_data->aco.executions += 1;
+                    perf_data->aco.time += time_diff_double(t1, t2);
+
+                    if ( objValue < 0 ) {
+                        if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                            if(output_goodbad)printf("antColonyOptmization solution is good\n");
+                            *reduced_cost = objValue;
+                            perf_data->aco.good_executions += 1;
+                            perf_data->aco.good_time += time_diff_double(t1, t2);
+                            return journey;
+                        } else {
+                            if(output_goodbad)printf("antColonyOptmization solution not unique\n");
+                            perf_data->aco.not_unique_executions += 1;
+                            perf_data->aco.not_unique_time += time_diff_double(t1, t2);
+                            //*reduced_cost = 1;
+                            //return journey;
+                        }
+                    } else {
+                        if(output_goodbad)printf("antColonyOptmization solution is bad\n");
+                        perf_data->aco.bad_executions += 1;
+                        perf_data->aco.bad_time += time_diff_double(t1, t2);
+                        //exit(0);
+                        //Do Nothing
+                    }
+                }
+                // End of Ant Colony Optimization
+                break;
+
+            case 3:
+                // TabuSearch
+                {
+                    timekeeper_tic(&t1);
+                    journey = tabuSearch ( csp, sp, &objValue );
+                    timekeeper_tic(&t2);
+
+                    perf_data->tabu.executions += 1;
+                    perf_data->tabu.time += time_diff_double(t1, t2);
+
+                    if ( objValue < 0 ) {
+                        if ( sp->usedJourneys.count(journey.covered) == 0 ) {
+                            if(output_goodbad)printf("tabuSearch solution is good\n");
+                            *reduced_cost = objValue;
+                            perf_data->tabu.good_executions += 1;
+                            perf_data->tabu.good_time += time_diff_double(t1, t2);
+                            return journey;
+                        } else {
+                            if(output_goodbad)printf("tabuSearch solution not unique\n");
+                            perf_data->tabu.not_unique_executions += 1;
+                            perf_data->tabu.not_unique_time += time_diff_double(t1, t2);
+                            //*reduced_cost = 1;
+                            //return journey;
+                        }
+                    } else {
+                        if(output_goodbad)printf("tabuSearch solution is bad\n");
+                        perf_data->tabu.bad_executions += 1;
+                        perf_data->tabu.bad_time += time_diff_double(t1, t2);
+                        //exit(0);
+                        //Do Nothing
+                    }
+                }
+                //End of TabuSearch
+                break;
+
+            default:
+                fprintf(stderr, "PANIC! Got an invalid heuristic. Aborting!\n");
+                exit(-1);
         }
     }
-    //End of greedyLpHeur
 
-    // TabuSearch
-    if ( runTabuSearch ) {
-        timekeeper_tic(&t1);
-        journey = tabuSearch ( csp, sp, &objValue );
-        timekeeper_tic(&t2);
-
-        perf_data->tabu.executions += 1;
-        perf_data->tabu.time += time_diff_double(t1, t2);
-
-        if ( objValue < 0 ) {
-            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                if(output_goodbad)printf("tabuSearch solution is good\n");
-                *reduced_cost = objValue;
-                perf_data->tabu.good_executions += 1;
-                perf_data->tabu.good_time += time_diff_double(t1, t2);
-                return journey;
-            } else {
-                if(output_goodbad)printf("tabuSearch solution not unique\n");
-                perf_data->tabu.not_unique_executions += 1;
-                perf_data->tabu.not_unique_time += time_diff_double(t1, t2);
-                //*reduced_cost = 1;
-                //return journey;
-            }
-        } else {
-            if(output_goodbad)printf("tabuSearch solution is bad\n");
-            perf_data->tabu.bad_executions += 1;
-            perf_data->tabu.bad_time += time_diff_double(t1, t2);
-            //exit(0);
-            //Do Nothing
-        }
-    }
-    //End of TabuSearch
-
-    // greedyHeur
-    if ( runGreedyHeur ) {
-        timekeeper_tic(&t1);
-        journey = greedyHillClimbingHeur ( csp, sp, &objValue );
-        timekeeper_tic(&t2);
-
-        perf_data->greedyHill.executions += 1;
-        perf_data->greedyHill.time += time_diff_double(t1, t2);
-
-        if ( objValue < 0 ) {
-            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                if(output_goodbad)printf("greedyHillClimbingHeur solution is good\n");
-                perf_data->greedyHill.good_executions += 1;
-                perf_data->greedyHill.good_time += time_diff_double(t1, t2);
-                *reduced_cost = objValue;
-                return journey;
-            } else {
-                if(output_goodbad)printf("greedyHillClimbingHeur solution not unique\n");
-                perf_data->greedyHill.not_unique_executions += 1;
-                perf_data->greedyHill.not_unique_time += time_diff_double(t1, t2);
-                //*reduced_cost = 1;
-                //return journey;
-            }
-        } else {
-            if(output_goodbad)printf("greedyHillClimbingHeur solution is bad\n");
-            perf_data->greedyHill.bad_executions += 1;
-            perf_data->greedyHill.bad_time += time_diff_double(t1, t2);
-            //exit(0);
-            //Do Nothing
-        }
-    }
-    //End of greedyHeur
-
-    // Simmulated Annealing
-    if ( runSimmulatedAnnealing ) {
-        timekeeper_tic(&t1);
-        journey = simmulatedAnnealing ( csp, sp, &objValue );
-        timekeeper_tic(&t2);
-
-        perf_data->sa.executions += 1;
-        perf_data->sa.time += time_diff_double(t1, t2);
-
-        if ( objValue < 0 ) {
-            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                if(output_goodbad)printf("simmulatedAnnealing solution is good\n");
-                perf_data->sa.good_executions += 1;
-                perf_data->sa.good_time += time_diff_double(t1, t2);
-                *reduced_cost = objValue;
-                return journey;
-            } else {
-                if(output_goodbad)printf("simmulatedAnnealing solution not unique\n");
-                perf_data->sa.not_unique_executions += 1;
-                perf_data->sa.not_unique_time += time_diff_double(t1, t2);
-                //*reduced_cost = 1;
-                //return journey;
-            }
-        } else {
-            if(output_goodbad)printf("simmulatedAnnealing solution is bad\n");
-            perf_data->sa.bad_executions += 1;
-            perf_data->sa.bad_time += time_diff_double(t1, t2);
-            //exit(0);
-            //Do Nothing
-        }
-    }
-    //End of Simmulated Annealing
-
-    // Ant Colony Optimization
-    if ( runAntColonyOptimization ) {
-        timekeeper_tic(&t1);
-        journey = antColonyOptmization ( csp, sp, &objValue );
-        timekeeper_tic(&t2);
-
-        perf_data->aco.executions += 1;
-        perf_data->aco.time += time_diff_double(t1, t2);
-
-        if ( objValue < 0 ) {
-            if ( sp->usedJourneys.count(journey.covered) == 0 ) {
-                if(output_goodbad)printf("antColonyOptmization solution is good\n");
-                *reduced_cost = objValue;
-                perf_data->aco.good_executions += 1;
-                perf_data->aco.good_time += time_diff_double(t1, t2);
-                return journey;
-            } else {
-                if(output_goodbad)printf("antColonyOptmization solution not unique\n");
-                perf_data->aco.not_unique_executions += 1;
-                perf_data->aco.not_unique_time += time_diff_double(t1, t2);
-                //*reduced_cost = 1;
-                //return journey;
-            }
-        } else {
-            if(output_goodbad)printf("antColonyOptmization solution is bad\n");
-            perf_data->aco.bad_executions += 1;
-            perf_data->aco.bad_time += time_diff_double(t1, t2);
-            //exit(0);
-            //Do Nothing
-        }
-    }
 
     // Exact solution
     if ( runExact ) {
