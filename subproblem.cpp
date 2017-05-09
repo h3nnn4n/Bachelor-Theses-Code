@@ -100,10 +100,10 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     bool runTabuSearch            = false;
     bool runExact                 = true;
 
-    //runGreedyHeur            = true;
-    //runSimmulatedAnnealing   = true;
+    runGreedyHeur            = true;
+    runSimmulatedAnnealing   = true;
     runAntColonyOptimization = true;
-    //runTabuSearch            = true;
+    runTabuSearch            = true;
 
     std::vector<bool> usable;
 
