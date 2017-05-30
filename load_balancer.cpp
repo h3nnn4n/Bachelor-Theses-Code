@@ -28,7 +28,7 @@ void lb_ctrl_set_usable( std::vector<bool> &usable){
             lb_controller.used[i] = 1;
         }
     }
-    //fprintf(stderr, "Starting lb\n");
+    //fprintf(stderr, "\nStarting lb\n");
 }
 
 int lb_ctrl_get_fit(int i) {
@@ -60,11 +60,14 @@ int lb_ctrl_get_fit(int i) {
 
 int lb_ctrl_get_next() {
     int total = 0;
+    int skip = 0;
 
     // This gets the total
     for (int i = 0; i < N_METHODS; ++i) {
         if ( lb_controller.used[i] == 0 ) {
             total += lb_ctrl_get_fit(i);
+        } else {
+            skip += 1;
         }
     }
 
@@ -78,10 +81,12 @@ int lb_ctrl_get_next() {
         //fprintf(stderr, "a = %4.2f p = %4.2f i = %2d\n", a, p, i);
 
         if ( a >= p ) {
+            //fprintf(stderr, "Got a >= p : %2d\n", i);
             lb_controller.used[i] = 1;
             return i;
         } else if ( i >= N_METHODS ) {
-            lb_controller.used[i - 2] = 1;
+            //fprintf(stderr, "Got i >= N_METHODS\n");
+            lb_controller.used[i - 1] = 1;
             return i - 1;
         }
 

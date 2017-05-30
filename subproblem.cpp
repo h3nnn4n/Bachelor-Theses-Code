@@ -153,7 +153,8 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
 
     for (int i = 0; i < nruns; ++i) {
         int choice = lb_ctrl_get_next();
-        switch (choice) {
+        switch ( i ) {
+        //switch (choice) {
             case 0:
                 // greedyHeur
                 {
