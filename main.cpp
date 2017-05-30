@@ -25,7 +25,9 @@
 
 #include <ilcplex/ilocplex.h>
 
-#define run_chvatal
+//#define run_chvatal
+#define run_random
+#define run_unary
 
 ILOSTLBEGIN
 
@@ -84,12 +86,26 @@ int main (int argc, char **argv) {
         bool found_feasible_sol = false;
         std::vector<_journey> t_journeys;
 
+
+#ifdef run_unary
+        all_unary_journey(&csp, &subproblemInfo);
+#endif
+
 #ifdef run_chvatal
         chvatal_heuristic(&csp, t_journeys);
         update_used_journeys_with_vector(subproblemInfo, t_journeys);
 
         t_journeys.clear();
-#else
+#endif
+
+#ifdef run_random
+        for (int i = 0; i < 100; ++i) {
+            _journey journey = random_journey(&csp);
+            update_used_journeys(subproblemInfo, journey);
+        }
+#endif
+
+#if !defined(run_chvatal) && !defined(run_random)
         if ( csp.N < 100 ) {
             for (int i = 0; i < 2; ++i) {
                 if ( build_heur_sol ( &csp, t_journeys ) ) {
@@ -109,7 +125,6 @@ int main (int argc, char **argv) {
             _journey journey = all_powerful_journey(&csp);
             subproblemInfo.using_all_powerful_journey = true;
             update_used_journeys(subproblemInfo, journey);
-
             //exit(-1);
         }
 
@@ -120,6 +135,18 @@ int main (int argc, char **argv) {
                 validateJourney(&subproblemInfo, subproblemInfo.journeys[i]);
             }
         }
+
+        //output_result = true;
+
+        //for (int i = 0; i < (int) subproblemInfo.journeys.size(); ++i) {
+            ////if(output_result)printf("x[%3d] = %2.18f ", i, vals[i]);
+            //if(output_result)printf(" cost = %4d  time = %4d  [", subproblemInfo.journeys[i].cost, subproblemInfo.journeys[i].time);
+            //for (int j = 0; j < (int)subproblemInfo.journeys[i].covered.size(); ++j) {
+                //if(output_result)printf("%4d, ", subproblemInfo.journeys[i].covered[j]);
+            //}
+            //if(output_result)printf("\b\b]\n");
+        //}
+        //return 0;
 
         timekeeper_tic(&init_heur_t2);
 

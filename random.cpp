@@ -8,7 +8,7 @@
 #include "random.h"
 
 //#include "types.h"
-//#include "utils.h"
+#include "utils.h"
 
 //_journey journey;
 //init_journey(journey);
@@ -333,6 +333,18 @@ _journey all_powerful_journey(_csp *csp) {
     journey.cost *= 2;
 
     return journey;
+}
+
+void all_unary_journey(_csp *csp, _subproblem_info *subproblemInfo) {
+    for (int atual = 0; atual < (int)csp->graph.size(); ++atual) {
+        _journey journey;
+
+        journey.covered.push_back(atual);
+        journey.time = csp->task[atual].end_time - csp->task[atual].start_time;
+        journey.cost = 0;
+
+        update_used_journeys(*subproblemInfo, journey);
+    }
 }
 
 _journey random_journey(_csp *csp) {
