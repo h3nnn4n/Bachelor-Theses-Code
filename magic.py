@@ -33,5 +33,11 @@ cflags += ['run_random run_chvatal run_unary']
 for i in data:
     for j in range(ntests):
         for k in cflags:
-            print(magic + "/home/h3nnn4n/csp_prototypes/instances/beasley/" + ' ' + i[0] + ' ' + str(i[1]) + ' ' + ("%s_%d_%s.log" % (i[0], i[1], k.replace(' ', '-'))))
-            call([magic, "/home/h3nnn4n/csp_prototypes/instances/beasley/" + i[0], str(i[1]), ("%s_%d_%s.log" % (i[0], i[1], k.replace(' ', '-')))])
+            call(["make", "clean"])
+            ps = []
+            for n in k.split():
+                ps.append('-D' + n)
+            p = 'CFLAGS="' + ' '.join(ps) + '"'
+            call(["make", "-j", p])
+            #print(magic + ' ' + "/home/h3nnn4n/csp_prototypes/instances/beasley/" + i[0] + ' ' + str(i[1]) + ' ' + ("%s_%d_%s.log" % (i[0], i[1], k.replace(' ', '-'))))
+            #call([magic, "/home/h3nnn4n/csp_prototypes/instances/beasley/" + i[0], str(i[1]), ("%s_%d_%s.log" % (i[0], i[1], k.replace(' ', '-')))])
