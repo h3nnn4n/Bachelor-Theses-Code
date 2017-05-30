@@ -100,7 +100,7 @@ int main (int argc, char **argv) {
                 t_journeys.clear();
             }
         }
-#end
+#endif
 
         if ( !found_feasible_sol ) {
             if(output_progress)fprintf(stderr, "Could not find a feasible solution\n");
