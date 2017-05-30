@@ -106,16 +106,16 @@ int main (int argc, char **argv) {
 #endif
 
 #if !defined(run_chvatal) && !defined(run_random)
-        if ( csp.N < 100 ) {
-            for (int i = 0; i < 2; ++i) {
-                if ( build_heur_sol ( &csp, t_journeys ) ) {
-                    found_feasible_sol = true;
-                }
-                update_used_journeys_with_vector(subproblemInfo, t_journeys);
+        //if ( csp.N < 100 ) {
+            //for (int i = 0; i < 2; ++i) {
+                //if ( build_heur_sol ( &csp, t_journeys ) ) {
+                    //found_feasible_sol = true;
+                //}
+                //update_used_journeys_with_vector(subproblemInfo, t_journeys);
 
-                t_journeys.clear();
-            }
-        }
+                //t_journeys.clear();
+            //}
+        //}
 #endif
 
         if ( !found_feasible_sol ) {
