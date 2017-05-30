@@ -26,8 +26,8 @@
 #include <ilcplex/ilocplex.h>
 
 //#define run_chvatal
-#define run_random
-#define run_unary
+//#define run_random
+//#define run_unary
 
 ILOSTLBEGIN
 
