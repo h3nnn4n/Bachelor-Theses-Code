@@ -64,7 +64,7 @@ int main (int argc, char **argv) {
 
         perf_data_init(perf_data);
 
-        if ( argc == 3 ) {
+        if ( argc >= 3 ) {
             csp.n_journeys = atoi(argv[2]);
         } else {
             fprintf(stderr, "Assuming the number of journeys is equal to the number of tasks!\n");
@@ -287,9 +287,14 @@ int main (int argc, char **argv) {
 
         perf_data_show(perf_data);
 
-        sprintf(output_name, "%d_%d.log", csp.N, csp.n_journeys);
-        //perf_data_save_to_file(perf_data, output_name);
+        if ( argc >= 4 ) {
+            sprintf(output_name, "%s", argv[3]);
+        } else {
+            sprintf(output_name, "%d_%d.log", csp.N, csp.n_journeys);
+        }
+
         perf_data_save_to_file_oneliner(perf_data, output_name);
+        //perf_data_save_to_file(perf_data, output_name);
     }
     catch (IloException& e) {
         cerr << "Concert exception caught: " << e << endl;
