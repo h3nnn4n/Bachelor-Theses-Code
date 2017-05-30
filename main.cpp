@@ -21,8 +21,11 @@
 #include "branch_and_price.h"
 #include "perf_data.h"
 #include "time_keeper.h"
+#include "chvatal.h"
 
 #include <ilcplex/ilocplex.h>
+
+#define run_chvatal
 
 ILOSTLBEGIN
 
@@ -81,6 +84,12 @@ int main (int argc, char **argv) {
         bool found_feasible_sol = false;
         std::vector<_journey> t_journeys;
 
+#ifdef run_chvatal
+        chvatal_heuristic(&csp, t_journeys);
+        update_used_journeys_with_vector(subproblemInfo, t_journeys);
+
+        t_journeys.clear();
+#else
         if ( csp.N < 100 ) {
             for (int i = 0; i < 2; ++i) {
                 if ( build_heur_sol ( &csp, t_journeys ) ) {
@@ -91,6 +100,7 @@ int main (int argc, char **argv) {
                 t_journeys.clear();
             }
         }
+#end
 
         if ( !found_feasible_sol ) {
             if(output_progress)fprintf(stderr, "Could not find a feasible solution\n");

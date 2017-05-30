@@ -10,6 +10,7 @@ override LDFLAGS+=-DIL_STD -L/opt/ibm/ILOG/CPLEX_Studio1263/cplex/lib/x86-64_lin
 
 SOURCES=                          \
     main.cpp                      \
+    chvatal.cpp                   \
     reader.cpp                    \
     printer_to_graphviz.cpp       \
     backtrack.cpp utils.cpp       \
