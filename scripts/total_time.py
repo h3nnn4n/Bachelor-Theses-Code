@@ -71,10 +71,10 @@ if ( len(sys.argv) > 1 ):
                 avg[k-1] += values[k-1] / len(lines)
 
 
-        #for line in lines:
-            #values = [float(x) for x in line.split(' ') if x]
-            #for k,v in enumerate(values):
-                #stddev[k-1] += ((avg[k-1] - values[k-1]) ** 2.0) / len(lines)
+        for line in lines:
+            values = [float(x) for x in line.split(' ') if x]
+            for k,v in enumerate(values):
+                stddev[k-1] += ((avg[k-1] - values[k-1]) ** 2.0) / len(lines)
 
         #print(name, end=' ')
 
@@ -108,7 +108,7 @@ if ( len(sys.argv) > 1 ):
         #print("%8.4f" % i, end=' ')
 
     #print()
-    print(total / len(sys.argv[1:]))
+    print(avg[1] / len(sys.argv[1:]), stddev[1] / len(sys.argv[1:]))
 else:
     print("Not enough arguments")
 

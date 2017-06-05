@@ -84,28 +84,28 @@ if ( len(sys.argv) > 1 ):
             #print("%8.4f" % i, end=' ')
 
         # SA
-        # total += avg[12]
-        # hit   += avg[14]
-        # miss  += avg[16]
-        # miss  += avg[18]
+        total += avg[12]
+        hit   += avg[14]
+        miss  += avg[16]
+        miss  += avg[18]
 
-        ## HC
+        # HC
         total += avg[ 4]
         hit   += avg[ 6]
         miss  += avg[ 8]
         miss  += avg[10]
 
-        # # ACO
-        #total += avg[20]
-        #hit   += avg[22]
-        #miss  += avg[24]
-        #miss  += avg[26]
+        # ACO
+        total += avg[20]
+        hit   += avg[22]
+        miss  += avg[24]
+        miss  += avg[26]
 
         # tabu
-        #total += avg[28]
-        #hit   += avg[30]
-        #miss  += avg[32]
-        #miss  += avg[34]
+        total += avg[28]
+        hit   += avg[30]
+        miss  += avg[32]
+        miss  += avg[34]
 
     #print()
 

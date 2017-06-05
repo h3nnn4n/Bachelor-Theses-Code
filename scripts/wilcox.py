@@ -3,6 +3,8 @@
 
 import sys
 import numpy
+import scypy
+from scypy import stats
 
 """
  1: init time
@@ -37,35 +39,41 @@ import numpy
 27: aco not unique executions
 28: aco not unique time
 
-29: tabu total executions
-30: tabu total time
-31: tabu good executions
-32: tabu good time
-33: tabu bad executions
-34: tabu bad time
-35: tabu not unique executions
-36: tabu not unique time
+28: tabu total executions
+29: tabu total time
+30: tabu good executions
+31: tabu good time
+32: tabu bad executions
+33: tabu bad time
+34: tabu not unique executions
+35: tabu not unique time
 
-37: exact total executions
-38: exact total time
-39: exact good executions
-40: exact good time
-41: exact bad executions
-42: exact bad time
-43: exact not unique executions
-44: exact not unique time
+36: exact total executions
+37: exact total time
+38: exact good executions
+39: exact good time
+40: exact bad executions
+41: exact bad time
+42: exact not unique executions
+43: exact not unique time
 
 """
 
-total = 0
-hit = 0
-miss = 0
+data        = {}
+avg_data    = {}
+stddev_data = {}
 
 if ( len(sys.argv) > 1 ):
     for name in sys.argv[1:]:
-        avg    = [ 0.0 for i in range(0,43) ]
-        stddev = [ 0.0 for i in range(0,43) ]
+        avg    = [ 0.0 for i in range(0, 43) ]
+        stddev = [ 0.0 for i in range(0, 43) ]
         lines  = [line.rstrip('\n') for line in open(name)]
+
+        data[name] = []
+
+        for line in lines:
+            values = [float(x) for x in line.split(' ') if x]
+            data[name].append(values)
 
         for line in lines:
             values = [float(x) for x in line.split(' ') if x]
@@ -78,43 +86,10 @@ if ( len(sys.argv) > 1 ):
             for k,v in enumerate(values):
                 stddev[k-1] += ((avg[k-1] - values[k-1]) ** 2.0) / len(lines)
 
-        #print(name, end=' ')
+        avg_data[name] = avg
+        stddev_data[name] = stddev
 
-        #for i in avg:
-            #print("%8.4f" % i, end=' ')
-
-        # SA
-        total += avg[12]
-        hit   += avg[14]
-        miss  += avg[16]
-        miss  += avg[18]
-
-        # HC
-        total += avg[ 4]
-        hit   += avg[ 6]
-        miss  += avg[ 8]
-        miss  += avg[10]
-
-        # ACO
-        total += avg[20]
-        hit   += avg[22]
-        miss  += avg[24]
-        miss  += avg[26]
-
-        # tabu
-        total += avg[28]
-        hit   += avg[30]
-        miss  += avg[32]
-        miss  += avg[34]
-
-        #print()
-
-        #for i in stddev:
-            #print("%8.4f" % i, end=' ')
-
-        #print()
-    print(total/len(sys.argv[1:]), hit/len(sys.argv[1:]), miss/len(sys.argv[1:]))
-    print(total/total, hit/total, miss/total)
 else:
     print("Not enough arguments")
+
 
