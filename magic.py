@@ -26,13 +26,13 @@ data += [('csp450', 182), ('csp300', 183), ('csp300', 184)]
 data += [('csp500', 204), ('csp300', 205), ('csp300', 206)]
 
 cflags  = []
-cflags += ['run_chvatal']
-cflags += ['run_unary']
-cflags += ['run_random']
-cflags += ['run_chvatal run_unary']
+#cflags += ['run_chvatal']
+#cflags += ['run_unary']
+#cflags += ['run_random']
+#cflags += ['run_chvatal run_unary']
 cflags += ['run_random run_unary']
-cflags += ['run_random run_chvatal']
-cflags += ['run_random run_chvatal run_unary']
+#cflags += ['run_random run_chvatal']
+#cflags += ['run_random run_chvatal run_unary']
 
 for i in data:
     for j in range(ntests):

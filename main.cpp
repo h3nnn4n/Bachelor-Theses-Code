@@ -99,7 +99,7 @@ int main (int argc, char **argv) {
 #endif
 
 #ifdef run_random
-        for (int i = 0; i < 100; ++i) {
+        for (int i = 0; i < csp.N * 5; ++i) {
             _journey journey = random_journey(&csp);
             update_used_journeys(subproblemInfo, journey);
         }

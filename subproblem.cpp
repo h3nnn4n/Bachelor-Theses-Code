@@ -151,7 +151,9 @@ _journey subproblem(_csp *csp, _subproblem_info *sp, double *reduced_cost) {
     struct timespec t1;
     struct timespec t2;
 
-    for (int i = 0; i < nruns; ++i) {
+    //for (int i = 0; i < nruns; ++i) {
+    {
+        int i = 0;
         int choice = lb_ctrl_get_next();
         switch ( i ) {
         //switch (choice) {

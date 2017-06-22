@@ -29,36 +29,39 @@ set boxwidth 0.9
 
 set key top left
 
-set yrange[0:1200]
+set yrange[1:2000]
 
 #set grid ytics
 set xtics rotate by -55
 #set auto x
+
+set logscale y
 
 #set title "satan"
 
 # Heur
 #plot \
      #"barplot" using 4:xtic(1) title "HC"   ls 1,\
-            #"" using 7         title "SA"   ls 2,\
-            #"" using 10        title "ACO"  ls 3,\
+            #"" using 7         title "ACO"  ls 2,\
+            #"" using 10        title "SA"   ls 3,\
             #"" using 13        title "BT"   ls 4,\
             #"" using 16        title "ALL"  ls 5,\
             #"" using 18        title "EXCT" ls 6,\
 # Total
-plot \
-     "barplot" using 3:xtic(1) title "HC"   ls 1,\
-            "" using 6         title "SA"   ls 2,\
-            "" using 9         title "ACO"  ls 3,\
-            "" using 12        title "BT"   ls 4,\
-            "" using 15        title "ALL"  ls 5,\
-            "" using 18        title "EXCT" ls 6,\
+#plot \
+     #"barplot" using 3:xtic(1) title "HC"   ls 1,\
+            #"" using 6         title "ACO"  ls 2,\
+            #"" using 9         title "SA"   ls 3,\
+            #"" using 12        title "BT"   ls 4,\
+            #"" using 15        title "ALL"  ls 5,\
+            #"" using 18        title "EXCT" ls 6,\
 
 # Time
-#plot \
-     #"barplot" using 2:xtic(1) title "HC"   ls 1,\
-            #"" using 5         title "SA"   ls 2,\
-            #"" using 8         title "ACO"  ls 3,\
-            #"" using 11        title "BT"   ls 4,\
-            #"" using 14        title "ALL"  ls 5,\
-            #"" using 17        title "EXCT" ls 6,\
+plot \
+     "barplot" using 2:xtic(1) title "HC"   ls 1,\
+            "" using 5         title "ACO"  ls 2,\
+            "" using 8         title "SA"   ls 3,\
+            "" using 11        title "BT"   ls 4,\
+            "" using 14        title "ALL"  ls 5,\
+            "" using 17        title "EXCT" ls 6,\
+
