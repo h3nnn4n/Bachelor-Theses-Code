@@ -14,7 +14,7 @@ reset
 #set terminal wxt size 410,250 enhanced font 'Verdana,9' persist
 # png
 #set terminal pngcairo size 800,600 enhanced font 'Verdana,9'
-set terminal pngcairo size 650,300 enhanced dashed font 'Verdana,10'
+set terminal pngcairo size 700,300 enhanced dashed font 'Verdana,10'
 set output 'nice_web_plot.png'
 # svg
 #set terminal svg size 410,250 fname 'Verdana, Helvetica, Arial, sans-serif' fsize '9' rounded dashed
